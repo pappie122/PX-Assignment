@@ -30,21 +30,32 @@ if(isset($_POST['submit'])){
     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
-   <h1> Login Page </h1>
     <div class="container">
-        <div class="col-xs-6">
-           <form action="login.php" method="post">
-             <div class="form-group">
-             <label for="username">Username</label>
-             <input type="text" name="username" class="form-control">  
-             </div>
-             
-             <div class="form-group">
-             <label for="password">Password</label>
-             <input type="password" name="password" class="form-control">
-             </div> 
-             <input class="btn btn-primary" type="submit" name="submit" value="Submit">
-           </form> 
+        <div class="row">
+            <div class="col-xs-12 col-md-6 col-md-offset-3">
+                <h1> Login Page </h1>
+            </div>
+            <form action="login.php" method="post">
+            <div class="form-group">
+                <div class="col-xs-12 col-md-6 col-md-offset-3">
+                    <label for="username">Username</label>
+                </div>
+                <div class="col-xs-12 col-md-6 col-md-offset-3">
+                    <input type="text" name="username" class="form-control">  
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12 col-md-6 col-md-offset-3">
+                    <label for="password">Password</label>
+                </div>
+                <div class="col-xs-12 col-md-6 col-md-offset-3">
+                    <input type="password" name="password" class="form-control">
+                </div>
+            </div> 
+            <div class="col-xs-12 col-md-6 col-md-offset-3">
+                <input class="btn btn-primary" type="submit" name="submit" value="Submit">
+            </div>
+            </form> 
         </div>
     </div>
 </body>
