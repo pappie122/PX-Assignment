@@ -1,7 +1,7 @@
 <html>
 <head>
 <?php
-require_once('calendar/classes/tc_calendar.php');
+require_once('calendar/tc_calendar.php');
 ?>
 </style>
 
