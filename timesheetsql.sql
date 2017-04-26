@@ -1,0 +1,1 @@
+Create Table TimeSheet(Id int(20) not null AUTO_INCREMENT,datet datetime not null ,startTime   ); 

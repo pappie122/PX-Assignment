@@ -628,51 +628,6 @@
 
 <script type="text/javascript" language="javascript">
 
-//////////////////////////////////////////////////////////////////////////////////////////////
-
-
-function calc(){
-  Monday = document.Timesheet.Monday.value;
-  Tuesday = document.Timesheet.Tuesday.value; 
-  Wednesday = document.Timesheet.Wednesday.value;
-  Thursday = document.Timesheet.Thursday.value;
-  Friday = document.Timesheet.Friday.value;
-  Saturday = document.Timesheet.Saturday.value;
-  Sunday = document.Timesheet.Sunday.value;
-  var RptTime = (Monday*1) + (Tuesday*1) + (Wednesday*1) + (Thursday*1) + (Friday*1) + (Saturday*1) + (Sunday*1);
-  document.Timesheet.Total.value = RptTime.toFixed(2);
-  var Frac = 0;
-  var Full = parseInt(RptTime);
-  RptTimeFrac = RptTime - Full;
-  if (RptTimeFrac < 0.25) { Frac = 0; } 
-  else { if (RptTimeFrac < 0.5) { Frac = 0.25; }
-         else { if (RptTimeFrac < 0.75) { Frac = 0.5; }
-                else { Frac = 0.75; }
-              }
-       }
-  document.Timesheet.ReportTime.value = (Full+Frac).toFixed(2);
-}
-
-//////////////////////////////////////////////////////////////////////////////////////////////
-
-function inputLimiter(e,allow) {
-  var AllowableCharacters = '';
-  if (allow == 'Numbers'){AllowableCharacters='.1234567890';}
-  var k;
-  k=document.all?parseInt(e.keyCode): parseInt(e.which);
-  if (k!=13 && k!=8 && k!=0){
-    if ((e.ctrlKey==false) && (e.altKey==false)) {
-      return (AllowableCharacters.indexOf(String.fromCharCode(k))!=-1);
-    } else {
-      return true;
-    }
-  } else {
-    return true;
-  }
-}
-
-//////////////////////////////////////////////////////////////////////////////////////////////
-
 </script>
 </div>
 </body>
