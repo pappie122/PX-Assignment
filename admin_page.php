@@ -32,6 +32,7 @@ if(isset($_SESSION['login_user'])){
           <li><a href="#">Contact</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
+          <li><a href="editAdmin.php">Edit User Details</a></li>
           <li><a href="registration.php">Register User</a></li>
           <li><a href="logout.php">Logout</a></li>
         </ul>
