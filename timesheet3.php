@@ -2,6 +2,7 @@
 <head>
     <?php 
 	include( "db.php");
+	include ("checkTime.php");
 		if (isset($_POST["rowCount"])){
 			
 			$rowCount=mysqli_real_escape_string($conn,$_POST["rowCount"]);
@@ -28,14 +29,19 @@
 				AND u.UserID = 1   /* id goes here */
 				AND u.AccountStatus = 1 " ; 
 	$result=mysqli_query($conn,$sql); 
-	$temp=$result; $json=array(); 
+	$temp=$result; 
+	$json=array(); 
 	if(mysqli_num_rows($result)> 0){ 
 		while($row = mysqli_fetch_array($temp)) { 
 			array_push($json, array("ID" => $row["jobID"], "Name" => $row["jobName"])); 
 		} 
 	} 
-	$jobss=array(); 
+	//$jobss=array(); important
 	
+	
+	
+	
+	//echo $_Post["break"];
 
 	
 	
@@ -44,8 +50,14 @@
 	$errorMsg = "";
 	if(isset($_POST) && isset($_POST['submit'])){
 		// Update form data with postback information
-		
+	
 		for($i=0; $i < $rowCount; $i++){
+			
+		if($_POST['break'.$i]==""){
+		$_POST["break".$i]=0;
+	
+	}
+			
 			array_push($formData, array("job" => $_POST["inputLocation" . $i], "date" => $_POST["date" . $i], "startTime" => $_POST["startTime" . $i], "endTime" => $_POST["endTime" . $i], "break" => $_POST["break" . $i], "comment" => $_POST["comment" . $i]));
 			
 		}
@@ -54,19 +66,13 @@
 		
 		//echo $formData[1]["startTime"];
 		$isValid = true;
+		
+		
+	
+  checkOverlap($formData); // checks if data is valid
 
-/*for($i = 0; $i < count($rows); $i++){
-	for($j = $i+1; $j < count($rows); $j ++){
-		
-if(    $row["startTime"]>=$a["EndTime"]&&$row['endTime']<=$a["StartTime"]&&$row["startTime"]<$row['endTime']
-
-
-	}
-} 
-		
-		
-		*/
-		
+	//	echo $n[0]= $row["date"];	
+		//echo $n[1]= $row["date"];	
 		
 		
 		
@@ -168,17 +174,23 @@ $total_hours-$break;
 				}
 				
 				
-				
+			
 				
 				$sql2[$i]="INSERT INTO timesheetdetail (TsDetailID, TimesheetID, JobID, Date, StartTime, EndTime, BreakDuration, TotalHours, Comments) VALUEs (NULL,'$lasttimesheetId','$job','$date','$startTime','$endTime','$break','$total_hours','$comment');";
-			//	echo $i;
+			
 					$insert2 = mysqli_query($conn, $sql2[$i]);
 		
+		
+			if (!$insert2) {
+    printf("Error: %s\n", mysqli_error($conn));
+    exit();
+}
 				// Insert into database
 			}
-			//Display success page/message
+		header("location:editTime.php");
 		}
 	}
+	
 	
 	
 	?>
@@ -313,8 +325,8 @@ $total_hours-$break;
 		
 			
 		
-			
-	/*
+			/*
+	
 		}
 			
 			
@@ -335,9 +347,9 @@ $total_hours-$break;
 							
 						} else {
 							
-					
+					alert("hey");
 							t = j+1;
-								
+							
 							$('#addr' + t).html("<td>" + (j + 1) + "</td><td><select class='form-control'  name='inputLocation" + i + "' Class='form-control' name='Joblist" + i + "'>" <?php foreach($json as $key => $val) { ?>
 					+"<option value='<?php echo $val['ID']; ?>'<?php echo ($val['ID'] == $_POST['inputLocation' + j]) ? "selected" : ""; ?> > <?php echo $val['Name']; ?></option>"
 				<?php } ?> +"</select></td><td><input  name='date" + t + "' type='date' placeholder='Date'  class='form-control input-md'"<?php echo $_POST['date' + j]; ?>"></td><td><input  name='startTime" + t + "' type='time' placeholder='StartTime'  class='form-control input-md'   value="<?php echo $_POST['startTime' + j]; ?>"></td><td><input  name='endTime" + t + "' type='time' placeholder='EndTime'  class='form-control input-md' "<?php echo $_POST['endTime' + t]; ?>"/></td><td><input  name='break" +t  + "' type='time' placeholder='Break'  class='form-control input-md' value="<?php echo $_POST['break' + j]; ?>" /></td><td><input  name='comment" + t + "' type='text' placeholder='Comment'  class='form-control input-md' value="<?php echo $_POST['comment' + j]; ?>"/></td>");
@@ -351,8 +363,8 @@ $total_hours-$break;
 				phpUpdateRows();
 			<?php } ?>
 		});
-
-		*/
+*/
+		
 	</script>
     </body>
 </html>
