@@ -2,7 +2,7 @@
 <head>
 <?php 
 	include( "db.php");
-		
+		include("dates.php");
 		
 
 $sql=	"SELECT 
@@ -94,19 +94,23 @@ $selectID = mysqli_query($conn, $sqlSelectTimeSheet);
 			
 			
 			
-			$s=$startTime;
+			/*$s=$startTime;
 			$e=$endTime;
 			$start = explode(':', $s);
 $end = explode(':', $e);
 $total_hours = $end[0] - $start[0] - ($end[1] < $start[1]);
 
-$total_hours-$break;
+$total_hours-$break; 
 	//$total_hours=1;		
+			*/
+			$nH=totalHours($startTime,$endTime,$break);
+		
+	
 			
-		$sql2 = "UPDATE timesheetdetail SET JobID='$job1',Date='$date1',StartTime='$startTime',EndTime='$endTime',BreakDuration='$break',TotalHours='$total_hours',Comments='$comment' WHERE TimesheetID='$id'";
+		$sql2 = "UPDATE timesheetdetail SET JobID='$job1',Date='$date1',StartTime='$startTime',EndTime='$endTime',BreakDuration='$break',TotalHours='$nH',Comments='$comment' WHERE TimesheetID='$id'";
 		
 			
-			
+		
 			$update = mysqli_query($conn, $sql2);
 	
 				
@@ -124,6 +128,19 @@ $total_hours-$break;
 	
 	
 		if(isset($_POST) && isset($_POST['delete_row'])){
+			$sql5="UPDATE timesheet SET TimesheetStatus=0  WHERE TimesheetID=$id";
+$update1 = mysqli_query($conn, $sql5);
+	
+				
+				
+				if (!$update1) {
+    printf("Error: %s\n", mysqli_error($conn));
+    exit();
+			
+		}
+			
+			header("location:editTime.php");	
+			
 			
 		}
 	

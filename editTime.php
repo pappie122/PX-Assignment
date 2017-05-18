@@ -27,7 +27,7 @@
 					  <?php
      include("db.php");
      
-	 
+	 $id=1;
 	 $sql=	"SELECT 
 				j.JobID AS jobID,
 				j.JobName AS jobName
@@ -37,7 +37,9 @@
 				AND j.JobStatus = 1
 			INNER JOIN user AS u ON uj.UserID = u.UserID
 				AND u.UserID = 1   /* id goes here */
-				AND u.AccountStatus = 1 " ; 
+				AND u.AccountStatus = 1 
+				
+				" ; 
 	$result=mysqli_query($conn,$sql); 
 	$temp=$result; $json=array(); 
 	if(mysqli_num_rows($result)> 0){ 
@@ -47,11 +49,11 @@
 	} 
 	$jobss=array(); 
 
-	 $sql1="SELECT `timesheetdetail`.`TimesheetID`, `timesheetdetail`.`JobID`, `timesheetdetail`.`Date`, `timesheetdetail`.`StartTime`, `timesheetdetail`.`EndTime`, `timesheetdetail`.`BreakDuration`, `timesheetdetail`.`TotalHours`, `timesheetdetail`.`Comments`, `timesheet`.`UserID`
-FROM `timesheetdetail`
-LEFT JOIN `timesheet` ON `timesheetdetail`.`TimesheetID` = `timesheet`.`TimesheetID` 
-WHERE (( `UserID` =        1                         ))
-ORDER BY `Date` DESC ";
+	 $sql1="SELECT timesheetdetail.*, timesheet.UserID, timesheet.TimesheetStatus
+FROM timesheet
+LEFT JOIN timesheetdetail ON timesheet.TimesheetID = timesheetdetail.TimesheetID
+
+WHERE (( TimesheetStatus =       1                          ) AND ( UserID = $id))";
 	 
 	 	$result1=mysqli_query($conn,$sql1);
 		
@@ -64,11 +66,15 @@ ORDER BY `Date` DESC ";
 	 
 	 
     ?>
+	
 					 <div class="row clearfix">
                             <div class="col-md-12 column">
-                                <table class="table table-bordered table-hover" id="tab_logic" name="alex">
+							
+                                <table class="table table-bordered table-hover" id="tab_logic" >
+						<thead>
                                         <tr>
-                                           
+										
+                                        
                                             <th class="text-center">
                                                 Job
                                             </th>
@@ -96,23 +102,29 @@ ORDER BY `Date` DESC ";
 											<th class="text-center">
                                                Submit
                                             </th>
-                                        </tr>
-								    
-												<?php while($rows=mysqli_fetch_array($result1)){	?>	
-                                            <tr>
-                                            <td>
-												<select class="form-control" id="Joblist" name="inputLocation0">
-                                                    <?php foreach($json as $key=> $val){ ?>
-														<option value="<?php echo $val['ID']; ?>">
-                                                            <?php echo $val[ 'Name']; ?>
-                                                        </option>
-                                                    <?php } ?>
-                                                </select>
-												
-
-                                            </td>
 											
-																		
+                                        </tr>
+								  
+											</thead>	
+										<tbody>
+                                            <tr>
+											   <?php while($rows=mysqli_fetch_array($result1)){	?>	
+                                            <td>
+											
+                                                    <?php foreach($json as $key=> $val){ ?>
+														<?php if($val['ID']==$rows["JobID"]){?>
+
+
+														
+                                                            <?php echo $val[ 'Name']; ?>
+                                                      
+                                                    <?php } 
+													} ?>
+                                            
+												
+                                            </td>
+										
+																			
                                             <td>
                                                 <?php echo $rows["Date"];?>
                                             </td>
@@ -137,20 +149,28 @@ ORDER BY `Date` DESC ";
 											
                                           
                                             </td>
+											
 											<td>
 											
-											 <a href="editTImeSheet.php?id=<?php echo $rows["TimesheetID"];?>"> edit 
+											
+											 <a href="editTimeSheet.php?id=<?php echo $rows["TimesheetID"];?>"> edit 
                                           
                                             </td>
-											<td>
-											</td>
 											
-									
-                                          </tr>
-                              
-    
-   		<?php }  ?>
+											
+									<td>
+									<a href="submitPending.php?id=<?php echo $rows["TimesheetID"];?>"> submit
+								
+									</td>	
 					  
+                                          </tr>
+								
+										<?php }  ?>
+										</tbody>
+												</table>
+					  
+					   
+					   
     <script src="http://cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>
     <!-- polyfiller file to detect and load polyfills -->
     <script src="http://cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js"></script>
@@ -170,17 +190,20 @@ ORDER BY `Date` DESC ";
     		
 	
 			$('#tab_logic').DataTable({
+					
     			"columnDefs": [{
-					"targets": 8,
+					"targets": 3,
 					"orderable": false
+				
 					},{
-					"targets": 0,
+					"targets": 8,
 					"orderable": false
 				}]
     		}); 
 		});
 		
 
+		
 	</script>
     </body>
 </html>
