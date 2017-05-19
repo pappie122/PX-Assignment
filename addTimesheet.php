@@ -9,7 +9,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="temp.css">
 </head>
-
+  <head>
     <?php 
 	include( "db.php");
 	include ("checkTime.php");
@@ -225,6 +225,9 @@ $total_hours=totalHours($startTime,$endTime,$break);
 <?php include("nav.php");?>
 
     
+    </div>
+	
+    <div class="col-sm-8 text-left"> 
       <h1>Add TimeSheet</h1>
       
 	  
