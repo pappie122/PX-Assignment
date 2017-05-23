@@ -2,6 +2,10 @@
 <head>
 
   <meta charset="utf-8">
+  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -11,8 +15,14 @@
 <body>
 <?php 
 	include( "db.php");
+	include("checkTime.php");
 		include("dates.php");
+			  if(!isset($_SESSION)) 
+    { 
+        session_start(); 
+    } 
 		
+	$u= $_SESSION["userId"];
 
 $sql=	"SELECT 
 				j.JobID AS jobID,
@@ -22,7 +32,7 @@ $sql=	"SELECT
 				AND uj.UserJobStatus = 1
 				AND j.JobStatus = 1
 			INNER JOIN user AS u ON uj.UserID = u.UserID
-				AND u.UserID = 1   /* id goes here */
+				AND u.UserID = $u   /* id goes here */
 				AND u.AccountStatus = 1 " ; 
 	$result=mysqli_query($conn,$sql); 
 	$temp=$result; 
@@ -48,7 +58,7 @@ $sql=	"SELECT
 				AND uj.UserJobStatus = 1
 				AND j.JobStatus = 1
 			INNER JOIN user AS u ON uj.UserID = u.UserID
-				AND u.UserID = 1   /* id goes here */
+				AND u.UserID = $u   /* id goes here */
 				AND u.AccountStatus = 1 " ; 
 	$result=mysqli_query($conn,$sql1); 
 	$temp=$result; $json=array(); 
@@ -60,7 +70,7 @@ $sql=	"SELECT
 	$jobss=array(); 
 	
 	$id=$_GET["id"];
-	$sqlSelectTimeSheet="SELECT * FROM `timesheetdetail` WHERE TimesheetID=$id";
+	$sqlSelectTimeSheet="SELECT * FROM timesheetdetail WHERE TimesheetID=$id";
 	
 	
 $selectID = mysqli_query($conn, $sqlSelectTimeSheet);
@@ -79,9 +89,9 @@ $selectID = mysqli_query($conn, $sqlSelectTimeSheet);
 				*/
 			array_push($formData1, array("job" => $_POST["inputLocation0"], "date" => $_POST["date0"], "startTime" => $_POST["startTime0"], "endTime" => $_POST["endTime0"], "break" => $_POST["break0"], "comment" => $_POST["comment0"]));
 			
+			$errorC=true;
 			
-			
-		
+			//$errorC=checkOverlap($formData1);
 		
 		$job1=$formData1[0]["job"];
 		$date1=$formData1[0]["date"];
@@ -106,8 +116,15 @@ $selectID = mysqli_query($conn, $sqlSelectTimeSheet);
 			
 			*/
 			
+		if($errorC==false){
+			echo "error";
+			
+			header("location:editTime.php");
+			
+		}
 			
 			
+			if($errorC==true){
 			/*$s=$startTime;
 			$e=$endTime;
 			$start = explode(':', $s);
@@ -127,7 +144,7 @@ $total_hours-$break;
 		
 			$update = mysqli_query($conn, $sql2);
 	
-				
+			}
 				
 				if (!$update) {
     printf("Error: %s\n", mysqli_error($conn));
@@ -157,6 +174,7 @@ $update1 = mysqli_query($conn, $sql5);
 			
 			
 		}
+		
 	
 	?>
 

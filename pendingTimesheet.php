@@ -18,7 +18,7 @@
     } 
 		
 	$u= $_SESSION["userId"];
-	 //$id=1;
+	// $id=1;
 	 $sql=	"SELECT 
 				j.JobID AS jobID,
 				j.JobName AS jobName
@@ -27,7 +27,7 @@
 				AND uj.UserJobStatus = 1
 				AND j.JobStatus = 1
 			INNER JOIN user AS u ON uj.UserID = u.UserID
-				AND u.UserID = $u   /* id goes here */
+				AND u.UserID = $u  /* id goes here */
 				AND u.AccountStatus = 1 
 				
 				" ; 
@@ -44,7 +44,7 @@
 FROM timesheet
 LEFT JOIN timesheetdetail ON timesheet.TimesheetID = timesheetdetail.TimesheetID
 
-WHERE (( TimesheetStatus =       3                          ) AND ( UserID = $u))";
+WHERE (( TimesheetStatus =       2                          ) AND ( UserID = $u))";
 	 
 	 	$result1=mysqli_query($conn,$sql1);
 		
@@ -62,7 +62,7 @@ WHERE (( TimesheetStatus =       3                          ) AND ( UserID = $u)
     </div>
 	
     <div class="col-sm-8 text-left"> 
-      <h1>TimeSheets Accepted</h1>
+      <h1>TimeSheets Pending</h1>
       
 	  
 	   <div class="row clearfix">

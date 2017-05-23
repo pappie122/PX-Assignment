@@ -12,13 +12,8 @@
 </head>
   <?php
      include("db.php");
-     if(!isset($_SESSION)) 
-    { 
-        session_start(); 
-    } 
-		
-	$u= $_SESSION["userId"];
-	 //$id=1;
+     
+	 $id=1;
 	 $sql=	"SELECT 
 				j.JobID AS jobID,
 				j.JobName AS jobName
@@ -27,7 +22,7 @@
 				AND uj.UserJobStatus = 1
 				AND j.JobStatus = 1
 			INNER JOIN user AS u ON uj.UserID = u.UserID
-				AND u.UserID = $u   /* id goes here */
+				AND u.UserID = 1   /* id goes here */
 				AND u.AccountStatus = 1 
 				
 				" ; 
@@ -44,7 +39,7 @@
 FROM timesheet
 LEFT JOIN timesheetdetail ON timesheet.TimesheetID = timesheetdetail.TimesheetID
 
-WHERE (( TimesheetStatus =       3                          ) AND ( UserID = $u))";
+WHERE (( TimesheetStatus =       2                          ) AND ( UserID = $id))";
 	 
 	 	$result1=mysqli_query($conn,$sql1);
 		
@@ -56,7 +51,30 @@ WHERE (( TimesheetStatus =       3                          ) AND ( UserID = $u)
 
 <body>
 
-<?php include("nav.php");?>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Logo</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="pendingTimesheet.php"><a href="#">View Timesheets</a></li>
+        <li><a href="timesheet3.php">Add TimeSheets</a></li>
+        <li><a href="editTime.php">Edit drafts</a></li>
+   
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  
 
     
     </div>

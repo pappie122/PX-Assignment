@@ -9,21 +9,11 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="temp.css">
 </head>
-
+  <head>
     <?php 
 	include( "db.php");
 	include ("checkTime.php");
 	include ("dates.php");
-	
-		
-
-			  if(!isset($_SESSION)) 
-    { 
-        session_start(); 
-    } 
-		
-	$u= $_SESSION["userId"];
-	
 		if (isset($_POST["rowCount"])){
 			
 			$rowCount=mysqli_real_escape_string($conn,$_POST["rowCount"]);
@@ -47,7 +37,7 @@
 				AND uj.UserJobStatus = 1
 				AND j.JobStatus = 1
 			INNER JOIN user AS u ON uj.UserID = u.UserID
-				AND u.UserID = $u   /* id goes here */
+				AND u.UserID = 1   /* id goes here */
 				AND u.AccountStatus = 1 " ; 
 	$result=mysqli_query($conn,$sql); 
 	$temp=$result; 
@@ -115,7 +105,7 @@
 			foreach($formData as $row){
 			//	echo $row['date'];
 				// Need to work on query
-				$check = "SELECT `timesheet`.`UserID`, `timesheet`.`TimesheetID`, `timesheetdetail`.`TsDetailID`, `timesheetdetail`.`TimesheetID`, `timesheetdetail`.`StartTime`, `timesheetdetail`.`EndTime`, `timesheetdetail`.`Date` FROM `timesheet` LEFT JOIN `timesheetdetail` ON `timesheet`.`TimesheetID` = `timesheetdetail`.`TimesheetID` WHERE (( `Date` ='" .  $row['date'] . "' ) AND ( `UserID` = $u)); ";
+				$check = "SELECT `timesheet`.`UserID`, `timesheet`.`TimesheetID`, `timesheetdetail`.`TsDetailID`, `timesheetdetail`.`TimesheetID`, `timesheetdetail`.`StartTime`, `timesheetdetail`.`EndTime`, `timesheetdetail`.`Date` FROM `timesheet` LEFT JOIN `timesheetdetail` ON `timesheet`.`TimesheetID` = `timesheetdetail`.`TimesheetID` WHERE (( `Date` ='" .  $row['date'] . "' ) AND ( `UserID` = 1)); ";
 				
 				$res = mysqli_query($conn, $check);
 		
@@ -145,7 +135,7 @@
 			foreach($formData as $row){
 			    $todaysDate=date('Y/m/d');
 			$job=mysqli_real_escape_string($conn,$row["job"]);
-			 
+			
 
 			  $n  =gmdate('Y-m-d h:i:s');
 
@@ -157,7 +147,7 @@ $dateSubmitted = date('Y-m-d h:i:s', strtotime($n.rand(30,  3).' seconds'));
 				$comment=mysqli_real_escape_string($conn,$row['comment']);
 				$break=mysqli_real_escape_string($conn,$row['break']);
 			$totalhours=3;
-			
+				$userId=1;
 				$timeSheetStatus=1;
 				$newtime=$break*60;
 				
@@ -181,14 +171,14 @@ $total_hours=totalHours($startTime,$endTime,$break);
 				//echo $row['comment'];
 				//echo "hu";
 				$sql1[$i] ="INSERT INTO timesheet (TimesheetID, UserID, DateCreated, DateSubmitted, TimesheetStatus, TotalHours, Comments, ApprovedDate, ApprovedBy) 
-				values (Null,'$u','$todaysDate','$dateSubmitted','$timeSheetStatus','$total_hours','$comment',NULL,NULL);";  
+				values (Null,'$userId','$todaysDate','$dateSubmitted','$timeSheetStatus','$total_hours','$comment',NULL,NULL);";  
 			
 				 $rs = mysqli_query($conn, $sql1[$i]);
 				
 				
 				
 				
-				$userIds[$i] ="SELECT `timesheet`.`TimesheetID`, `timesheet`.`UserID`, `timesheet`.`DateSubmitted` FROM `timesheet` WHERE (( `DateSubmitted` = '$dateSubmitted' ) AND ( `UserID` = $u)) ;";  
+				$userIds[$i] ="SELECT `timesheet`.`TimesheetID`, `timesheet`.`UserID`, `timesheet`.`DateSubmitted` FROM `timesheet` WHERE (( `DateSubmitted` = '$dateSubmitted' ) AND ( `UserID` = 1)) ;";  
 				
 				
 				
@@ -205,11 +195,11 @@ $total_hours=totalHours($startTime,$endTime,$break);
 				
 				while($fetchUser=mysqli_fetch_assoc($userI)){
 				$lasttimesheetId= $fetchUser["TimesheetID"];
-				echo $lasttimesheetId."this is the last id";
+				//	echo $lasttimesheetId."this is the last id";
 				}
 				
 				
-			echo $lasttimesheetId."this is the last id AAAAAAAAAAAA";
+			
 				
 				$sql2[$i]="INSERT INTO timesheetdetail (TsDetailID, TimesheetID, JobID, Date, StartTime, EndTime, BreakDuration, TotalHours, Comments) VALUEs (NULL,'$lasttimesheetId','$job','$date','$startTime','$endTime','$break','$total_hours','$comment');";
 			
@@ -235,6 +225,9 @@ $total_hours=totalHours($startTime,$endTime,$break);
 <?php include("nav.php");?>
 
     
+    </div>
+	
+    <div class="col-sm-8 text-left"> 
       <h1>Add TimeSheet</h1>
       
 	  
@@ -339,9 +332,8 @@ $total_hours=totalHours($startTime,$endTime,$break);
 			$("#delete_row").click(function() {
 				if (i > 1) {
 					$("#addr" + (i - 1)).html('');
-				
 					i--;
-					$('#rowCount').val(i);
+					
 				}
 			
 	

@@ -1,33 +1,11 @@
-
-<html lang="en">
+<html>
 <head>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="temp.css">
-</head>
-
     <?php 
 	include( "db.php");
 	include ("checkTime.php");
 	include ("dates.php");
-	
-		
 
-			  if(!isset($_SESSION)) 
-    { 
-        session_start(); 
-    } 
 		
-	$u= $_SESSION["userId"];
-	
-		if (isset($_POST["rowCount"])){
-			
-			$rowCount=mysqli_real_escape_string($conn,$_POST["rowCount"]);
-		}
 		
 
 
@@ -47,7 +25,7 @@
 				AND uj.UserJobStatus = 1
 				AND j.JobStatus = 1
 			INNER JOIN user AS u ON uj.UserID = u.UserID
-				AND u.UserID = $u   /* id goes here */
+				AND u.UserID = 1   /* id goes here */
 				AND u.AccountStatus = 1 " ; 
 	$result=mysqli_query($conn,$sql); 
 	$temp=$result; 
@@ -58,10 +36,13 @@
 		} 
 	} 
 	//$jobss=array(); important
+		if(isset($_POST) && isset($_POST['submit'])){
 	
-	
-	
-	
+	if (isset($_POST["rowCount"])){
+			
+			$rowCount=mysqli_real_escape_string($conn,$_POST["rowCount"]);
+		}
+	echo "row count is ".$rowCount;
 	//echo $_Post["break"];
 
 	
@@ -69,7 +50,7 @@
 	//$rowCount=1;
 	$formData=array();
 	$errorMsg = "";
-	if(isset($_POST) && isset($_POST['submit'])){
+	
 		// Update form data with postback information
 	
 	
@@ -115,7 +96,7 @@
 			foreach($formData as $row){
 			//	echo $row['date'];
 				// Need to work on query
-				$check = "SELECT `timesheet`.`UserID`, `timesheet`.`TimesheetID`, `timesheetdetail`.`TsDetailID`, `timesheetdetail`.`TimesheetID`, `timesheetdetail`.`StartTime`, `timesheetdetail`.`EndTime`, `timesheetdetail`.`Date` FROM `timesheet` LEFT JOIN `timesheetdetail` ON `timesheet`.`TimesheetID` = `timesheetdetail`.`TimesheetID` WHERE (( `Date` ='" .  $row['date'] . "' ) AND ( `UserID` = $u)); ";
+				$check = "SELECT `timesheet`.`UserID`, `timesheet`.`TimesheetID`, `timesheetdetail`.`TsDetailID`, `timesheetdetail`.`TimesheetID`, `timesheetdetail`.`StartTime`, `timesheetdetail`.`EndTime`, `timesheetdetail`.`Date` FROM `timesheet` LEFT JOIN `timesheetdetail` ON `timesheet`.`TimesheetID` = `timesheetdetail`.`TimesheetID` WHERE (( `Date` ='" .  $row['date'] . "' ) AND ( `UserID` = 1)); ";
 				
 				$res = mysqli_query($conn, $check);
 		
@@ -145,7 +126,7 @@
 			foreach($formData as $row){
 			    $todaysDate=date('Y/m/d');
 			$job=mysqli_real_escape_string($conn,$row["job"]);
-			 
+			
 
 			  $n  =gmdate('Y-m-d h:i:s');
 
@@ -157,7 +138,7 @@ $dateSubmitted = date('Y-m-d h:i:s', strtotime($n.rand(30,  3).' seconds'));
 				$comment=mysqli_real_escape_string($conn,$row['comment']);
 				$break=mysqli_real_escape_string($conn,$row['break']);
 			$totalhours=3;
-			
+				$userId=1;
 				$timeSheetStatus=1;
 				$newtime=$break*60;
 				
@@ -181,14 +162,14 @@ $total_hours=totalHours($startTime,$endTime,$break);
 				//echo $row['comment'];
 				//echo "hu";
 				$sql1[$i] ="INSERT INTO timesheet (TimesheetID, UserID, DateCreated, DateSubmitted, TimesheetStatus, TotalHours, Comments, ApprovedDate, ApprovedBy) 
-				values (Null,'$u','$todaysDate','$dateSubmitted','$timeSheetStatus','$total_hours','$comment',NULL,NULL);";  
+				values (Null,'$userId','$todaysDate','$dateSubmitted','$timeSheetStatus','$total_hours','$comment',NULL,NULL);";  
 			
 				 $rs = mysqli_query($conn, $sql1[$i]);
 				
 				
 				
 				
-				$userIds[$i] ="SELECT `timesheet`.`TimesheetID`, `timesheet`.`UserID`, `timesheet`.`DateSubmitted` FROM `timesheet` WHERE (( `DateSubmitted` = '$dateSubmitted' ) AND ( `UserID` = $u)) ;";  
+				$userIds[$i] ="SELECT `timesheet`.`TimesheetID`, `timesheet`.`UserID`, `timesheet`.`DateSubmitted` FROM `timesheet` WHERE (( `DateSubmitted` = '$dateSubmitted' ) AND ( `UserID` = 1)) ;";  
 				
 				
 				
@@ -205,11 +186,11 @@ $total_hours=totalHours($startTime,$endTime,$break);
 				
 				while($fetchUser=mysqli_fetch_assoc($userI)){
 				$lasttimesheetId= $fetchUser["TimesheetID"];
-				echo $lasttimesheetId."this is the last id";
+				//	echo $lasttimesheetId."this is the last id";
 				}
 				
 				
-			echo $lasttimesheetId."this is the last id AAAAAAAAAAAA";
+			
 				
 				$sql2[$i]="INSERT INTO timesheetdetail (TsDetailID, TimesheetID, JobID, Date, StartTime, EndTime, BreakDuration, TotalHours, Comments) VALUEs (NULL,'$lasttimesheetId','$job','$date','$startTime','$endTime','$break','$total_hours','$comment');";
 			
@@ -229,18 +210,28 @@ $total_hours=totalHours($startTime,$endTime,$break);
 	
 	
 	?>
-
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="content-language" content="en" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="content-language" content="en" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
 <body>
-
-<?php include("nav.php");?>
-
-    
-      <h1>Add TimeSheet</h1>
-      
-	  
- <form name="Timesheet" method="post" action="timesheet3.php">
+    <div style="width:600px; text-align: left;">
+        <form name="Timesheet" method="post" action="timesheet33.php">
             <input type="hidden" id="rowCount" name="rowCount" />
-          <div class="row clearfix">
+            <div id="container" style="width:900px">
+                <div id="header" style="background-color:#980000 ;">
+                    <h1 style="margin-bottom:0;">Time Sheet</h1>
+                </div>
+                <div id="menu" style="background-color:#C0C0C0;height:200px;width:100px;float:left;">
+                    <p>welcome User</P>
+                    <input name="logout" type="button" action="logout.php" logout>
+                </div>
+                <div id="content" style="background-color:#EEEEEE;height:1100px;width:600px;float:left;">
+                    <div class="container">
+                        <div class="row clearfix">
                             <div class="col-md-12 column">
                                 <table class="table table-bordered table-hover" id="tab_logic">
                                     <thead>
@@ -339,19 +330,20 @@ $total_hours=totalHours($startTime,$endTime,$break);
 			$("#delete_row").click(function() {
 				if (i > 1) {
 					$("#addr" + (i - 1)).html('');
-				
+		
 					i--;
-					$('#rowCount').val(i);
+				$('#rowCount').val(i);
+				/*
 				}
 			
-	
+
 			
 		});
 		});
 		
-			
+			*/
 		
-			/*
+		
 	
 		}
 			
@@ -374,23 +366,31 @@ $total_hours=totalHours($startTime,$endTime,$break);
 						} else {
 							
 					alert("hey");
-							t = j+1;
+							//t = j+1;
 							
-							$('#addr' + t).html("<td>" + (j + 1) + "</td><td><select class='form-control'  name='inputLocation" + i + "' Class='form-control' name='Joblist" + i + "'>" <?php foreach($json as $key => $val) { ?>
-					+"<option value='<?php echo $val['ID']; ?>'<?php echo ($val['ID'] == $_POST['inputLocation' + j]) ? "selected" : ""; ?> > <?php echo $val['Name']; ?></option>"
-				<?php } ?> +"</select></td><td><input  name='date" + t + "' type='date' placeholder='Date'  class='form-control input-md'"<?php echo $_POST['date' + j]; ?>"></td><td><input  name='startTime" + t + "' type='time' placeholder='StartTime'  class='form-control input-md'   value="<?php echo $_POST['startTime' + j]; ?>"></td><td><input  name='endTime" + t + "' type='time' placeholder='EndTime'  class='form-control input-md' "<?php echo $_POST['endTime' + t]; ?>"/></td><td><input  name='break" +t  + "' type='time' placeholder='Break'  class='form-control input-md' value="<?php echo $_POST['break' + j]; ?>" /></td><td><input  name='comment" + t + "' type='text' placeholder='Comment'  class='form-control input-md' value="<?php echo $_POST['comment' + j]; ?>"/></td>");
-				
-				
+							$('#addr' + j.html("<td>" + (j + 1) + "</td><td><select class='form-control'  name='inputLocation" + i + "' Class='form-control' name='Joblist" + i + "'>" <?php foreach($json as $key => $val) { ?>
+					+"<option value='<?php echo $val['ID']; ?>'><?php echo $val['Name']; ?></option>"
+				<?php } ?> +"</select></td><td><input  name='date" + j + "' type='date' placeholder='Date'  class='form-control input-md'></td><td><input  name='startTime" + j + "' type='time' placeholder='StartTime'  class='form-control input-md'></td><td><input  name='endTime" + j + "' type='time' placeholder='endTime'  class='form-control input-md' /></td><td><input  name='break" + j + "' type='number' placeholder='Break'  class='form-control input-md' min='0' max='2' step='0.5' /></td><td><input  name='comment" + j + "' type='text' placeholder='Comment'  class='form-control input-md' /></td>");
 				
 				$('#tab_logic').append('<tr id="addr' + (j + 1) + '"></tr>');
+				i++;
+				$('#rowCount').val(i);
+			});
+			$("#delete_row").click(function() {
+				if (i > 1) {
+					$("#addr" + (j - 1)).html('');
+		
+					j--;
+				$('#rowCount').val(j);
+				
+			
 						}
 					}
 				}
 				phpUpdateRows();
 			<?php } ?>
 		});
-*/
-		
+	
 	</script>
     </body>
 </html>

@@ -10,8 +10,8 @@ $a=true;
     echo   "Date is required";
 	//echo $_POST["date"];
 	$a= false;
-	header("location:timesheet3.php");
-	die;
+	//header("location:timesheet3.php");
+	//die;
   } else {
 
 $a=true;

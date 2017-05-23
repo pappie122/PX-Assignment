@@ -1,24 +1,33 @@
-
-<html lang="en">
+<html>
 <head>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="temp.css">
- 
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="content-language" content="en" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="content-language" content="en" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
 </head>
-  <?php
+<body>
+    <div style="width:600px; text-align: left;">
+        <form name="Timesheet" method="post" action="timesheet3.php">
+            <input type="hidden" id="rowCount" name="rowCount" />
+            <div id="container" style="width:900px">
+                <div id="header" style="background-color:#980000 ;">
+                    <h1 style="margin-bottom:0;">Time Sheet</h1>
+                </div>
+                <div id="menu" style="background-color:#C0C0C0;height:200px;width:100px;float:left;">
+                    <p>welcome User</P>
+                    <input name="logout" type="button" action="logout.php" logout>
+                </div>
+                <div id="content" style="background-color:#EEEEEE;height:1100px;width:600px;float:left;">
+                    <div class="container">
+                      
+					  <?php
      include("db.php");
-     if(!isset($_SESSION)) 
-    { 
-        session_start(); 
-    } 
-		
-	$u= $_SESSION["userId"];
-	 //$id=1;
+     
+	 $id=1;
 	 $sql=	"SELECT 
 				j.JobID AS jobID,
 				j.JobName AS jobName
@@ -27,7 +36,7 @@
 				AND uj.UserJobStatus = 1
 				AND j.JobStatus = 1
 			INNER JOIN user AS u ON uj.UserID = u.UserID
-				AND u.UserID = $u   /* id goes here */
+				AND u.UserID = 1   /* id goes here */
 				AND u.AccountStatus = 1 
 				
 				" ; 
@@ -44,28 +53,21 @@
 FROM timesheet
 LEFT JOIN timesheetdetail ON timesheet.TimesheetID = timesheetdetail.TimesheetID
 
-WHERE (( TimesheetStatus =       3                          ) AND ( UserID = $u))";
+WHERE (( TimesheetStatus =       1                          ) AND ( UserID = $id))";
 	 
 	 	$result1=mysqli_query($conn,$sql1);
 		
 		
 
+
+   
+	 
+	 
 	 
 	 
     ?>
-
-<body>
-
-<?php include("nav.php");?>
-
-    
-    </div>
 	
-    <div class="col-sm-8 text-left"> 
-      <h1>TimeSheets Accepted</h1>
-      
-	  
-	   <div class="row clearfix">
+					 <div class="row clearfix">
                             <div class="col-md-12 column">
 							
                                 <table class="table table-bordered table-hover" id="tab_logic" >
@@ -94,7 +96,12 @@ WHERE (( TimesheetStatus =       3                          ) AND ( UserID = $u)
 											 <th class="text-center">
                                                 Comment
                                             </th>
-											
+											 <th class="text-center">
+                                               Edit
+                                            </th>
+											<th class="text-center">
+                                               Submit
+                                            </th>
 											
                                         </tr>
 								  
@@ -143,41 +150,44 @@ WHERE (( TimesheetStatus =       3                          ) AND ( UserID = $u)
                                           
                                             </td>
 											
+											<td>
+											
+											
+											 <a href="editTimeSheet.php?id=<?php echo $rows["TimesheetID"];?>"> edit 
+                                          
+                                            </td>
+											
+											
+									<td>
+									<a href="submitPending.php?id=<?php echo $rows["TimesheetID"];?>"> submit
 								
-						
+									</td>	
 					  
                                           </tr>
 								
 										<?php }  ?>
 										</tbody>
 												</table>
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-    
-    </div>
-    
-     
-    </div>
-  </div>
-</div>
-</script>
+					  
+					   
+					   
+    <script src="http://cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>
+    <!-- polyfiller file to detect and load polyfills -->
+    <script src="http://cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js"></script>
+    <script>
+        webshims.setOptions('waitReady', false);
+        webshims.setOptions('forms-ext', {
+            types: 'date'
+        });
+        webshims.polyfill('forms forms-ext');
+    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
   
         <script>
 		$(document).ready(function() {
-    			
+    		
 	
 			$('#tab_logic').DataTable({
 					
@@ -186,7 +196,7 @@ WHERE (( TimesheetStatus =       3                          ) AND ( UserID = $u)
 					"orderable": false
 				
 					},{
-					"targets": 6,
+					"targets": 8,
 					"orderable": false
 				}]
     		}); 
@@ -195,7 +205,5 @@ WHERE (( TimesheetStatus =       3                          ) AND ( UserID = $u)
 
 		
 	</script>
-
-
-</body>
+    </body>
 </html>

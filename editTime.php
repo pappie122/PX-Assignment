@@ -18,7 +18,14 @@
                       
 					  <?php
      include("db.php");
-     
+     	  if(!isset($_SESSION)) 
+    { 
+        session_start(); 
+    } 
+	$u= $_SESSION["userId"];
+	
+	
+	
 	 $id=1;
 	 $sql=	"SELECT 
 				j.JobID AS jobID,
@@ -28,7 +35,7 @@
 				AND uj.UserJobStatus = 1
 				AND j.JobStatus = 1
 			INNER JOIN user AS u ON uj.UserID = u.UserID
-				AND u.UserID = 1   /* id goes here */
+				AND u.UserID = $u   /* id goes here */
 				AND u.AccountStatus = 1 
 				
 				" ; 
@@ -45,7 +52,7 @@
 FROM timesheet
 LEFT JOIN timesheetdetail ON timesheet.TimesheetID = timesheetdetail.TimesheetID
 
-WHERE (( TimesheetStatus =       1                          ) AND ( UserID = $id))";
+WHERE (( TimesheetStatus =       1                          ) AND ( UserID = $u))";
 	 
 	 	$result1=mysqli_query($conn,$sql1);
 		

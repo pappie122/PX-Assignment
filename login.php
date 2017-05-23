@@ -1,7 +1,7 @@
 <?php
 if(isset($_POST['submit']))
 {
-	include("config.php");
+	include("db.php");
 
   session_start();
 
@@ -9,31 +9,69 @@ if(isset($_POST['submit']))
   $password = $_POST['password'];
 
   $_SESSION['login_user'] = $username;
-  $activeAdmin = mysql_query("SELECT * FROM user WHERE Email='$username' AND
-                 Password='$password' AND AccountStatus = '1' AND Role = '1'");
-  $nonActiveAdmin = mysql_query("SELECT * FROM user WHERE Email='$username' AND
-                 Password='$password' AND AccountStatus = '0' AND Role = '1'");
-  $activeUser = mysql_query("SELECT * FROM user WHERE Email='$username' AND
-                 Password='$password' AND AccountStatus = '1' AND Role = '0'");
-  $nonActiveUser = mysql_query("SELECT * FROM user WHERE Email='$username' AND
-                 Password='$password' AND AccountStatus = '0' AND Role = '0'");
+  // $activeAdmin = mysqli_query("SELECT * FROM user WHERE Email='$username' AND
+  //                Password='$password' AND AccountStatus = '1' AND Role = '1'");
+  // $nonActiveAdmin = mysqli_query("SELECT * FROM user WHERE Email='$username' AND
+  //                Password='$password' AND AccountStatus = '0' AND Role = '1'");
+  // $activeUser = mysqli_query("SELECT * FROM user WHERE Email='$username' AND
+  //                Password='$password' AND AccountStatus = '1' AND Role = '0'");
+  // $nonActiveUser = mysqli_query("SELECT * FROM user WHERE Email='$username' AND
+  //                Password='$password' AND AccountStatus = '0' AND Role = '0'");
+    echo $password;
+	echo $username;
+  $getuserId= "SELECT * FROM user WHERE Email='$username' AND
+               Password='$password'";
+			   
+			  $r=mysqli_query($conn,$getuserId)or die("Couldn't execute query. ". mysqli_error($conn));
+				while($row=mysqli_fetch_array($r)){
+	$userId=$row["UserID"];
+	$_SESSION["userId"]=$userId;
 
-  if(mysql_num_rows($activeAdmin) != 0)
+	
+				}
+		
+			   
+  
+$activeAdmin = "SELECT * FROM user WHERE Email='$username' AND
+               Password='$password' AND AccountStatus = '1' AND Role = '1'";
+$nonActiveAdmin = "SELECT * FROM user WHERE Email='$username' AND
+               Password='$password' AND AccountStatus = '0' AND Role = '1'";
+$activeUser = "SELECT * FROM user WHERE Email='$username' AND
+               Password='$password' AND AccountStatus = '1' AND Role = '0'";
+$nonActiveUser = "SELECT * FROM user WHERE Email='$username' AND
+               Password='$password' AND AccountStatus = '0' AND Role = '0'";
+
+			   
+	
+$activeAdmin_query = mysqli_query($conn, $activeAdmin);
+
+
+
+
+$nonActiveAdmin_query = mysqli_query($conn, $nonActiveAdmin);
+$activeUser_query = mysqli_query($conn, $activeUser);
+
+
+
+
+$nonActiveUser_query = mysqli_query($conn, $nonActiveUser);
+
+  if(mysqli_num_rows($activeAdmin_query) != 0)
   {
-    header("Location: http://localhost/PX/admin_page.php");
+    header("Location: user_page.php");
   }
 
-  else if(mysql_num_rows($activeUser) != 0)
+  else if(mysqli_num_rows($activeUser_query) != 0)
   {
-    header("Location: http://localhost/PX/user_page.php");
+    header("Location: user_page.php");
   }
 
-  else if(mysql_num_rows($nonActiveAdmin) != 0)
+  else if(mysqli_num_rows($nonActiveAdmin_query) != 0)
   {
     echo "This Account has been deactivated, please speak with your admininstrator";
   }
 
-  else if(mysql_num_rows($nonActiveUser) != 0)
+  else if(mysqli_num_rows($nonActiveUser_query) != 0)
   {
     echo "This Account has been deactivated, please speak with your admininstrator";
   }
@@ -41,53 +79,8 @@ if(isset($_POST['submit']))
   else {
     echo "Username or Password is incorrect";
   }
-
-
-
 }
-
-// if(isset($_POST['submit'])){
-//     $username = $_POST['username'];
-//     $password = $_POST['password'];
-//     $connection = mysqli_connect('localhost', 'root', '', 'px');
-//
-//     $query = "'SELECT * FROM user WHERE Email='$username' and Password='$password'";
-//     $result = mysqli_query($connection, $query);
-//
-
-// if ($username == "admin" && $password == "password"){
-//     header("Location: http://localhost/PX/admin_page.php");
-//     exit;
-// }
-// else if ($username == "user" && $password == "password"){
-//     header("Location: http://localhost/PX/user_page.php");
-//     exit;
-// }
-// else {
-//     echo "Username or pasword is incorrect";
-// }
-
-// if($connection)
-// {
-//     echo "We are connected";
-// }
-// else
-// {
-//     die("Database connected failed");
-// }
-//
-// $query = "SELECT * FROM user";
-// $result = mysqli_query($connection, $query);
-// if(!$result)
-// {
-//     die('Query FAILED' . mysqli_error());
-// }
-
-// $sql = "'SELECT * FROM user WHERE Email = '$username' and password='$Password'";
-// $result = mysqli_query($sql);
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -101,23 +94,25 @@ if(isset($_POST['submit']))
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-md-6 col-md-offset-3">
-                <h1> Login Page </h1>
+                <h1> UEA TRENCHLESS TIMESHEET</h1>
             </div>
             <form action="login.php" method="post">
             <div class="form-group">
                 <div class="col-xs-12 col-md-6 col-md-offset-3">
-                    <label for="username">Username</label>
+                    <label for="username">Email Address:</label>
                 </div>
                 <div class="col-xs-12 col-md-6 col-md-offset-3">
-                    <input type="text" name="username" class="form-control" required="username">
+                    <input type="text" name="username" class="form-control"
+                    placeholder="Email Address"required="username">
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-xs-12 col-md-6 col-md-offset-3">
-                    <label for="password">Password</label>
+                    <label for="password">Password:</label>
                 </div>
                 <div class="col-xs-12 col-md-6 col-md-offset-3">
-                    <input type="password" name="password" class="form-control" required="password">
+                    <input type="password" name="password" class="form-control"
+                    placeholder="Password" required="password">
                 </div>
             </div>
             <div class="col-xs-12 col-md-6 col-md-offset-3">
