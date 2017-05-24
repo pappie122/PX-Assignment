@@ -3,13 +3,13 @@ include("config.php");
 
 session_start();
 
-$firstName = $_POST['firstName'];
-$lastName = $_POST['lastName'];
-$telephone = $_POST['telephone'];
-$address = $_POST['address'];
-$city = $_POST['city'];
-$postcode = $_POST['postcode'];
-$email = $_POST['email'];
+$firstName = mysqli_real_escape_string($conn, $_POST['firstName']);
+$lastName = mysqli_real_escape_string($conn, $_POST['lastName']);
+$telephone = mysqli_real_escape_string($conn, $_POST['telephone']);
+$address = mysqli_real_escape_string($conn, $_POST['address']);
+$city = mysqli_real_escape_string($conn, $_POST['city']);
+$postcode = mysqli_real_escape_string($conn, $_POST['postcode']);
+$email = mysqli_real_escape_string($conn, $_POST['email']);
 
 $data = "UPDATE user SET Fname='$firstName', Lname='$lastName', Phone='$telephone',
                          Street='$address', City='$city', Postcode=$postcode
@@ -27,7 +27,7 @@ $query = mysqli_query($conn, $data) or die("Couldn't execute query. ". mysqli_er
     <link rel="stylesheet"
     href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="index.css">
-	
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

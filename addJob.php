@@ -3,10 +3,10 @@ include("config.php");
 function NewJob()
 {
   include("config.php");
-  $jobName = $_POST['jobName'];
-  $startDate = $_POST['startDate'];
-  $endDate = $_POST['endDate'];
-  $description = $_POST['description'];
+  $jobName = mysqli_real_escape_string($conn, $_POST['jobName']);
+  $startDate = mysqli_real_escape_string($conn, $_POST['startDate']);
+  $endDate = mysqli_real_escape_string($conn, $_POST['endDate']);
+  $description = mysqli_real_escape_string($conn, $_POST['description']);
 
 	$query = "INSERT INTO job (JobName, JobStatus, StartDate, EndDate, Description)
             VALUES ('$jobName', '1', '$startDate', '$endDate', '$description')";
