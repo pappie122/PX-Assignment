@@ -6,9 +6,9 @@ if(isset($_POST['submit']))
 {
   // include("config.php");
   // session_start();
-  $user = $_POST['user'];
-  $job = $_POST['job'];
-  $jobName = $_POST['JobName'];
+  $user = mysqli_real_escape_string($conn, $_POST['user']);
+  $job = mysqli_real_escape_string($conn, $_POST['job']);
+  $jobName = mysqli_real_escape_string($conn, $_POST['JobName']);
 
   // $query = "INSERT  INTO userjob (UserID, JobID, UserJobStatus) VALUES
   //                               ('$user', '$job', '1')";

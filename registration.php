@@ -3,16 +3,16 @@ include("config.php");
 function NewUser()
 {
   include("config.php");
-  $firstName = $_POST['firstName'];
-  $lastName = $_POST['lastName'];
-  $telephone = $_POST['telephone'];
-  $address = $_POST['address'];
-  $city = $_POST['city'];
-  $postcode = $_POST['postcode'];
-  $email = $_POST['email'];
-  $gender = $_POST['gender'];
-  $password =  $_POST['password'];
-  
+  $firstName = mysqli_real_escape_string($conn, $_POST['firstName']);
+  $lastName = mysqli_real_escape_string($conn, $_POST['lastName']);
+  $telephone = mysqli_real_escape_string($conn, $_POST['telephone']);
+  $address = mysqli_real_escape_string($conn, $_POST['address']);
+  $city = mysqli_real_escape_string($conn, $_POST['city']);
+  $postcode = mysqli_real_escape_string($conn, $_POST['postcode']);
+  $email = mysqli_real_escape_string($conn, $_POST['email']);
+  $gender = mysqli_real_escape_string($conn, $_POST['gender']);
+  $password =  mysqli_real_escape_string($conn, $_POST['password']);
+
   $confirmPassword = $_POST['confirmPassword'];
   $role = $_POST['adminAccount'];
 	$query = "INSERT INTO user (AccountStatus, City, Email, Fname, Gender, Lname,
@@ -79,7 +79,7 @@ else
   </head>
   <body>
     <nav class="navbar navbar-default">
- 
+
       <?php include("nav.php");?>
     <!-- <div class="col-xs-12 col-md-6 col-lg-3">First Name: </div>
     <div class="col-xs-12 col-md-6 col-lg-9"><input type="text" name="firstName" placeholder="First Name"></div> -->
