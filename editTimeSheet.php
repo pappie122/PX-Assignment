@@ -22,7 +22,7 @@
         session_start(); 
     } 
 		if(isset($_GET['id']) && $_GET['id'] !== ''){
-echo "issset";
+
  	} else {
   echo "failed";
 

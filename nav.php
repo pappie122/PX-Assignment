@@ -66,7 +66,7 @@
 		echo  "<li><a href='addJob.php'>add Job</a></li>";
 		//echo pending timesheet funcion for admin "<li><a href='enterpageherephp'>add Job</a></li>";
 			  echo"     </ul>                                              ";
-			  echo"      </li>       			  ";
+			  echo"     <li> <a href='pendingTimesheets.php'>Approve/Deny TimeSheets</a></li>       			  ";
 			     echo'<li><a href="registration.php">Add New User</a></li>';
    }
 		}
