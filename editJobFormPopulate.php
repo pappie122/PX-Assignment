@@ -7,27 +7,27 @@ include("config.php");
   $query = mysqli_query($conn,$data) or die("Couldn't execute query. ". mysqli_error($conn));
   $data2 = mysqli_fetch_array($query);
 
-  function editJob()
-  {
-    $jobName = $_POST['jobName'];
-    $startDate = $_POST['startDate'];
-    $endDate = $_POST['endDate'];
-    $description = $_POST['description'];
-
-  	$query = "UPDATE job (JobName, JobStatus, StartDate, EndDate, Description)
-              VALUES ('$jobName', '1', '$startDate', '$endDate', '$description')";
-  	$result = mysqli_query ($conn, $query)or die(mysqli_error($conn));
-
-  	if($result)
-  	{
-  	echo "NEW JOB SUCCESSFULLY UPDATED...";
-  	}
-  }
-
-  if(isset($_POST['submit']))
-  {
-    
-  }
+  // function editJob()
+  // {
+  //   $jobName = $_POST['jobName'];
+  //   $startDate = $_POST['startDate'];
+  //   $endDate = $_POST['endDate'];
+  //   $description = $_POST['description'];
+  //
+  // 	$query = "UPDATE job (JobName, JobStatus, StartDate, EndDate, Description)
+  //             VALUES ('$jobName', '1', '$startDate', '$endDate', '$description')";
+  // 	$result = mysqli_query ($conn, $query)or die(mysqli_error($conn));
+  //
+  // 	if($result)
+  // 	{
+  // 	echo "NEW JOB SUCCESSFULLY UPDATED...";
+  // 	}
+  // }
+  //
+  // if(isset($_POST['submit']))
+  // {
+  //
+  // }
  ?>
 
 <!DOCTYPE html>
@@ -45,7 +45,7 @@ include("config.php");
     <nav class="navbar navbar-default">
      <?php include("nav.php");?>
     <div class="container">
-      <form action="user_page.php" method="post">
+      <form action="editJobFormUpdate.php" method="post">
         <div class="row">
               <div class="col-xs-12 col-md-6 col-lg-3">
                 Job Name:
