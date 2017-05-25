@@ -3,15 +3,15 @@ include("config.php");
 function NewUser()
 {
   include("config.php");
-  $firstName = mysqli_real_escape_string($conn, $_POST['firstName']);
-  $lastName = mysqli_real_escape_string($conn, $_POST['lastName']);
-  $telephone = mysqli_real_escape_string($conn, $_POST['telephone']);
-  $address = mysqli_real_escape_string($conn, $_POST['address']);
-  $city = mysqli_real_escape_string($conn, $_POST['city']);
-  $postcode = mysqli_real_escape_string($conn, $_POST['postcode']);
-  $email = mysqli_real_escape_string($conn, $_POST['email']);
-  $gender = mysqli_real_escape_string($conn, $_POST['gender']);
-  $password =  mysqli_real_escape_string($conn, $_POST['password']);
+  $firstName = $_POST['firstName'];
+  $lastName = $_POST['lastName'];
+  $telephone = $_POST['telephone'];
+  $address = $_POST['address'];
+  $city = $_POST['city'];
+  $postcode = $_POST['postcode'];
+  $email = $_POST['email'];
+  $gender = $_POST['gender'];
+  $password =  $_POST['password'];
 
   $confirmPassword = $_POST['confirmPassword'];
   $role = $_POST['adminAccount'];
@@ -75,10 +75,13 @@ else
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="index.css">
+  <!-- <link rel="stylesheet" href="index.css"> -->
 
   </head>
   <body>
+
+    <!-- <nav class="navbar navbar-default"> -->
+
       <?php include("nav.php");?>
     <!-- <div class="col-xs-12 col-md-6 col-lg-3">First Name: </div>
     <div class="col-xs-12 col-md-6 col-lg-9"><input type="text" name="firstName" placeholder="First Name"></div> -->

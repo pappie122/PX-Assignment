@@ -3,10 +3,10 @@ include("config.php");
 function NewJob()
 {
   include("config.php");
-  $jobName = mysqli_real_escape_string($conn, $_POST['jobName']);
-  $startDate = mysqli_real_escape_string($conn, $_POST['startDate']);
-  $endDate = mysqli_real_escape_string($conn, $_POST['endDate']);
-  $description = mysqli_real_escape_string($conn, $_POST['description']);
+  $jobName = $_POST['jobName'];
+  $startDate = $_POST['startDate'];
+  $endDate = $_POST['endDate'];
+  $description = $_POST['description'];
 
 	$query = "INSERT INTO job (JobName, JobStatus, StartDate, EndDate, Description)
             VALUES ('$jobName', '1', '$startDate', '$endDate', '$description')";
@@ -52,13 +52,13 @@ if(isset($_POST['submit']))
     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet"
     href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="index.css">
+    <!-- <link rel="stylesheet" href="index.css"> -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </head>
   <body>
-    <nav class="navbar navbar-default">
+    <!-- <nav class="navbar navbar-default"> -->
      <?php include("nav.php");?>
     <!-- <div class="col-xs-12 col-md-6 col-lg-3">First Name: </div>
     <div class="col-xs-12 col-md-6 col-lg-9"><input type="text" name="firstName" placeholder="First Name"></div> -->
@@ -69,7 +69,7 @@ if(isset($_POST['submit']))
                 Job Name:
               </div>
                 <div class="col-xs-12 col-md-6 col-lg-3">
-                <input type="text" name="jobName" placeholder="Job Name" class="form-control">
+                <input type="text" name="jobName" placeholder="Job Name" class="form-control" required>
               </div>
         </div>
         <br>
@@ -78,7 +78,7 @@ if(isset($_POST['submit']))
                 Start Date:
               </div>
               <div class="col-xs-12 col-md-6 col-lg-3">
-                <input type="date" name="startDate" placeholder="Start Date" class="form-control">
+                <input type="date" name="startDate" placeholder="Start Date" class="form-control" required>
               </div>
         </div>
         <br>
@@ -87,7 +87,7 @@ if(isset($_POST['submit']))
                 End Date:
               </div>
               <div class="col-xs-12 col-md-6 col-lg-3">
-                <input type="date" name="endDate" placeholder="End Date" class="form-control">
+                <input type="date" name="endDate" placeholder="End Date" class="form-control" required>
               </div>
         </div>
         <br>
@@ -97,7 +97,7 @@ if(isset($_POST['submit']))
               </div>
               <div class="col-xs-12 col-md-6 col-lg-3">
                 <!-- <input type="text" name="description" placeholder="Description" class="form-control"> -->
-                 <textarea class="form-control" name="description" id="exampleTextarea" rows="3" placeholder="Description"></textarea>
+                 <textarea class="form-control" name="description" id="exampleTextarea" rows="3" placeholder="Description" required></textarea>
               </div>
         </div>
         <br>
