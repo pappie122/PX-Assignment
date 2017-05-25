@@ -42,9 +42,38 @@ $a= false;
 
 }
 
+function sbige($formData){
+	$a=true;
+for($i = 0; $i < count($formData); $i++){
+if($formData[$i]["startTime"]>=$formData[$i]["endTime"]){
+$a=false;
+echo" Endtime less than startTime";
+} else {
+$a=true;
+}
+return $a;
+	
+
+}
+}
+
+	
 
 
 
+/*
+function checkrowCount(){
+	
+	
+
+
+		if ($rowCount>=12||$rowCount)){
+			
+			$rowCount=mysqli_real_escape_string($conn,$_POST["rowCount"]);
+		}
+
+}
+*/
 function checkOverlap($formData){
 
 	for($i = 0; $i < count($formData); $i++){

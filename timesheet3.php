@@ -29,6 +29,7 @@
 			$rowCount=mysqli_real_escape_string($conn,$_POST["rowCount"]);
 		}
 		
+		
 
 
 
@@ -88,22 +89,26 @@
 		$_POST["break".$i]=0;
 	
 	}
-			
+			//array for form elements 
 			array_push($formData, array("job" => $_POST["inputLocation" . $i], "date" => $_POST["date" . $i], "startTime" => $_POST["startTime" . $i], "endTime" => $_POST["endTime" . $i], "break" => $_POST["break" . $i], "comment" => $_POST["comment" . $i]));
 			
 		}
-//print_r ($formData[0]["job"]);
-		
+
+		//is valid is boolean too see if the data is correct 
 		$isValid =checkEmpty($formData);
-		//echo $formData[1]["startTime"];
-		//$isValid = true;
-		
-		
 	
+		
+		$lap=true;
+		
+	$lap=sbige($formData);
+
+
+if($lap==false){
+$isValid=false;
+}	
   checkOverlap($formData); // checks if data is valid
 
-	//	echo $n[0]= $row["date"];	
-		//echo $n[1]= $row["date"];	
+	
 		
 		
 		
@@ -115,7 +120,14 @@
 			foreach($formData as $row){
 			//	echo $row['date'];
 				// Need to work on query
+				/*
 				$check = "SELECT `timesheet`.`UserID`, `timesheet`.`TimesheetID`, `timesheetdetail`.`TsDetailID`, `timesheetdetail`.`TimesheetID`, `timesheetdetail`.`StartTime`, `timesheetdetail`.`EndTime`, `timesheetdetail`.`Date` FROM `timesheet` LEFT JOIN `timesheetdetail` ON `timesheet`.`TimesheetID` = `timesheetdetail`.`TimesheetID` WHERE (( `Date` ='" .  $row['date'] . "' ) AND ( `UserID` = $u)); ";
+				*/
+				//loops through status which arent rejected to see if there is a time clash 
+				///comment loop and end bracket near res ture msqli
+				for($n=1;$n<=4;$n++){
+				$check = "SELECT `timesheet`.`UserID`, `timesheet`.`TimesheetID`, `timesheetdetail`.`TsDetailID`, `timesheetdetail`.`TimesheetID`, `timesheetdetail`.`StartTime`, `timesheetdetail`.`EndTime`, `timesheetdetail`.`Date` FROM `timesheet` LEFT JOIN `timesheetdetail` ON `timesheet`.`TimesheetID` = `timesheetdetail`.`TimesheetID` WHERE (( `Date` ='" .  $row['date'] . "' ) AND ( `UserID` = $u) AND (TimesheetStatus=$n)   ); ";
+				
 				
 				$res = mysqli_query($conn, $check);
 		
@@ -127,6 +139,7 @@
 					}else {
 						echo "enter new start time end time";
 						
+				}
 				}
 				if(mysqli_num_rows($res) > 0){
 					$isValid = false;
@@ -325,6 +338,8 @@ $total_hours=totalHours($startTime,$endTime,$break);
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function() {
+			
+		
 			var i = 1;
 			$('#rowCount').val(i);
 			$("#add_row").click(function() {

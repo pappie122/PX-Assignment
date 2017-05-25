@@ -14,7 +14,8 @@
 		<!-- <div class="col-xs-9.5"> -->
 
 <?php
-$conn = mysqli_connect("localhost","root",NULL,"px-test");
+include("db.php");
+
 
 // Check connection
 if (mysqli_connect_errno())

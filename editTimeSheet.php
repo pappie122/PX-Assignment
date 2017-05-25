@@ -21,9 +21,16 @@
     { 
         session_start(); 
     } 
+		if(isset($_GET['id']) && $_GET['id'] !== ''){
+echo "issset";
+ 	} else {
+  echo "failed";
+
+ header("location:editTime.php");
+}
+
 		
 	$u= $_SESSION["userId"];
-
 $sql=	"SELECT 
 				j.JobID AS jobID,
 				j.JobName AS jobName
@@ -42,8 +49,6 @@ $sql=	"SELECT
 			array_push($json, array("ID" => $row["jobID"], "Name" => $row["jobName"])); 
 		} 
 	} 
-
-
 	
 	//echo $rowCount;
 	
@@ -69,12 +74,14 @@ $sql=	"SELECT
 	} 
 	$jobss=array(); 
 	
+
+	
+	
 	$id=$_GET["id"];
 	$sqlSelectTimeSheet="SELECT * FROM timesheetdetail WHERE TimesheetID=$id";
 	
 	
 $selectID = mysqli_query($conn, $sqlSelectTimeSheet);
-
 		$formData1=array();
 	
 	
@@ -130,7 +137,6 @@ $selectID = mysqli_query($conn, $sqlSelectTimeSheet);
 			$start = explode(':', $s);
 $end = explode(':', $e);
 $total_hours = $end[0] - $start[0] - ($end[1] < $start[1]);
-
 $total_hours-$break; 
 	//$total_hours=1;		
 			*/
@@ -174,7 +180,7 @@ $update1 = mysqli_query($conn, $sql5);
 			
 			
 		}
-		
+	
 	
 	?>
 

@@ -12,7 +12,7 @@
 
 <?php include("nav.php");?>
 <h1>Edit Draft</h1>
-        <form name="Timesheet" method="post" action="timesheet3.php">
+        <form name="Timesheet1" method="post" action="editTime.php">
             <input type="hidden" id="rowCount" name="rowCount" />
        
                       
@@ -26,7 +26,7 @@
 	
 	
 	
-	 $id=1;
+	// $id=1;
 	 $sql=	"SELECT 
 				j.JobID AS jobID,
 				j.JobName AS jobName
@@ -47,24 +47,23 @@
 		} 
 	} 
 	$jobss=array(); 
-
 	 $sql1="SELECT timesheetdetail.*, timesheet.UserID, timesheet.TimesheetStatus
 FROM timesheet
 LEFT JOIN timesheetdetail ON timesheet.TimesheetID = timesheetdetail.TimesheetID
-
 WHERE (( TimesheetStatus =       1                          ) AND ( UserID = $u))";
 	 
 	 	$result1=mysqli_query($conn,$sql1);
 		
 		
-
-
    
 	 
 	 
 	 
 	 
     ?>
+	
+	
+	
 	
 					 <div class="row clearfix">
                             <div class="col-md-12 column">
@@ -201,7 +200,6 @@ WHERE (( TimesheetStatus =       1                          ) AND ( UserID = $u)
     		}); 
 		});
 		
-
 		
 	</script>
     </body>
