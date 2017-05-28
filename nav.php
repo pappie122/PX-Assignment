@@ -53,7 +53,7 @@
 
 
 		<?php while($a=mysqli_fetch_assoc($res)){ ?>
-   <?php if($a["Role"]==1){
+      <?php if($a["Role"]==1){
 
 
 
@@ -68,9 +68,10 @@
 			  echo"     </ul>                                              ";
 			  echo"      </li>       			  ";
 			     echo'<li><a href="registration.php">Add New User</a></li>';
-   }
+           echo'<li><a href="searchUserAdmin.php">Search User</a></li>';
+      }
 		}
-	   ?>
+	 ?>
 
 
 

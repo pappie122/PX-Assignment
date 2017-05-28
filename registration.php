@@ -24,8 +24,8 @@ function NewUser()
 
 	if($result)
 	{
-	echo "YOUR REGISTRATION IS COMPLETED...";
 	header("location:user_page.php");
+  echo "YOUR REGISTRATION IS COMPLETED...";
 	}
 }
 

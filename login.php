@@ -17,8 +17,7 @@ if(isset($_POST['submit']))
   //                Password='$password' AND AccountStatus = '1' AND Role = '0'");
   // $nonActiveUser = mysqli_query("SELECT * FROM user WHERE Email='$username' AND
   //                Password='$password' AND AccountStatus = '0' AND Role = '0'");
-    echo $password;
-	echo $username;
+
   $getuserId= "SELECT * FROM user WHERE Email='$username' AND
                Password='$password'";
 

@@ -3,18 +3,22 @@ include("config.php");
 
 session_start();
 
-$firstName = $_POST['firstName'];
-$lastName = $_POST['lastName'];
-$telephone = $_POST['telephone'];
-$address = $_POST['address'];
-$city = $_POST['city'];
-$postcode = $_POST['postcode'];
-$email = $_POST['email'];
+  $firstName = $_POST['firstName'];
+  $lastName = $_POST['lastName'];
+  $telephone = $_POST['telephone'];
+  $address = $_POST['address'];
+  $city = $_POST['city'];
+  $postcode = $_POST['postcode'];
+  $email = $_POST['email'];
 
-$data = "UPDATE user SET Fname='$firstName', Lname='$lastName', Phone='$telephone',
+  $data = "UPDATE user SET Fname='$firstName', Lname='$lastName', Phone='$telephone',
                          Street='$address', City='$city', Postcode=$postcode
                          WHERE Email=".'"'.$email.'"';
-$query = mysqli_query($conn, $data) or die("Couldn't execute query. ". mysqli_error());
+  $query = mysqli_query($conn, $data) or die("Couldn't execute query. ". mysqli_error());
+
+  echo "SUCCESSFULLY UPDATED USER DETAILS...";
+
+
 
  ?>
 <!DOCTYPE html>
