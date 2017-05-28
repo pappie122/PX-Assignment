@@ -74,7 +74,7 @@ include("config.php");
               </div>
               <div class="col-xs-12 col-md-6 col-lg-3">
                 <?php
-                  $changeRow2 = @$data2[StartDate];
+                  $changeRow2 = @$data2[EndDate];
                   $endDate = date("d/m/Y", strtotime($changeRow2));
                  ?>
                 <input class="form-control" type="text" name="endDate"value="<?php echo $endDate?>" >
