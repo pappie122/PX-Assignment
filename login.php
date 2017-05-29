@@ -82,7 +82,7 @@ if(isset($_POST['submit']))
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-md-6 col-md-offset-3">
-                <h1> UEA TRENCHLESS TIMESHEET</h1>
+                <h2> UEA TRENCHLESS TIMESHEET</h2>
             </div>
             <form action="login.php" method="post">
             <div class="form-group">
@@ -103,6 +103,7 @@ if(isset($_POST['submit']))
                     placeholder="Password" required="password">
                 </div>
             </div>
+			
             <div class="col-xs-12 col-md-6 col-md-offset-3">
                 <input class="btn btn-primary" type="submit" name="submit" value="Submit">
             </div>

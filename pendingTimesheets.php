@@ -3,13 +3,15 @@ include("config.php");
 session_start();
 
 if(isset($_SESSION['login_user'])){
-  // echo "Your session is running " . $_SESSION['login_user'];
+	
   $email = $_SESSION['login_user'];
 
   $data = 'SELECT * FROM user WHERE Email = "'.$email.'"';
   $query = mysqli_query($conn, $data) or die("Couldn't execute query. ". mysqli_error());
   $data2 = mysqli_fetch_array($query);
   
+} else {
+		header("location: login.php");
 }
 ?>
 
@@ -38,16 +40,13 @@ if(isset($_SESSION['login_user'])){
 	
 	<body>
 	
-	<!-- <h1> Pending timesheets </h1> -->
-	<!-- <nav class="navbar navbar-default"> -->
 	<?php include("nav.php");?>
 	
 	
 	<div class="container">
 	<h2>Pending Timesheets </h2>
-    <!-- <div class="jumbotron"> -->
 	<div class="col-sm-12 text-left">
-	<!--<div class="container">-->
+	
 		
 
 <?php
@@ -373,8 +372,7 @@ if(isset($_SESSION['login_user'])){
 			
 			
 	</div> 
-	<!-- </div> -->
-	<!-- </div> -->
+	
 	
   <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>

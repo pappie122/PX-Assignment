@@ -1,5 +1,18 @@
 <?php
 include("config.php");
+session_start();
+if(isset($_SESSION['login_user'])){
+	
+	$email = $_SESSION['login_user'];
+
+	  $data = 'SELECT * FROM user WHERE Email = "'.$email.'"';
+	  $query = mysqli_query($conn, $data) or die("Couldn't execute query. ". mysqli_error());
+	  $data2 = mysqli_fetch_array($query);
+	  
+	} else {
+			header("location: login.php");
+	}
+	
 function NewJob()
 {
   include("config.php");
@@ -14,7 +27,7 @@ function NewJob()
 
 	if($result)
 	{
-	//echo "NEW JOB SUCCESSFULLY ADDED...";
+	
 	echo "<script type='text/javascript'>alert('New Job Successfully Added')</script>";
 	}
 }
@@ -22,7 +35,7 @@ function NewJob()
 if(isset($_POST['submit']))
 {
   include("config.php");
-  session_start();
+  
   NewJob();
 }
 
