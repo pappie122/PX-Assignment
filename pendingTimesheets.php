@@ -1,9 +1,11 @@
 <?php
 include("config.php");
 session_start();
+
 if(isset($_SESSION['login_user'])){
   // echo "Your session is running " . $_SESSION['login_user'];
   $email = $_SESSION['login_user'];
+
   $data = 'SELECT * FROM user WHERE Email = "'.$email.'"';
   $query = mysqli_query($conn, $data) or die("Couldn't execute query. ". mysqli_error());
   $data2 = mysqli_fetch_array($query);
@@ -35,11 +37,14 @@ if(isset($_SESSION['login_user'])){
 	</head>
 	
 	<body>
+	
 	<!-- <h1> Pending timesheets </h1> -->
-	<nav class="navbar navbar-default">
+	<!-- <nav class="navbar navbar-default"> -->
 	<?php include("nav.php");?>
 	
+	
 	<div class="container">
+	<h2>Pending Timesheets </h2>
     <!-- <div class="jumbotron"> -->
 	<div class="col-sm-12 text-left">
 	<!--<div class="container">-->
@@ -92,8 +97,10 @@ if(isset($_SESSION['login_user'])){
 						
 								//$to = "recipient";
 								//$subject = "Timesheet Approved";
+
 								//$message = "<b>Your timesheet has been processed and approved.</b>";
 								//$message .= "<h1>Timesheet Approved.</h1>";
+
 								//$header = "From:example@email.com \r\n";
 								//$retval = mail($to,$subject,$message,$header);
 								//if(isset($retval))//change
@@ -120,8 +127,10 @@ if(isset($_SESSION['login_user'])){
 					
 								//$to = "recipient";
 								//$subject = "Timesheet Approved";
+
 								//$message = "<b>Your timesheet has been processed and approved.</b>";
 								//$message .= "<h1>Timesheet Approved.</h1>";
+
 								//$header = "From:example@email.com \r\n";
 								//$retval = mail($to,$subject,$message,$header);
 								//if(isset($retval))//change
@@ -135,6 +144,7 @@ if(isset($_SESSION['login_user'])){
 									
 								}
 	}
+
 	
 	
 	
@@ -211,10 +221,10 @@ if(isset($_SESSION['login_user'])){
 							</table>
 							
 								
-								<h5> Enter Feedback </h5>
+								<h4> Enter Feedback </h4>
 									<p><textarea name="msg" ></textarea></p>
 									
-								<h5> Choose Action </h5>
+								<h4> Choose Action </h4>
 									<p><select name="action"> 
 											<option value="none" select="selected">  </option>
 											<option value="3"> Approve </option>											
@@ -239,6 +249,7 @@ if(isset($_SESSION['login_user'])){
 	nav page -->
 			
 	<?php		
+
 			$sql = "SELECT CONCAT (Fname,' ', Lname) AS Fullname, Email,DateCreated,DateSubmitted,TimesheetStatus,TotalHours,Comments,ApprovedDate,ApprovedBy,timesheet.UserID,TimesheetID FROM timesheet INNER JOIN
 			user on timesheet.UserID = user.UserID WHERE TimesheetStatus = 2";
 			$rs = mysqli_query($conn, $sql)

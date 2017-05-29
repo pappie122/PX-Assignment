@@ -58,11 +58,11 @@ WHERE (( TimesheetStatus =       3                          ) AND ( UserID = $u)
 
 <?php include("nav.php");?>
 <div class="container">
-<div class="jumbotron">
+<!-- <div class="jumbotron"> -->
     
     <!-- </div> -->
 	
-    <!-- <div class="col-sm-8 text-left"> -->
+    <div class="col-sm-12 text-left">
       <h2>Accepted Timesheets </h2>
       
 	  
@@ -70,6 +70,7 @@ WHERE (( TimesheetStatus =       3                          ) AND ( UserID = $u)
                             <div class="col-md-12 column">
 							
                                 <table class="table table-bordered table-hover" id="tab_logic" >
+								
 						<thead>
                                         <tr>
 										
@@ -152,23 +153,11 @@ WHERE (( TimesheetStatus =       3                          ) AND ( UserID = $u)
 								
 										<?php }  ?>
 										</tbody>
+												
 												</table>
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
 	  
     
     </div>
-    
-     
     </div>
   <!-- </div> -->
 <!-- </div> -->
@@ -198,7 +187,7 @@ WHERE (( TimesheetStatus =       3                          ) AND ( UserID = $u)
 		
 	</script>
 
-</div>
+<!-- </div> -->
 </div>
 </body>
 </html>

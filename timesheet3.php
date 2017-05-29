@@ -236,7 +236,7 @@ $total_hours=totalHours($startTime,$endTime,$break);
 <!-- <nav class="navbar navbar-default">  -->
 <?php include("nav.php");?>
 <div class="container">  
-<div class="jumbotron">  
+<!-- <div class="jumbotron">  -->
 <!-- original place for include nav -->
 
 
@@ -404,6 +404,6 @@ $total_hours=totalHours($startTime,$endTime,$break);
 		
 	</script>
 	</div>  
-	</div>  
+	<!-- </div> -->
     </body>
 </html>

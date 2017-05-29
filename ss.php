@@ -1,40 +1,76 @@
-
-
-<?php 
-//if we got something through $_POST
-if (isset($_POST['search'])) {
-    // here you would normally include some database connection
-    include('db.php');
-    //$db = new db();
-    // never trust what user wrote! We must ALWAYS sanitize user input
-    $word = mysqli_real_escape_string($conn,$_POST['search']);
-    $word = htmlentities($word);
-    // build your search query to the database
-   // $sql = "SELECT title, url FROM pages WHERE content LIKE '%" . $word . "%' ORDER BY title LIMIT 10";
-	
-	
-	$sql="SELECT *from user WHERE Email like '%".$word."%' ";
-	
-	$results=mysqli_query($conn,$sql);
-	
-	while($f=mysqli_fetch_assoc($results)){
-		 $end_result = '';
-    // get results
-   // $row = $db->select_list($sql);
-	$row=$f['Email'];
-			
-		
-            $result  = $f['Email'];
-            // we will use this to bold the search word in result
-            $bold           = '<span class="found">' . $word . '</span>';    
-            $end_result     .= '<li>' . str_ireplace($word, $bold, $result) . '</li>';            
-        }
-        echo $end_result;
-    } else {
-        echo '<li>No results found</li>';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PHP Live MySQL Database Search</title>
+<style type="text/css">
+    body{
+        font-family: Arail, sans-serif;
     }
-
-
-
-
-?>
+    /* Formatting search box */
+    .search-box{
+        width: 300px;
+        position: relative;
+        display: inline-block;
+        font-size: 14px;
+    }
+    .search-box input[type="text"]{
+        height: 32px;
+        padding: 5px 10px;
+        border: 1px solid #CCCCCC;
+        font-size: 14px;
+    }
+    .result{
+        position: absolute;        
+        z-index: 999;
+        top: 100%;
+        left: 0;
+    }
+    .search-box input[type="text"], .result{
+        width: 100%;
+        box-sizing: border-box;
+    }
+    /* Formatting result items */
+    .result p{
+        margin: 0;
+        padding: 7px 10px;
+        border: 1px solid #CCCCCC;
+        border-top: none;
+        cursor: pointer;
+    }
+    .result p:hover{
+        background: #f2f2f2;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $('.search-box input[type="text"]').on("keyup input", function(){
+        /* Get input value on change */
+        var inputVal = $(this).val();
+        var resultDropdown = $(this).siblings(".result");
+        if(inputVal.length){
+            $.get("sss.php", {term: inputVal}).done(function(data){
+                // Display the returned data in browser
+                resultDropdown.html(data);
+            });
+        } else{
+            resultDropdown.empty();
+        }
+    });
+    
+    // Set search input value on click of result item
+    $(document).on("click", ".result p", function(){
+        $(this).parents(".search-box").find('input[type="text"]').val($(this).text());
+        $(this).parent(".result").empty();
+    });
+});
+</script>
+</head>
+<body>
+    <div class="search-box">
+        <input type="text" autocomplete="off" placeholder="Search Email..." />
+        <div class="result"></div>
+    </div>
+</body>
+</html>
