@@ -29,7 +29,6 @@
 			$rowCount=mysqli_real_escape_string($conn,$_POST["rowCount"]);
 		}
 		
-		
 
 
 
@@ -89,26 +88,22 @@
 		$_POST["break".$i]=0;
 	
 	}
-			//array for form elements 
+			
 			array_push($formData, array("job" => $_POST["inputLocation" . $i], "date" => $_POST["date" . $i], "startTime" => $_POST["startTime" . $i], "endTime" => $_POST["endTime" . $i], "break" => $_POST["break" . $i], "comment" => $_POST["comment" . $i]));
 			
 		}
-
-		//is valid is boolean too see if the data is correct 
+//print_r ($formData[0]["job"]);
+		// checkifDate($formData); checks if input is date 
 		$isValid =checkEmpty($formData);
+		//echo $formData[1]["startTime"];
+		//$isValid = true;
+		
+		
 	
-		
-		$lap=true;
-		
-	$lap=sbige($formData);
-
-
-if($lap==false){
-$isValid=false;
-}	
   checkOverlap($formData); // checks if data is valid
 
-	
+	//	echo $n[0]= $row["date"];	
+		//echo $n[1]= $row["date"];	
 		
 		
 		
@@ -120,14 +115,7 @@ $isValid=false;
 			foreach($formData as $row){
 			//	echo $row['date'];
 				// Need to work on query
-				/*
 				$check = "SELECT `timesheet`.`UserID`, `timesheet`.`TimesheetID`, `timesheetdetail`.`TsDetailID`, `timesheetdetail`.`TimesheetID`, `timesheetdetail`.`StartTime`, `timesheetdetail`.`EndTime`, `timesheetdetail`.`Date` FROM `timesheet` LEFT JOIN `timesheetdetail` ON `timesheet`.`TimesheetID` = `timesheetdetail`.`TimesheetID` WHERE (( `Date` ='" .  $row['date'] . "' ) AND ( `UserID` = $u)); ";
-				*/
-				//loops through status which arent rejected to see if there is a time clash 
-				///comment loop and end bracket near res ture msqli
-				for($n=1;$n<=4;$n++){
-				$check = "SELECT `timesheet`.`UserID`, `timesheet`.`TimesheetID`, `timesheetdetail`.`TsDetailID`, `timesheetdetail`.`TimesheetID`, `timesheetdetail`.`StartTime`, `timesheetdetail`.`EndTime`, `timesheetdetail`.`Date` FROM `timesheet` LEFT JOIN `timesheetdetail` ON `timesheet`.`TimesheetID` = `timesheetdetail`.`TimesheetID` WHERE (( `Date` ='" .  $row['date'] . "' ) AND ( `UserID` = $u) AND (TimesheetStatus=$n)   ); ";
-				
 				
 				$res = mysqli_query($conn, $check);
 		
@@ -137,9 +125,10 @@ $isValid=false;
 					if($row["startTime"]>=$a["EndTime"]&&$row['endTime']<=$a["StartTime"]&&$row["startTime"]<$row['endTime']){
 				echo "no clash";
 					}else {
-						echo "enter new start time end time";
+						//echo "enter new start time end time";
+						echo "<script type='text/javascript'>alert('Time clash. Enter a new start and end time.')</script>";
 						
-				}
+						
 				}
 				if(mysqli_num_rows($res) > 0){
 					$isValid = false;
@@ -152,7 +141,7 @@ $isValid=false;
 		}
 		}
 		
-	
+	//if valid insert into db 
 		if($isValid){
 			//$insertTime = Date();
 			foreach($formData as $row){
@@ -189,12 +178,12 @@ $total_hours-$break;
 $total_hours=totalHours($startTime,$endTime,$break);
 			
 			
-			
+			$comment1="pending";
     
 				//echo $row['comment'];
 				//echo "hu";
 				$sql1[$i] ="INSERT INTO timesheet (TimesheetID, UserID, DateCreated, DateSubmitted, TimesheetStatus, TotalHours, Comments, ApprovedDate, ApprovedBy) 
-				values (Null,'$u','$todaysDate','$dateSubmitted','$timeSheetStatus','$total_hours','$comment',NULL,NULL);";  
+				values (Null,'$u','$todaysDate','$dateSubmitted','$timeSheetStatus','$total_hours','$comment1',NULL,NULL);";  
 			
 				 $rs = mysqli_query($conn, $sql1[$i]);
 				
@@ -221,7 +210,7 @@ $total_hours=totalHours($startTime,$endTime,$break);
 				echo $lasttimesheetId."this is the last id";
 				}
 				
-				
+				//Gets the id of the last user submitted in db
 			echo $lasttimesheetId."this is the last id AAAAAAAAAAAA";
 				
 				$sql2[$i]="INSERT INTO timesheetdetail (TsDetailID, TimesheetID, JobID, Date, StartTime, EndTime, BreakDuration, TotalHours, Comments) VALUEs (NULL,'$lasttimesheetId','$job','$date','$startTime','$endTime','$break','$total_hours','$comment');";
@@ -244,39 +233,45 @@ $total_hours=totalHours($startTime,$endTime,$break);
 	?>
 
 <body>
-
+<!-- <nav class="navbar navbar-default">  -->
 <?php include("nav.php");?>
+<div class="container">  
+<div class="jumbotron">  
+<!-- original place for include nav -->
+
 
     
-      <h1>Add TimeSheet</h1>
+      <h2>Add Timesheet</h2>
       
 	  
  <form name="Timesheet" method="post" action="timesheet3.php">
             <input type="hidden" id="rowCount" name="rowCount" />
           <div class="row clearfix">
                             <div class="col-md-12 column">
+							
                                 <table class="table table-bordered table-hover" id="tab_logic">
+								
                                     <thead>
                                         <tr>
-                                            <th class="text-center">
+                                            <th class="text-center" bgcolor="lightblue">
                                                 #
                                             </th>
-                                            <th class="text-center">
+                                            <th class="text-center" bgcolor="lightblue">
                                                 Job
                                             </th>
-                                            <th class="text-center">
+                                            <th class="text-center" bgcolor="lightblue">
                                                 Date
                                             </th>
-                                            <th class="text-center">
+                                            <th class="text-center" bgcolor="lightblue">
                                                 Start Time
                                             </th>
-                                            <th class="text-center">
+                                            <th class="text-center" bgcolor="lightblue">
                                                 End Time
                                             </th>
-                                            <th class="text-center">
+                                            <th class="text-center" bgcolor="lightblue">
                                                 Break
                                             </th>
-                                            <th class="text-center">
+                                            <th class="text-center" bgcolor="lightblue">
                                                 Comment
                                             </th>
                                         </tr>
@@ -314,7 +309,9 @@ $total_hours=totalHours($startTime,$endTime,$break);
                                         </tr>
                                         <tr id='addr1'></tr>
                                     </tbody>
+								
                                 </table>
+								
                             </div>
                         </div>
                         <a id="add_row" class="btn btn-default pull-left">Add Row</a><a id='delete_row' class="pull-right btn btn-default">Delete Row</a>
@@ -323,6 +320,7 @@ $total_hours=totalHours($startTime,$endTime,$break);
 				</div>
 			</div>
 		</form>
+		
 	</div>
     <script src="http://cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>
     <!-- polyfiller file to detect and load polyfills -->
@@ -338,8 +336,6 @@ $total_hours=totalHours($startTime,$endTime,$break);
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function() {
-			
-		
 			var i = 1;
 			$('#rowCount').val(i);
 			$("#add_row").click(function() {
@@ -407,5 +403,7 @@ $total_hours=totalHours($startTime,$endTime,$break);
 */
 		
 	</script>
+	</div>  
+	</div>  
     </body>
 </html>

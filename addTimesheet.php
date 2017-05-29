@@ -115,7 +115,8 @@
 					if($row["startTime"]>=$a["EndTime"]&&$row['endTime']<=$a["StartTime"]&&$row["startTime"]<$row['endTime']){
 				echo "no clash";
 					}else {
-						echo "enter new start time end time";
+						//echo "enter new start time end time";
+						echo "<script type='text/javascript'>alert('Enter a new start and end time.')</script>";
 						
 				}
 				if(mysqli_num_rows($res) > 0){

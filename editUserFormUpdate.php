@@ -3,13 +3,13 @@ include("config.php");
 
 session_start();
 
-$firstName = mysqli_real_escape_string($conn, $_POST['firstName']);
-$lastName = mysqli_real_escape_string($conn, $_POST['lastName']);
-$telephone = mysqli_real_escape_string($conn, $_POST['telephone']);
-$address = mysqli_real_escape_string($conn, $_POST['address']);
-$city = mysqli_real_escape_string($conn, $_POST['city']);
-$postcode = mysqli_real_escape_string($conn, $_POST['postcode']);
-$email = mysqli_real_escape_string($conn, $_POST['email']);
+$firstName = $_POST['firstName'];
+$lastName = $_POST['lastName'];
+$telephone = $_POST['telephone'];
+$address = $_POST['address'];
+$city = $_POST['city'];
+$postcode = $_POST['postcode'];
+$email = $_POST['email'];
 
 $data = "UPDATE user SET Fname='$firstName', Lname='$lastName', Phone='$telephone',
                          Street='$address', City='$city', Postcode=$postcode
@@ -34,7 +34,7 @@ $query = mysqli_query($conn, $data) or die("Couldn't execute query. ". mysqli_er
 
   </head>
   <body>
-    <nav class="navbar navbar-default">
+    <!-- <nav class="navbar navbar-default"> -->
       <?php include("nav.php");?>
     <div class="container">
       <!-- <form action="registration.php" method="post"> -->

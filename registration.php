@@ -3,15 +3,15 @@ include("config.php");
 function NewUser()
 {
   include("config.php");
-  $firstName = mysqli_real_escape_string($conn, $_POST['firstName']);
-  $lastName = mysqli_real_escape_string($conn, $_POST['lastName']);
-  $telephone = mysqli_real_escape_string($conn, $_POST['telephone']);
-  $address = mysqli_real_escape_string($conn, $_POST['address']);
-  $city = mysqli_real_escape_string($conn, $_POST['city']);
-  $postcode = mysqli_real_escape_string($conn, $_POST['postcode']);
-  $email = mysqli_real_escape_string($conn, $_POST['email']);
-  $gender = mysqli_real_escape_string($conn, $_POST['gender']);
-  $password =  mysqli_real_escape_string($conn, $_POST['password']);
+  $firstName = $_POST['firstName'];
+  $lastName = $_POST['lastName'];
+  $telephone = $_POST['telephone'];
+  $address = $_POST['address'];
+  $city = $_POST['city'];
+  $postcode = $_POST['postcode'];
+  $email = $_POST['email'];
+  $gender = $_POST['gender'];
+  $password =  $_POST['password'];
 
   $confirmPassword = $_POST['confirmPassword'];
   $role = $_POST['adminAccount'];
@@ -20,8 +20,38 @@ function NewUser()
                                 ('1', '$city', '$email', '$firstName', '$gender',
                                 '$lastName', '$password', '$telephone', '$postcode',
                                 '$role', '$address')";
+								
+								
+								
+								
+								
+							
 	$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 
+	
+								$sql22="SELECT `user`.`UserID`, `user`.`Email` FROM `user` WHERE (( `Email` = '$email' )) ";
+	
+		$result111 = mysqli_query ($conn, $sql22)or die(mysqli_error());
+		
+		while($fetchUser1=mysqli_fetch_assoc($result111)){
+			
+			$id=$fetchUser1["UserID"];
+		}
+
+	$query11 = "INSERT INTO userjob (UserID, JobID, UserJobStatus) VALUES
+                                ('$id', '7', '1')";
+	$result11 = mysqli_query ($conn, $query11)or die(mysqli_error());
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	if($result)
 	{
 	echo "YOUR REGISTRATION IS COMPLETED...";
@@ -72,13 +102,15 @@ else
     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet"
     href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="index.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!-- <link rel="stylesheet" href="index.css"> -->
+
   </head>
   <body>
-    <nav class="navbar navbar-default">
+
+    <!-- <nav class="navbar navbar-default"> -->
 
       <?php include("nav.php");?>
     <!-- <div class="col-xs-12 col-md-6 col-lg-3">First Name: </div>

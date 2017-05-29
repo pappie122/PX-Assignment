@@ -7,27 +7,27 @@ include("config.php");
   $query = mysqli_query($conn,$data) or die("Couldn't execute query. ". mysqli_error($conn));
   $data2 = mysqli_fetch_array($query);
 
-  function editJob()
-  {
-    $jobName = $_POST['jobName'];
-    $startDate = $_POST['startDate'];
-    $endDate = $_POST['endDate'];
-    $description = $_POST['description'];
-
-  	$query = "INSERT INTO job (JobName, JobStatus, StartDate, EndDate, Description)
-              VALUES ('$jobName', '1', '$startDate', '$endDate', '$description')";
-  	$result = mysqli_query ($conn, $query)or die(mysqli_error($conn));
-
-  	if($result)
-  	{
-  	echo "NEW JOB SUCCESSFULLY ADDED...";
-  	}
-  }
-
-  if(isset($_POST['submit']))
-  {
-
-  }
+  // function editJob()
+  // {
+  //   $jobName = $_POST['jobName'];
+  //   $startDate = $_POST['startDate'];
+  //   $endDate = $_POST['endDate'];
+  //   $description = $_POST['description'];
+  //
+  // 	$query = "UPDATE job (JobName, JobStatus, StartDate, EndDate, Description)
+  //             VALUES ('$jobName', '1', '$startDate', '$endDate', '$description')";
+  // 	$result = mysqli_query ($conn, $query)or die(mysqli_error($conn));
+  //
+  // 	if($result)
+  // 	{
+  // 	echo "NEW JOB SUCCESSFULLY UPDATED...";
+  // 	}
+  // }
+  //
+  // if(isset($_POST['submit']))
+  // {
+  //
+  // }
  ?>
 
 <!DOCTYPE html>
@@ -45,7 +45,7 @@ include("config.php");
     <nav class="navbar navbar-default">
      <?php include("nav.php");?>
     <div class="container">
-      <form action="addJob.php" method="post">
+      <form action="editJobFormUpdate.php" method="post">
         <div class="row">
               <div class="col-xs-12 col-md-6 col-lg-3">
                 Job Name:
@@ -60,7 +60,11 @@ include("config.php");
                 Start Date:
               </div>
               <div class="col-xs-12 col-md-6 col-lg-3">
-                <input class="form-control" type="text" name="startDate"value="<?php echo @$data2[StartDate]?>" >
+                <?php
+                  $changeRow1 = @$data2[StartDate];
+                  $startDate = date("d/m/Y", strtotime($changeRow1));
+                 ?>
+                <input class="form-control" type="text" name="startDate"value="<?php echo $startDate?>" >
               </div>
         </div>
         <br>
@@ -69,7 +73,11 @@ include("config.php");
                 End Date:
               </div>
               <div class="col-xs-12 col-md-6 col-lg-3">
-                <input class="form-control" type="text" name="endDate"value="<?php echo @$data2[EndDate]?>" >
+                <?php
+                  $changeRow2 = @$data2[EndDate];
+                  $endDate = date("d/m/Y", strtotime($changeRow2));
+                 ?>
+                <input class="form-control" type="text" name="endDate"value="<?php echo $endDate?>" >
               </div>
         </div>
         <br>

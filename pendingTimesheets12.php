@@ -1,25 +1,20 @@
 <?php
 include("config.php");
 session_start();
-
 if(isset($_SESSION['login_user'])){
   // echo "Your session is running " . $_SESSION['login_user'];
   $email = $_SESSION['login_user'];
-
   $data = 'SELECT * FROM user WHERE Email = "'.$email.'"';
   $query = mysqli_query($conn, $data) or die("Couldn't execute query. ". mysqli_error());
   $data2 = mysqli_fetch_array($query);
 }
-
-
 ?>
 
 
 <!DOCTYPE html>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
 	<html lang="en">
+	
+	<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
 	<!--<head>
 		<meta charset="UTF-8">
 		<title>Pending timesheets</title>
@@ -56,9 +51,8 @@ if(isset($_SESSION['login_user'])){
 <?php
 
 $conn = mysqli_connect("localhost","root",NULL,"px");
+
 include("db.php");
-
-
 
 // Check connection
 if (mysqli_connect_errno())
@@ -110,10 +104,8 @@ if (mysqli_connect_errno())
 						
 								//$to = "recipient";
 								//$subject = "Timesheet Approved";
-
 								//$message = "<b>Your timesheet has been processed and approved.</b>";
 								//$message .= "<h1>Timesheet Approved.</h1>";
-
 								//$header = "From:example@email.com \r\n";
 								//$retval = mail($to,$subject,$message,$header);
 								//if(isset($retval))//change
@@ -140,10 +132,8 @@ if (mysqli_connect_errno())
 					
 								//$to = "recipient";
 								//$subject = "Timesheet Approved";
-
 								//$message = "<b>Your timesheet has been processed and approved.</b>";
 								//$message .= "<h1>Timesheet Approved.</h1>";
-
 								//$header = "From:example@email.com \r\n";
 								//$retval = mail($to,$subject,$message,$header);
 								//if(isset($retval))//change
@@ -157,7 +147,6 @@ if (mysqli_connect_errno())
 									
 								}
 	}
-
 	
 	
 	
@@ -193,8 +182,9 @@ if (mysqli_connect_errno())
 					<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>	
 					
 							<!-- Create Table -->
-							<table class="table table-hover" id="tab_logic">
 							
+							<table class="table table-hover " id="tab_logic">
+							 <thead>
 								<tr>
 									<th bgcolor="lightblue">Job Name</th>
 									<th bgcolor="lightblue">Date</th>
@@ -204,15 +194,17 @@ if (mysqli_connect_errno())
 									<th bgcolor="lightblue">Hours</th>
 									<th bgcolor="lightblue">Comments</th>
 								</tr>
-							
+							 </thead>
+														 
 							
 		  <?php
 										// fetch data while results > 0
 										while ($row = mysqli_fetch_array($rs2)) { ?>
 										
 										<form id="form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">	
-											
+											<tbody>
 													<tr>
+														
 														<td><?php echo $row["JobName"]?></td>
 															<?php //Change format of date
 																$changeDate = $row["Date"];
@@ -235,7 +227,7 @@ if (mysqli_connect_errno())
 											
 											<?php } ?> 
 								
-								
+								</tbody>
 								
 							</table>
 							
@@ -277,12 +269,10 @@ if (mysqli_connect_errno())
  
  
  <!-- original place to start html doc type -->
-
 	
 		
 			
 	<?php		
-
 			$sql = "SELECT CONCAT (Fname,' ', Lname) AS Fullname, Email,DateCreated,DateSubmitted,TimesheetStatus,TotalHours,Comments,ApprovedDate,ApprovedBy,timesheet.UserID,TimesheetID FROM timesheet INNER JOIN
 			user on timesheet.UserID = user.UserID WHERE TimesheetStatus = 2";
 			$rs = mysqli_query($conn, $sql)
@@ -291,8 +281,10 @@ if (mysqli_connect_errno())
 				//if results > 0 create table
 				if (mysqli_num_rows($rs)> 0 ) { ?>
 					
-					<table class="table table-hover"> <!-- border="1" style="width:100%"--> 
-					
+					<table class="table table-hover" id="tab_b"> <!-- border="1" style="width:100%"--> 
+<thead>
+						
+						
 						<tr>
 						
 						<th bgcolor="lightblue">Fullname</th>
@@ -304,13 +296,18 @@ if (mysqli_connect_errno())
 						<th bgcolor="lightblue">Admin Comments </th>
 						<th bgcolor="lightblue">Processed Date</th>
 						<th bgcolor="lightblue">Processed By</th>
-						</tr>
-
+						<th bgcolor="lightblue">Sub </th>
+						</tr>  
+						<thead>
+						
+						
 	<?php
 				// fetch data while results > 0
 				while ($row = mysqli_fetch_array($rs)) { ?>
 				
 					<form  method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+					
+					<tbody>
 							<tr>
 								
 								<td><?php echo $row["Fullname"]?></td>
@@ -328,7 +325,7 @@ if (mysqli_connect_errno())
 										$newDs=date("d/m/Y", strtotime($changeRow2));
 									?>
 								<!-- echo formatted date -->	
-								<td><?php echo $newDs?> </td>
+								<!--<td><?php echo $newDs?> </td> -->
 								
 										<?php 
 										//if timesheet status = 1 set status to pending
@@ -369,6 +366,10 @@ if (mysqli_connect_errno())
 											
 													<td><?php echo $row["ApprovedBy"]?></td>
 												
+							
+					
+			
+				
 													<?php }  ?>
 								
 								
@@ -378,17 +379,22 @@ if (mysqli_connect_errno())
 								<!-- <input type="hidden" name="id" value="" /> -->
 												
 								<!-- form submits to server -->
-								<td>
+								
 									<!-- <form  method="post" action="<?php //echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> -->
+									
 									<input type="submit" name="viewdetails" value="view details" />
 									<!-- </form> -->
-								</td>
-
-							</tr>
+							
+						
+				
+				
+				
+									</tr>
+								<?php } ?>
+								</tbody>
+					</table>
 					</form>
 				
-				<?php } ?>
-				</table>
 				<?php
 				
 			//if no pending timesheets exist
@@ -401,36 +407,46 @@ if (mysqli_connect_errno())
 	  
 				?>
 				
-				
+							
 			
 			
 		<!-- </div> -->
 		
 	</div>
 	</div>
-  <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+  <script>
   
-        <script>
 		$(document).ready(function() {
     		
 	
-			$('#tab_logic').DataTable({
+			
+			
+			
+			
+			
+			
+			
+			
+	
+		
+		
+		$('#tab_b').DataTable({
 					
     			"columnDefs": [{
 					"targets": 3,
 					"orderable": false
 				
 					},{
-					"targets": 5,
+					"targets": 9,
 					"orderable": false
 				}]
     		}); 
-		});
 		
+	});
 		
 	</script>
 	</body>

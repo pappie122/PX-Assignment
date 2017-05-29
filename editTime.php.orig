@@ -1,5 +1,4 @@
-
-<html lang="en">
+<html>
 <head>
 
   <meta charset="utf-8">
@@ -8,17 +7,29 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="temp.css">
- 
 </head>
-  <?php
+<body>
+
+<?php include("nav.php");?>
+<div class="container">
+<div class="jumbotron">
+
+<h2>Edit Drafts</h2>
+        <form name="Timesheet" method="post" action="timesheet3.php">
+            <input type="hidden" id="rowCount" name="rowCount" />
+       
+                      
+					  <?php
      include("db.php");
-     if(!isset($_SESSION)) 
+     	  if(!isset($_SESSION)) 
     { 
         session_start(); 
     } 
-		
 	$u= $_SESSION["userId"];
-	 //$id=1;
+	
+	
+	
+	 $id=1;
 	 $sql=	"SELECT 
 				j.JobID AS jobID,
 				j.JobName AS jobName
@@ -44,29 +55,28 @@
 FROM timesheet
 LEFT JOIN timesheetdetail ON timesheet.TimesheetID = timesheetdetail.TimesheetID
 
-WHERE (( TimesheetStatus =       3                          ) AND ( UserID = $u))";
+WHERE (( TimesheetStatus =       1                          ) AND ( UserID = $u))";
 	 
 	 	$result1=mysqli_query($conn,$sql1);
 		
 		
 
+
+   
+	 
+	 
 	 
 	 
     ?>
-
-<body>
-
-<?php include("nav.php");?>
-<div class="container">
-<div class="jumbotron">
-    
-    <!-- </div> -->
 	
-    <!-- <div class="col-sm-8 text-left"> -->
-      <h2>Accepted Timesheets </h2>
-      
-	  
-	   <div class="row clearfix">
+
+
+
+
+	
+	
+	
+					 <div class="row clearfix">
                             <div class="col-md-12 column">
 							
                                 <table class="table table-bordered table-hover" id="tab_logic" >
@@ -74,7 +84,7 @@ WHERE (( TimesheetStatus =       3                          ) AND ( UserID = $u)
                                         <tr>
 										
                                         
-                                            <th class="text-center" bgcolor="lightblue">
+                                            <th class="text-center" bgcolor="lightblue"> 
                                                 Job
                                             </th>
                                             <th class="text-center" bgcolor="lightblue">
@@ -95,7 +105,17 @@ WHERE (( TimesheetStatus =       3                          ) AND ( UserID = $u)
 											 <th class="text-center" bgcolor="lightblue">
                                                 Comment
                                             </th>
+											 <th class="text-center" bgcolor="lightblue">
+                                               Edit
+                                            </th>
+											<th class="text-center" bgcolor="lightblue">
+                                               Submit
+                                            </th>
 											
+											
+											<th class="text-center" bgcolor="lightblue">
+											Admin Comment
+											</th>
 											
                                         </tr>
 								  
@@ -120,13 +140,14 @@ WHERE (( TimesheetStatus =       3                          ) AND ( UserID = $u)
 										
 																			
                                             <td>
-											<?php echo date('d-m-Y',strtotime($rows["Date"]));
-                                           //echo $rows["Date"];?>
+												<?php echo date('d-m-Y',strtotime($rows["Date"]));
+                                              //  <?php echo $rows["Date"];?>
                                             </td>
                                             <td>
                                                <?php echo $rows["StartTime"];?>
                                             </td>
                                             <td>
+											
                                                <?php echo $rows["EndTime"];?>
                                             </td>
                                             <td>
@@ -145,41 +166,72 @@ WHERE (( TimesheetStatus =       3                          ) AND ( UserID = $u)
                                           
                                             </td>
 											
+											<td>
+											
+											
+											 <a href="editTimeSheet.php?id=<?php echo $rows["TimesheetID"];?>"> edit 
+                                          
+                                            </td>
+											
+											
+									<td>
+									<a href="submitPending.php?id=<?php echo $rows["TimesheetID"];?>"> submit
+									<?php $aaa=$rows["TimesheetID"];?>
 								
-						
-					  
+									</td>	
+					  <td>
+					  <?php $sqlComments="SELECT timesheet.TimesheetID, timesheet.UserID, timesheet.Comments
+FROM timesheet
+WHERE ( TimesheetID = $aaa);";
+$result2=mysqli_query($conn,$sqlComments);
+
+
+
+
+while($fetchAdminComment=mysqli_fetch_assoc($result2)){
+if($fetchAdminComment["Comments"]==null){
+	echo "No Admin Comments made yet";
+	
+} else {
+
+
+
+
+ echo $fetchAdminComment["Comments"];
+}
+}
+ ?>
+
+
+
+
+
+					 </td>
                                           </tr>
 								
 										<?php }  ?>
 										</tbody>
 												</table>
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-    
-    </div>
-    
-     
-    </div>
-  <!-- </div> -->
-<!-- </div> -->
-</script>
+					  
+					   
+					   
+    <script src="http://cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>
+    <!-- polyfiller file to detect and load polyfills -->
+    <script src="http://cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js"></script>
+    <script>
+        webshims.setOptions('waitReady', false);
+        webshims.setOptions('forms-ext', {
+            types: 'date'
+        });
+        webshims.polyfill('forms forms-ext');
+    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
   
         <script>
 		$(document).ready(function() {
-    			
+    		
 	
 			$('#tab_logic').DataTable({
 					
@@ -188,7 +240,7 @@ WHERE (( TimesheetStatus =       3                          ) AND ( UserID = $u)
 					"orderable": false
 				
 					},{
-					"targets": 6,
+					"targets": 8,
 					"orderable": false
 				}]
     		}); 
@@ -197,8 +249,7 @@ WHERE (( TimesheetStatus =       3                          ) AND ( UserID = $u)
 
 		
 	</script>
-
-</div>
-</div>
-</body>
+	</div>
+	</div>
+    </body>
 </html>

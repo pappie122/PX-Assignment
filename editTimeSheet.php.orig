@@ -21,6 +21,16 @@
     { 
         session_start(); 
     } 
+ 
+		if(isset($_GET['id']) && $_GET['id'] !== ''){
+
+ 	} else {
+  echo "failed";
+
+ header("location:editTime.php");
+}
+
+
 		
 	$u= $_SESSION["userId"];
 
@@ -183,31 +193,38 @@ $update1 = mysqli_query($conn, $sql5);
         <form name="Timesheet" method="post" action="editTimeSheet.php?id=
 		<?php echo $id ;?>">
             <input type="hidden" id="rowCount" name="rowCount" />
+			
+			
             <?php include("nav.php");?>
+			<div class="container">
+			<div class="jumbotron">
+			
+			
+			
                         <div class="row clearfix">
                             <div class="col-md-12 column">
                                 <table class="table table-bordered table-hover" id="tab_logic">
                                     <thead>
                                         <tr>
-                                            <th class="text-center">
+                                            <th class="text-center" bgcolor="lightblue">
                                                 #
                                             </th>
-                                            <th class="text-center">
+                                            <th class="text-center" bgcolor="lightblue">
                                                 Job
                                             </th>
-                                            <th class="text-center">
+                                            <th class="text-center" bgcolor="lightblue">
                                                 Date
                                             </th>
-                                            <th class="text-center">
+                                            <th class="text-center" bgcolor="lightblue">
                                                 Start Time
                                             </th>
-                                            <th class="text-center">
+                                            <th class="text-center" bgcolor="lightblue">
                                                 End Time
                                             </th>
-                                            <th class="text-center">
+                                            <th class="text-center" bgcolor="lightblue">
                                                 Break
                                             </th>
-                                            <th class="text-center">
+                                            <th class="text-center" bgcolor="lightblue">
                                                 Comment
                                             </th>
                                         </tr>
@@ -270,3 +287,7 @@ $update1 = mysqli_query($conn, $sql5);
 			</div>
 		</form>
 	</div>
+	</div>
+	</div>
+	</body>
+	</html?

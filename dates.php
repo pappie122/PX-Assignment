@@ -6,7 +6,11 @@ function totalHours($startTime,$endTime,$break){
 
 
 
-
+if($break>3){
+	echo "please enter a date thats unnder 3 hours ";
+	header("location:timesheet3.php");
+	
+}
 $firstMinus= date_create($startTime)->diff(date_create($endTime))->format('%H:%i');
 //echo $minutes;
 //echo $firstMinus;

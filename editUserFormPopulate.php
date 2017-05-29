@@ -16,14 +16,13 @@ $data2 = mysqli_fetch_array($query);
     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet"
     href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="index.css">
-
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!-- <link rel="stylesheet" href="index.css"> -->
   </head>
   <body>
-    <nav class="navbar navbar-default">
+    <!-- <nav class="navbar navbar-default"> -->
      <?php include("nav.php");?>
     <div class="container">
       <form action="editUserFormUpdate.php" method="post">
@@ -111,7 +110,6 @@ $data2 = mysqli_fetch_array($query);
         </div>
         <br>
       <input class="btn btn-primary" type="submit" name="submit" value="Submit">
-      <a class="btn btn-primary" href="changePassword.php"><span>Change Password</span></a>
       </form>
     </div>
     <script src="https://code.jquery.com/jquery-2.1.4.js"></script>

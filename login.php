@@ -17,21 +17,21 @@ if(isset($_POST['submit']))
   //                Password='$password' AND AccountStatus = '1' AND Role = '0'");
   // $nonActiveUser = mysqli_query("SELECT * FROM user WHERE Email='$username' AND
   //                Password='$password' AND AccountStatus = '0' AND Role = '0'");
-    echo $password;
-	echo $username;
+   // echo $password;
+	//echo $username;
   $getuserId= "SELECT * FROM user WHERE Email='$username' AND
                Password='$password'";
-			   
+
 			  $r=mysqli_query($conn,$getuserId)or die("Couldn't execute query. ". mysqli_error($conn));
 				while($row=mysqli_fetch_array($r)){
 	$userId=$row["UserID"];
 	$_SESSION["userId"]=$userId;
 
-	
+
 				}
-		
-			   
-  
+
+
+
 $activeAdmin = "SELECT * FROM user WHERE Email='$username' AND
                Password='$password' AND AccountStatus = '1' AND Role = '1'";
 $nonActiveAdmin = "SELECT * FROM user WHERE Email='$username' AND
@@ -41,8 +41,8 @@ $activeUser = "SELECT * FROM user WHERE Email='$username' AND
 $nonActiveUser = "SELECT * FROM user WHERE Email='$username' AND
                Password='$password' AND AccountStatus = '0' AND Role = '0'";
 
-			   
-	
+
+
 $activeAdmin_query = mysqli_query($conn, $activeAdmin);
 
 
@@ -68,16 +68,19 @@ $nonActiveUser_query = mysqli_query($conn, $nonActiveUser);
 
   else if(mysqli_num_rows($nonActiveAdmin_query) != 0)
   {
-    echo "This Account has been deactivated, please speak with your admininstrator";
+    //echo "This Account has been deactivated, please speak with your admininstrator";
+	echo "<script type='text/javascript'>alert('This Account has been deactivated, please speak with your admininstrator')</script>";
   }
 
   else if(mysqli_num_rows($nonActiveUser_query) != 0)
   {
-    echo "This Account has been deactivated, please speak with your admininstrator";
+    //echo "This Account has been deactivated, please speak with your admininstrator";
+	echo "<script type='text/javascript'>alert('This Account has been deactivated, please speak with your admininstrator')</script>";
   }
 
   else {
-    echo "Username or Password is incorrect";
+    //echo "Username or Password is incorrect";
+	echo "<script type='text/javascript'>alert('Username or Password is incorrect')</script>";
   }
 }
 ?>
@@ -88,6 +91,7 @@ $nonActiveUser_query = mysqli_query($conn, $nonActiveUser);
     <title>Login</title>
     <link rel="stylesheet"
     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
   <a href="#"></a>

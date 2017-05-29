@@ -3,6 +3,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="nav.css">
 <?php
 			include("db.php");
 			  if(!isset($_SESSION))
@@ -28,7 +29,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="user_page.php">Timesheet</a>
+      <a class="navbar-brand" href="user_page.php">UEA Timesheet</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
@@ -52,7 +53,7 @@
 
 
 		<?php while($a=mysqli_fetch_assoc($res)){ ?>
-   <?php if($a["Role"]==1){
+      <?php if($a["Role"]==1){
 
 
 
@@ -64,13 +65,14 @@
 	    echo  "<li><a href='editJob.php'>Edit Job</a></li>";
 		echo  "<li><a href='assignJob.php'>Assign Job</a></li>";
 		echo  "<li><a href='addJob.php'>add Job</a></li>";
-		//echo pending timesheet funcion for admin "<li><a href='enterpageherephp'>add Job</a></li>";
 			  echo"     </ul>                                              ";
-			  echo"     <li> <a href='pendingTimesheets.php'>Approve/Deny TimeSheets</a></li>       			  ";
+			  echo"      </li>       			  ";
 			     echo'<li><a href="registration.php">Add New User</a></li>';
-   }
+           echo'<li><a href="searchUserAdmin.php">Search User</a></li>';
+		   echo'<li><a href="pendingTimesheets.php">Process TimeSheets</a></li>';
+      }
 		}
-	   ?>
+	 ?>
 
 
 

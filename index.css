@@ -1,0 +1,11 @@
+h1 {
+  text-transform: uppercase;
+  font-weight: bold;
+  color: white;
+}
+body{
+  background-color: #98B4D4;
+}
+label{
+  color: white;
+}

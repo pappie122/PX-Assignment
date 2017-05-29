@@ -1,4 +1,4 @@
-  
+
 <html lang="en">
 <head>
 
@@ -55,88 +55,127 @@ WHERE (( TimesheetStatus =       2                          ) AND ( UserID = $u)
     ?>
 
 <body>
-		<?php include("nav.php");?>
-		<div class="container-fluid">
-		<div class="row">
-		    <div class="col-xs-12">
-		    	<h1>TimeSheets Pending</h1>
-			    <div class="row">
-			        <div class="col-md-12 column">
-			            <table class="table table-bordered table-hover" id="tab_logic">
-			                <thead>
-			                    <tr>
-			                        <th class="text-center">
-			                            Job
-			                        </th>
-			                        <th class="text-center">
-			                            Date
-			                        </th>
-			                        <th class="text-center">
-			                            Start Time
-			                        </th>
-			                        <th class="text-center">
-			                            End Time
-			                        </th>
-			                        <th class="text-center">
-			                            Break
-			                        </th>
-			                        <th class="text-center">
-			                            Hours
-			                        </th>
-			                        <th class="text-center">
-			                            Comment
-			                        </th>
-			                    </tr>
-			                </thead>
-			                <tbody>
-			                        <?php while($rows=mysqli_fetch_array($result1)){	?>
-			                        <tr>
-				                        <td>
-				                            <?php 
-				                            foreach($json as $key=> $val){ 
-				                            	if($val['ID']==$rows["JobID"]){
-				                            		echo $val[ 'Name'];
-												} 
-											} ?>
-				                        </td>
-				                        <td>
+
+<?php include("nav.php");?>
+<div class="container">
+<div class="jumbotron">
+
+    
+    <!-- </div> -->
+	
+  <!--  <div class="col-sm-8 text-left"> -->
+      <h2>Pending Timesheets </h2>
+      
+	  
+	   <div class="row clearfix">
+                            <div class="col-md-12 column">
+							
+                                <table class="table table-bordered table-hover" id="tab_logic" >
+						<thead>
+                                        <tr>
 										
+                                        
+                                            <th class="text-center" bgcolor="lightblue">
+                                                Job
+                                            </th>
+                                            <th class="text-center" bgcolor="lightblue">
+                                                Date
+                                            </th>
+                                            <th class="text-center" bgcolor="lightblue">
+                                                Start Time
+                                            </th>
+                                            <th class="text-center" bgcolor="lightblue">
+                                                End Time
+                                            </th>
+                                            <th class="text-center" bgcolor="lightblue">
+                                                Break
+                                            </th>
+                                            <th class="text-center" bgcolor="lightblue">
+                                              Hours
+                                            </th>
+											 <th class="text-center" bgcolor="lightblue">
+                                                Comment
+                                            </th>
+											
+											
+                                        </tr>
+								  
+											</thead>	
+										<tbody>
+                                            <tr>
+											   <?php while($rows=mysqli_fetch_array($result1)){	?>	
+                                            <td>
+											
+                                                    <?php foreach($json as $key=> $val){ ?>
+														<?php if($val['ID']==$rows["JobID"]){?>
+
+
+														
+                                                            <?php echo $val[ 'Name']; ?>
+                                                      
+                                                    <?php } 
+													} ?>
+                                            
+												
+                                            </td>
 										
-				                            <?php 
-											$mm=$rows["Date"];
-											$nm=date("d/m/Y", strtotime($mm));
+																			
+                                            <td>											 <?php echo date('d-m-Y',strtotime($rows["Date"]))
 											
+											//echo $rows["Date"];
+											;?>
+                                                
+                                            </td>
+                                            <td>
+                                               <?php echo $rows["StartTime"];?>
+                                            </td>
+                                            <td>
+                                               <?php echo $rows["EndTime"];?>
+                                            </td>
+                                            <td>
+											<?php echo $rows["BreakDuration"];?>
+										
+                                               
+                                            </td>
+                                            <td>
 											
-											echo $nm;
-											?>
-				                        </td>
-				                        <td>
-				                            <?php 
-											$dd=$rows["StartTime"];
+											  	  <?php echo $rows["TotalHours"];?>
+                                          
+                                            </td>
+											 <td>
+											<?php echo $rows["Comments"];?>
 											
-											echo $rows["StartTime"];?>
-				                        </td>
-				                        <td>
-				                            <?php echo $rows["EndTime"];?>
-				                        </td>
-				                        <td>
-				                            <?php echo $rows["BreakDuration"];?>
-				                        </td>
-				                        <td>
-				                            <?php echo $rows["TotalHours"];?>
-				                        </td>
-				                        <td>
-				                            <?php echo $rows["Comments"];?>
-				                        </td>
-			                        </tr>
-			                    	<?php }  ?>
-			                </tbody>
-			            </table>
-			        </div>
-			    </div>
-			</div>
-		</div>
-	</div>
+                                          
+                                            </td>
+											
+								
+						
+					  
+                                          </tr>
+								
+										<?php }  ?>
+										</tbody>
+												</table>
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+    
+    </div>
+    
+    
+    </div>
+ <!-- </div> -->
+<!-- </div> -->
+</script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
@@ -156,7 +195,14 @@ WHERE (( TimesheetStatus =       2                          ) AND ( UserID = $u)
 					"orderable": false
 				}]
     		}); 
-		});	
+		});
+		
+
+		
 	</script>
+
+
+</div>
+</div>
 </body>
 </html>

@@ -1,13 +1,13 @@
 
 <?php
-
+//Checks if field is not set 
 function checkEmpty($formData){
 
 
 $a=true;
 	for($i = 0; $i < count($formData); $i++){
   if ($formData[$i]["date"]==null) {
-    echo   "Date is required";
+    echo   "Date is required" ."\n";
 	//echo $_POST["date"];
 	$a= false;
 	//header("location:timesheet3.php");
@@ -18,7 +18,7 @@ $a=true;
   }
 
   if ($formData[$i]["startTime"]==null) {
-   echo "Start Time is required";
+   echo "Start Time is required"."\n";
   // header("location:timesheet3.php");
 $a= false;
  
@@ -41,38 +41,23 @@ $a= false;
 
 
 }
-
-function sbige($formData){
-	$a=true;
-for($i = 0; $i < count($formData); $i++){
-if($formData[$i]["startTime"]>=$formData[$i]["endTime"]){
-$a=false;
-echo" Endtime less than startTime";
-} else {
-$a=true;
-}
-return $a;
-	
-
-}
-}
-
-	
-
-
-
 /*
-function checkrowCount(){
-	
-	
-
-
-		if ($rowCount>=12||$rowCount)){
-			
-			$rowCount=mysqli_real_escape_string($conn,$_POST["rowCount"]);
-		}
-
+function checkifDate($formData){
+for($i = 0; $i < count($formData); $i++){
+	if (preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$date))
+    {
+		echo "good Date";
+        return true;
+    }else{
+		echo "bad mate  Date";
+        return false;
+    }
 }
+}
+*/
+/*
+*Checks for overlapping time 
+*
 */
 function checkOverlap($formData){
 
@@ -89,8 +74,11 @@ function checkOverlap($formData){
 				}
 			}
 		}
-
 	}
 }
+
+
+	
+
 	?>
  
