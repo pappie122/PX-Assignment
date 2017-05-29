@@ -1,62 +1,86 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
- 
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>PHP, jQuery search demo</title>
-<link rel="stylesheet" type="text/css" href="my.css">
- 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
-<script type="text/javascript">
- 
-$(function() {
- 
-    $(".search_button").click(function() {
-        // getting the value that user typed
-        var searchString    = $("#search_box").val();
-        // forming the queryString
-        var data            = 'search='+ searchString;
-         
-        // if searchString is not empty
-        if(searchString) {
-            // ajax call
-            $.ajax({
-                type: "POST",
-                url: "ss.php",
-                data: data,
-                beforeSend: function(html) { // this happens before actual call
-                    $("#results").html(''); 
-                    $("#searchresults").show();
-                    $(".word").html(searchString);
-               },
-               success: function(html){ // this happens after we get results
-                    $("#results").show();
-                    $("#results").append(html);
-              }
-            });    
-        }
-        return false;
+  <head>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="typeahead.min.js"></script>
+    <script>
+    $(document).ready(function(){
+    $('input.typeahead').typeahead({
+        name: 'typeahead',
+        remote:'ss.php?key=%QUERY',
+        limit : 20
     });
 });
-</script>
- 
-</head>
-<body>
-<div id="container">
-<div style="margin:20px auto; text-align: center;">
-<form method="post" action="do_search.php">
-    <input type="text" name="search" id="search_box" class='search_box'/>
-    <input type="submit" value="Search" class="search_button" /><br />
-</form>
-</div>      
-<div>
- 
-<div id="searchresults">Search results :</div>
-<ul id="results" class="update">
-</ul>
- 
-</div>
-</div>
-   
-</body>
+    </script>
+    <style type="text/css">
+.bs-example{
+	font-family: sans-serif;
+	position: relative;
+	margin: 50px;
+}
+.typeahead, .tt-query, .tt-hint {
+	border: 2px solid #CCCCCC;
+	border-radius: 8px;
+	font-size: 24px;
+	height: 30px;
+	line-height: 30px;
+	outline: medium none;
+	padding: 8px 12px;
+	width: 396px;
+}
+.typeahead {
+	background-color: #FFFFFF;
+}
+.typeahead:focus {
+	border: 2px solid #0097CF;
+}
+.tt-query {
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+}
+.tt-hint {
+	color: #999999;
+}
+.tt-dropdown-menu {
+	background-color: #FFFFFF;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	border-radius: 8px;
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	margin-top: 12px;
+	padding: 8px 0;
+	width: 422px;
+}
+.tt-suggestion {
+	font-size: 24px;
+	line-height: 24px;
+	padding: 3px 20px;
+}
+.tt-suggestion.tt-is-under-cursor {
+	background-color: #0097CF;
+	color: #FFFFFF;
+}
+.tt-suggestion p {
+	margin: 0;
+}
+</style>
+  </head>
+  <body>
+    <div class="row">
+      <div class=".col-md-6">
+        <div class="jumbotron">
+        <h1>Ajax Search Box using Node and MySQL <small>Codeforgeek Tutorial</small></h1>
+         <button type="button" class="btn btn-primary btn-lg">Visit Tutorial</button>
+      </div>
+  </div>
+  <div class=".col-md-6">
+    <div class="panel panel-default">
+    <div class="bs-example">
+        <input type="text" name="typeahead" class="typeahead tt-query" autocomplete="off" spellcheck="false" placeholder="Type your Query">
+    </div>
+  </div>
+  </div>
+  </div>
+  </body>
 </html>

@@ -22,6 +22,7 @@ session_start();
   <body>
   <!--   <nav class="navbar navbar-default"> -->
      <?php include("nav.php"); ?>
+	 
      <div class="container">
       <form action="seacrhUserAdminPopulate.php" method="post">
         <div class="row">
@@ -46,7 +47,7 @@ session_start();
     <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   </body>
-  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+</html><script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
     $('.search-box input[type="text"]').on("keyup input", function(){
@@ -54,7 +55,7 @@ $(document).ready(function(){
         var inputVal = $(this).val();
         var resultDropdown = $(this).siblings(".result");
         if(inputVal.length){
-            $.get("sss.php", {term: inputVal}).done(function(data){
+            $.get("ss.php", {term: inputVal}).done(function(data){
                 // Display the returned data in browser
                 resultDropdown.html(data);
             });
@@ -70,4 +71,3 @@ $(document).ready(function(){
     });
 });
 </script>
-</html>
