@@ -62,13 +62,19 @@ WHERE (( TimesheetStatus =       1                          ) AND ( UserID = $u)
    
 	 
 	 
-
-
+	 
+	 
     ?>
+	
+<<<<<<< HEAD
+
+
 
 	
 	
 	
+=======
+>>>>>>> 5fa876eaf4409ba4c94d0811eca62db1ece10983
 					 <div class="row clearfix">
                             <div class="col-md-12 column">
 							

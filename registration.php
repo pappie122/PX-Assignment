@@ -3,15 +3,15 @@ include("config.php");
 function NewUser()
 {
   include("config.php");
-  $firstName = mysqli_real_escape_string($conn, $_POST['firstName']);
-  $lastName = mysqli_real_escape_string($conn, $_POST['lastName']);
-  $telephone = mysqli_real_escape_string($conn, $_POST['telephone']);
-  $address = mysqli_real_escape_string($conn, $_POST['address']);
-  $city = mysqli_real_escape_string($conn, $_POST['city']);
-  $postcode = mysqli_real_escape_string($conn, $_POST['postcode']);
-  $email = mysqli_real_escape_string($conn, $_POST['email']);
-  $gender = mysqli_real_escape_string($conn, $_POST['gender']);
-  $password =  mysqli_real_escape_string($conn, $_POST['password']);
+  $firstName = $_POST['firstName'];
+  $lastName = $_POST['lastName'];
+  $telephone = $_POST['telephone'];
+  $address = $_POST['address'];
+  $city = $_POST['city'];
+  $postcode = $_POST['postcode'];
+  $email = $_POST['email'];
+  $gender = $_POST['gender'];
+  $password =  $_POST['password'];
 
   $confirmPassword = $_POST['confirmPassword'];
   $role = $_POST['adminAccount'];
@@ -24,8 +24,8 @@ function NewUser()
 
 	if($result)
 	{
-	echo "YOUR REGISTRATION IS COMPLETED...";
 	header("location:user_page.php");
+  echo "YOUR REGISTRATION IS COMPLETED...";
 	}
 }
 
@@ -36,8 +36,8 @@ if(!empty($_POST['email']))   //checking the 'user' name which is from Sign-Up.h
 {
 	$data = "SELECT * FROM user WHERE Email = '$_POST[email]' AND Password = '$_POST[password]'";
   $query = mysqli_query($conn, $data) or die(mysqli_error());
-
-	if(!$row = mysqli_fetch_array($query) or die(mysqli_error()))
+  // $row = mysqli_fetch_array($conn, $query) or die(mysqli_error());
+	if(!$row = mysqli_fetch_array($conn, $query) or die(mysqli_error()))
 	{
 		NewUser();
 	}
@@ -72,13 +72,15 @@ else
     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet"
     href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="index.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!-- <link rel="stylesheet" href="index.css"> -->
+
   </head>
   <body>
-    <nav class="navbar navbar-default">
+
+    <!-- <nav class="navbar navbar-default"> -->
 
       <?php include("nav.php");?>
     <!-- <div class="col-xs-12 col-md-6 col-lg-3">First Name: </div>

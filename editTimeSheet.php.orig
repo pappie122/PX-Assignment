@@ -21,6 +21,17 @@
     { 
         session_start(); 
     } 
+<<<<<<< HEAD
+		if(isset($_GET['id']) && $_GET['id'] !== ''){
+
+ 	} else {
+  echo "failed";
+
+ header("location:editTime.php");
+}
+
+=======
+>>>>>>> 5fa876eaf4409ba4c94d0811eca62db1ece10983
 		
 	$u= $_SESSION["userId"];
 

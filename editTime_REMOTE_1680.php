@@ -62,12 +62,9 @@ WHERE (( TimesheetStatus =       1                          ) AND ( UserID = $u)
    
 	 
 	 
-
-
+	 
+	 
     ?>
-
-	
-	
 	
 					 <div class="row clearfix">
                             <div class="col-md-12 column">
@@ -104,11 +101,6 @@ WHERE (( TimesheetStatus =       1                          ) AND ( UserID = $u)
 											<th class="text-center">
                                                Submit
                                             </th>
-											
-											
-											<th class="text-center">
-											Admin Comment
-											</th>
 											
                                         </tr>
 								  
@@ -167,31 +159,9 @@ WHERE (( TimesheetStatus =       1                          ) AND ( UserID = $u)
 											
 									<td>
 									<a href="submitPending.php?id=<?php echo $rows["TimesheetID"];?>"> submit
-									<?php $aaa=$rows["TimesheetID"];?>
 								
 									</td>	
-					  <td>
-					  <?php $sqlComments="SELECT timesheet.TimesheetID, timesheet.UserID, timesheet.Comments
-FROM timesheet
-WHERE ( TimesheetID = $aaa);";
-$result2=mysqli_query($conn,$sqlComments);
-
-while($fetchAdminComment=mysqli_fetch_assoc($result2)){
-
-
-
-
-?>
-<?php echo $fetchAdminComment["Comments"];
-}
-
- ?>
-
-
-
-
-
-					 </td>
+					  
                                           </tr>
 								
 										<?php }  ?>
