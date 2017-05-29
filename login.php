@@ -97,7 +97,7 @@ $nonActiveUser_query = mysqli_query($conn, $nonActiveUser);
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-md-6 col-md-offset-3">
-                <h1> UEA TRENCHLESS TIMESHEET</h1>
+                <h2> UEA TRENCHLESS TIMESHEET</h2>
             </div>
             <form action="login.php" method="post">
             <div class="form-group">
