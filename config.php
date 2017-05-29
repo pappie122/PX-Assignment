@@ -12,7 +12,7 @@ if($_SERVER['SERVER_NAME'] == "pe-pa1708.scem.westernsydney.edu.au") {
 }
 $errorMessage="could not connect properly";
 $conn=  mysqli_connect($host,$username,$password,$dbname)
-	or die("Connection Error: " . mysqli_conn_error());
+	or die("Connection Error: " . mysqli_connect_error());
 
 $query="SELECT * FROM user";
 $fetch=mysqli_query($conn,$query) or die("could not find user");
