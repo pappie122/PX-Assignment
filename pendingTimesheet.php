@@ -58,7 +58,7 @@ WHERE (( TimesheetStatus =       2                          ) AND ( UserID = $u)
 
 <?php include("nav.php");?>
 <div class="container">
-<div class="jumbotron">
+<!-- <div class="jumbotron"> -->
 
     
     <!-- </div> -->
@@ -202,7 +202,7 @@ WHERE (( TimesheetStatus =       2                          ) AND ( UserID = $u)
 	</script>
 
 
-</div>
+<!-- </div> -->
 </div>
 </body>
 </html>

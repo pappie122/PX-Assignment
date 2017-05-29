@@ -11,6 +11,7 @@
 <body>
 
 <?php include("nav.php");?>
+<div class="container">
 <h1>Edit Draft</h1>
         <form name="Timesheet" method="post" action="timesheet3.php">
             <input type="hidden" id="rowCount" name="rowCount" />
@@ -77,36 +78,36 @@ WHERE (( TimesheetStatus =       1                          ) AND ( UserID = $u)
                                         <tr>
 										
                                         
-                                            <th class="text-center">
+                                            <th class="text-center" bgcolor="lightblue">
                                                 Job
                                             </th>
-                                            <th class="text-center">
+                                            <th class="text-center" bgcolor="lightblue">
                                                 Date
                                             </th>
-                                            <th class="text-center">
+                                            <th class="text-center" bgcolor="lightblue">
                                                 Start Time
                                             </th>
-                                            <th class="text-center">
+                                            <th class="text-center" bgcolor="lightblue">
                                                 End Time
                                             </th>
-                                            <th class="text-center">
+                                            <th class="text-center" bgcolor="lightblue">
                                                 Break
                                             </th>
-                                            <th class="text-center">
+                                            <th class="text-center" bgcolor="lightblue">
                                               Hours
                                             </th>
-											 <th class="text-center">
+											 <th class="text-center" bgcolor="lightblue">
                                                 Comment
                                             </th>
-											 <th class="text-center">
+											 <th class="text-center" bgcolor="lightblue">
                                                Edit
                                             </th>
-											<th class="text-center">
+											<th class="text-center" bgcolor="lightblue">
                                                Submit
                                             </th>
 											
 											
-											<th class="text-center">
+											<th class="text-center" bgcolor="lightblue">
 											Admin Comment
 											</th>
 											
@@ -234,5 +235,6 @@ while($fetchAdminComment=mysqli_fetch_assoc($result2)){
 
 		
 	</script>
+	</div>
     </body>
 </html>

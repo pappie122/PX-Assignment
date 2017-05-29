@@ -37,11 +37,14 @@ if(isset($_SESSION['login_user'])){
 	</head>
 	
 	<body>
+	
 	<!-- <h1> Pending timesheets </h1> -->
-	<nav class="navbar navbar-default">
+	<!-- <nav class="navbar navbar-default"> -->
 	<?php include("nav.php");?>
 	
+	
 	<div class="container">
+	<h2>Pending Timesheets </h2>
     <!-- <div class="jumbotron"> -->
 	<div class="col-sm-12 text-left">
 	<!--<div class="container">-->
@@ -218,10 +221,10 @@ if(isset($_SESSION['login_user'])){
 							</table>
 							
 								
-								<h5> Enter Feedback </h5>
+								<h4> Enter Feedback </h4>
 									<p><textarea name="msg" ></textarea></p>
 									
-								<h5> Choose Action </h5>
+								<h4> Choose Action </h4>
 									<p><select name="action"> 
 											<option value="none" select="selected">  </option>
 											<option value="3"> Approve </option>											
