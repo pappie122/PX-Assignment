@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `px`
@@ -164,7 +164,7 @@ INSERT INTO `user` (`UserID`, `Fname`, `Lname`, `Street`, `Postcode`, `Phone`, `
 -- Table structure for table `userjob`
 --
 
-CREATE TABLE `userjob` (
+CREATE TABLE `userJob` (
   `UserJobID` int(8) NOT NULL,
   `UserID` int(8) NOT NULL,
   `JobID` int(8) NOT NULL,
@@ -175,7 +175,7 @@ CREATE TABLE `userjob` (
 -- Dumping data for table `userjob`
 --
 
-INSERT INTO `userjob` (`UserJobID`, `UserID`, `JobID`, `UserJobStatus`) VALUES
+INSERT INTO `userJob` (`UserJobID`, `UserID`, `JobID`, `UserJobStatus`) VALUES
 (1, 1, 1, 1),
 (2, 1, 2, 1),
 (3, 2, 3, 1),
@@ -223,7 +223,7 @@ ALTER TABLE `user`
 --
 -- Indexes for table `userjob`
 --
-ALTER TABLE `userjob`
+ALTER TABLE `userJob`
   ADD PRIMARY KEY (`UserJobID`),
   ADD KEY `UserJob_ibfk_1` (`UserID`),
   ADD KEY `UserJob_ibfk_2` (`JobID`);
@@ -255,7 +255,7 @@ ALTER TABLE `user`
 --
 -- AUTO_INCREMENT for table `userjob`
 --
-ALTER TABLE `userjob`
+ALTER TABLE `userJob`
   MODIFY `UserJobID` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- Constraints for dumped tables
@@ -277,7 +277,7 @@ ALTER TABLE `timesheetdetail`
 --
 -- Constraints for table `userjob`
 --
-ALTER TABLE `userjob`
+ALTER TABLE `userJob`
   ADD CONSTRAINT `UserJob_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`UserID`),
   ADD CONSTRAINT `UserJob_ibfk_2` FOREIGN KEY (`JobID`) REFERENCES `job` (`JobID`);
 
