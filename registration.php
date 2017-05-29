@@ -38,7 +38,7 @@ function NewUser()
 			$id=$fetchUser1["UserID"];
 		}
 
-	$query11 = "INSERT INTO userjob (UserID, JobID, UserJobStatus) VALUES
+	$query11 = "INSERT INTO userJob (UserID, JobID, UserJobStatus) VALUES
                                 ('$id', '7', '1')";
 	$result11 = mysqli_query ($conn, $query11)or die(mysqli_error());
 	
