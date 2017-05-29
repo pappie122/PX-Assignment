@@ -3,7 +3,7 @@ if($_SERVER['SERVER_NAME'] == "pe-pa1708.scem.westernsydney.edu.au") {
 	$host="localhost";
 	$password="9Imq8xhxztMzzwy2";
 	$username="pe-pa1708";
-	$dbname="pe-pa1708";
+	$dbname="pe_pa1708";
 } else {
 	$host="localhost";
 	$password="";
