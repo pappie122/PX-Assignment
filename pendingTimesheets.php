@@ -9,6 +9,7 @@ if(isset($_SESSION['login_user'])){
   $data = 'SELECT * FROM user WHERE Email = "'.$email.'"';
   $query = mysqli_query($conn, $data) or die("Couldn't execute query. ". mysqli_error());
   $data2 = mysqli_fetch_array($query);
+  
 }
 ?>
 
@@ -20,25 +21,29 @@ if(isset($_SESSION['login_user'])){
 	
 	<head>
 	<meta charset="UTF-8">
-	<title>Pending timesheets</title>	
+	<title>Pending timesheets</title>
+	
 		<link rel="stylesheet"
 		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<link rel="stylesheet"
 		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="index.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		
 		<meta name="viewport" content="width=device-width, initial-scale=1">		
 	</head>
+	
 	<body>
-	
 	<!-- <h1> Pending timesheets </h1> -->
-	<nav class="navbar navbar-default">  
+	<nav class="navbar navbar-default">
 	<?php include("nav.php");?>
-	<div class="container">
-    <div class="jumbotron">
 	
+	<div class="container">
+    <!-- <div class="jumbotron"> -->
+	<div class="col-sm-12 text-left">
 	<!--<div class="container">-->
 		
 
@@ -53,6 +58,7 @@ if(isset($_SESSION['login_user'])){
    	
 	//process timesheet button action
 	if(isset($_POST['processtimesheet'])){
+	
 		
 		$tsid = $_POST["timesheetid"]; 
 		$msg = $_POST["msg"];
@@ -148,7 +154,10 @@ if(isset($_SESSION['login_user'])){
 	
 	//view details button action
 	if(isset($_POST['viewdetails'])){
-			  				
+		
+		
+		
+		
 			$id = $_POST["userid"];
 			$ts = $_POST["timesheetid"];
 				
@@ -160,8 +169,12 @@ if(isset($_SESSION['login_user'])){
 			
 			$rs2 = mysqli_query($conn, $sql)
 			or die (mysqli_error($conn));
+			
 				
 				if (mysqli_num_rows($rs2)> 0 ) { ?>
+				
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+				<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 				
 					<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
 					<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>	
@@ -180,6 +193,7 @@ if(isset($_SESSION['login_user'])){
 							</tr>
 		  <?php
 						// fetch data while results > 0
+						
 						while ($row = mysqli_fetch_array($rs2)) { ?>
 						
 						<form id="form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">	
@@ -203,10 +217,11 @@ if(isset($_SESSION['login_user'])){
 									
 							</table>
 							
-								<label>Enter Feedback</label>
+								
+								<h5> Enter Feedback </h5>
 									<p><textarea name="msg" ></textarea></p>
 									
-								<label>Action</label>
+								<h5> Choose Action </h5>
 									<p><select name="action"> 
 											<option value="none" select="selected">  </option>
 											<option value="3"> Approve </option>											
@@ -227,7 +242,8 @@ if(isset($_SESSION['login_user'])){
 	//if view detials button not selected display pending timesheets
 	} else { ?>
  
- <!-- original place to start html doc type -->
+ <!-- original place to start html doc type 
+	nav page -->
 			
 	<?php		
 
@@ -337,6 +353,7 @@ if(isset($_SESSION['login_user'])){
 				
 				<?php } ?>
 				</table>
+				</div>
 				<?php
 				
 			//if no pending timesheets exist
@@ -352,10 +369,10 @@ if(isset($_SESSION['login_user'])){
 				
 			
 			
-		<!-- </div> -->
-		
-	</div>
-	</div>
+	</div> 
+	<!-- </div> -->
+	<!-- </div> -->
+	
   <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
@@ -381,6 +398,7 @@ if(isset($_SESSION['login_user'])){
 		
 		
 	</script>
+	
 	</body>
 	</html>
   <?php } ?>
