@@ -19,7 +19,7 @@ if(isset($_POST['submit']))
   $user = $_POST['user'];
   $job = $_POST['job'];
 
-  $query = "INSERT INTO userjob (UserID, JobID, UserJobStatus) VALUES
+  $query = "INSERT INTO userJob (UserID, JobID, UserJobStatus) VALUES
                                 ('$user', '$job', '1')";
 	$result = mysqli_query ($conn, $query)or die(mysqli_error());
 
