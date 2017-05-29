@@ -94,7 +94,7 @@ WHERE (( TimesheetStatus =       3                          ) AND ( UserID = $u)
     
    
 	
-    <div class="col-sm-8 text-left"> 
+    <div class="col-sm-12 text-left"> 
       <h2>Accepted Timesheets </h2>
       
 	  
