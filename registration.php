@@ -54,8 +54,8 @@ function NewUser()
 	
 	if($result)
 	{
-	echo "YOUR REGISTRATION IS COMPLETED...";
 	header("location:user_page.php");
+  echo "YOUR REGISTRATION IS COMPLETED...";
 	}
 }
 
@@ -66,8 +66,8 @@ if(!empty($_POST['email']))   //checking the 'user' name which is from Sign-Up.h
 {
 	$data = "SELECT * FROM user WHERE Email = '$_POST[email]' AND Password = '$_POST[password]'";
   $query = mysqli_query($conn, $data) or die(mysqli_error());
-
-	if(!$row = mysqli_fetch_array($query) or die(mysqli_error()))
+  // $row = mysqli_fetch_array($conn, $query) or die(mysqli_error());
+	if(!$row = mysqli_fetch_array($conn, $query) or die(mysqli_error()))
 	{
 		NewUser();
 	}

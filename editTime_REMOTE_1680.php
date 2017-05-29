@@ -64,17 +64,7 @@ WHERE (( TimesheetStatus =       1                          ) AND ( UserID = $u)
 	 
 	 
 	 
-	 
-	 
-	 
     ?>
-	
-
-
-
-
-	
-	
 	
 					 <div class="row clearfix">
                             <div class="col-md-12 column">
@@ -84,38 +74,33 @@ WHERE (( TimesheetStatus =       1                          ) AND ( UserID = $u)
                                         <tr>
 										
                                         
-                                            <th class="text-center" bgcolor="lightblue"> 
+                                            <th class="text-center">
                                                 Job
                                             </th>
-                                            <th class="text-center" bgcolor="lightblue">
+                                            <th class="text-center">
                                                 Date
                                             </th>
-                                            <th class="text-center" bgcolor="lightblue">
+                                            <th class="text-center">
                                                 Start Time
                                             </th>
-                                            <th class="text-center" bgcolor="lightblue">
+                                            <th class="text-center">
                                                 End Time
                                             </th>
-                                            <th class="text-center" bgcolor="lightblue">
+                                            <th class="text-center">
                                                 Break
                                             </th>
-                                            <th class="text-center" bgcolor="lightblue">
+                                            <th class="text-center">
                                               Hours
                                             </th>
-											 <th class="text-center" bgcolor="lightblue">
+											 <th class="text-center">
                                                 Comment
                                             </th>
-											 <th class="text-center" bgcolor="lightblue">
+											 <th class="text-center">
                                                Edit
                                             </th>
-											<th class="text-center" bgcolor="lightblue">
+											<th class="text-center">
                                                Submit
                                             </th>
-											
-											
-											<th class="text-center" bgcolor="lightblue">
-											Admin Comment
-											</th>
 											
                                         </tr>
 								  
@@ -140,14 +125,12 @@ WHERE (( TimesheetStatus =       1                          ) AND ( UserID = $u)
 										
 																			
                                             <td>
-												<?php echo date('d-m-Y',strtotime($rows["Date"]));
-                                              //  <?php echo $rows["Date"];?>
+                                                <?php echo $rows["Date"];?>
                                             </td>
                                             <td>
                                                <?php echo $rows["StartTime"];?>
                                             </td>
                                             <td>
-											
                                                <?php echo $rows["EndTime"];?>
                                             </td>
                                             <td>
@@ -176,37 +159,9 @@ WHERE (( TimesheetStatus =       1                          ) AND ( UserID = $u)
 											
 									<td>
 									<a href="submitPending.php?id=<?php echo $rows["TimesheetID"];?>"> submit
-									<?php $aaa=$rows["TimesheetID"];?>
 								
 									</td>	
-					  <td>
-					  <?php $sqlComments="SELECT timesheet.TimesheetID, timesheet.UserID, timesheet.Comments
-FROM timesheet
-WHERE ( TimesheetID = $aaa);";
-$result2=mysqli_query($conn,$sqlComments);
-
-
-
-
-while($fetchAdminComment=mysqli_fetch_assoc($result2)){
-if($fetchAdminComment["Comments"]==null){
-	echo "No Admin Comments made yet";
-	
-} else {
-
-
-
-
- echo $fetchAdminComment["Comments"];
-}
-}
- ?>
-
-
-
-
-
-					 </td>
+					  
                                           </tr>
 								
 										<?php }  ?>
@@ -249,7 +204,5 @@ if($fetchAdminComment["Comments"]==null){
 
 		
 	</script>
-	</div>
-	</div>
     </body>
 </html>

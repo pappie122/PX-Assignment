@@ -56,19 +56,14 @@ if(isset($_SESSION['login_user'])){
 <?php
 <<<<<<< HEAD
 
+$conn = mysqli_connect("localhost","root",NULL,"px");
 include("db.php");
 
 
-$conn = mysqli_connect("localhost","root",NULL,"px");
-
-=======
-<<<<<<< HEAD
-$conn = mysqli_connect("localhost","root",NULL,"px");
 =======
 include("db.php");
 
->>>>>>> dca08e6361b284370a87238d3a40c4a35b3534f0
->>>>>>> 5fa876eaf4409ba4c94d0811eca62db1ece10983
+>>>>>>> 6a94625beaa6aa9e3f317d44d2a8d7c74483ae07
 
 // Check connection
 if (mysqli_connect_errno())

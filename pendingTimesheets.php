@@ -54,11 +54,7 @@ if(isset($_SESSION['login_user'])){
 		
 
 <?php
-
 $conn = mysqli_connect("localhost","root",NULL,"px");
-include("db.php");
-
-
 
 // Check connection
 if (mysqli_connect_errno())

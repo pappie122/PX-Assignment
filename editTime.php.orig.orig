@@ -11,7 +11,14 @@
 <body>
 
 <?php include("nav.php");?>
+<<<<<<< HEAD
+<div class="container">
+<div class="jumbotron">
+
+<h2>Edit Drafts</h2>
+=======
 <h1>Edit Draft</h1>
+>>>>>>> 6a94625beaa6aa9e3f317d44d2a8d7c74483ae07
         <form name="Timesheet" method="post" action="timesheet3.php">
             <input type="hidden" id="rowCount" name="rowCount" />
        
@@ -64,18 +71,24 @@ WHERE (( TimesheetStatus =       1                          ) AND ( UserID = $u)
 	 
 	 
 	 
-	 
-	 
-	 
     ?>
 	
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+>>>>>>> 6a94625beaa6aa9e3f317d44d2a8d7c74483ae07
 
 
 
 	
 	
 	
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 5fa876eaf4409ba4c94d0811eca62db1ece10983
+>>>>>>> 6a94625beaa6aa9e3f317d44d2a8d7c74483ae07
 					 <div class="row clearfix">
                             <div class="col-md-12 column">
 							
@@ -84,6 +97,7 @@ WHERE (( TimesheetStatus =       1                          ) AND ( UserID = $u)
                                         <tr>
 										
                                         
+<<<<<<< HEAD
                                             <th class="text-center" bgcolor="lightblue"> 
                                                 Job
                                             </th>
@@ -109,11 +123,42 @@ WHERE (( TimesheetStatus =       1                          ) AND ( UserID = $u)
                                                Edit
                                             </th>
 											<th class="text-center" bgcolor="lightblue">
+=======
+                                            <th class="text-center">
+                                                Job
+                                            </th>
+                                            <th class="text-center">
+                                                Date
+                                            </th>
+                                            <th class="text-center">
+                                                Start Time
+                                            </th>
+                                            <th class="text-center">
+                                                End Time
+                                            </th>
+                                            <th class="text-center">
+                                                Break
+                                            </th>
+                                            <th class="text-center">
+                                              Hours
+                                            </th>
+											 <th class="text-center">
+                                                Comment
+                                            </th>
+											 <th class="text-center">
+                                               Edit
+                                            </th>
+											<th class="text-center">
+>>>>>>> 6a94625beaa6aa9e3f317d44d2a8d7c74483ae07
                                                Submit
                                             </th>
 											
 											
+<<<<<<< HEAD
 											<th class="text-center" bgcolor="lightblue">
+=======
+											<th class="text-center">
+>>>>>>> 6a94625beaa6aa9e3f317d44d2a8d7c74483ae07
 											Admin Comment
 											</th>
 											
@@ -140,14 +185,21 @@ WHERE (( TimesheetStatus =       1                          ) AND ( UserID = $u)
 										
 																			
                                             <td>
+<<<<<<< HEAD
 												<?php echo date('d-m-Y',strtotime($rows["Date"]));
                                               //  <?php echo $rows["Date"];?>
+=======
+                                                <?php echo $rows["Date"];?>
+>>>>>>> 6a94625beaa6aa9e3f317d44d2a8d7c74483ae07
                                             </td>
                                             <td>
                                                <?php echo $rows["StartTime"];?>
                                             </td>
                                             <td>
+<<<<<<< HEAD
 											
+=======
+>>>>>>> 6a94625beaa6aa9e3f317d44d2a8d7c74483ae07
                                                <?php echo $rows["EndTime"];?>
                                             </td>
                                             <td>
@@ -185,6 +237,7 @@ FROM timesheet
 WHERE ( TimesheetID = $aaa);";
 $result2=mysqli_query($conn,$sqlComments);
 
+<<<<<<< HEAD
 
 
 
@@ -193,13 +246,23 @@ if($fetchAdminComment["Comments"]==null){
 	echo "No Admin Comments made yet";
 	
 } else {
+=======
+while($fetchAdminComment=mysqli_fetch_assoc($result2)){
+>>>>>>> 6a94625beaa6aa9e3f317d44d2a8d7c74483ae07
 
 
 
 
+<<<<<<< HEAD
  echo $fetchAdminComment["Comments"];
 }
 }
+=======
+?>
+<?php echo $fetchAdminComment["Comments"];
+}
+
+>>>>>>> 6a94625beaa6aa9e3f317d44d2a8d7c74483ae07
  ?>
 
 
@@ -249,7 +312,10 @@ if($fetchAdminComment["Comments"]==null){
 
 		
 	</script>
+<<<<<<< HEAD
 	</div>
 	</div>
+=======
+>>>>>>> 6a94625beaa6aa9e3f317d44d2a8d7c74483ae07
     </body>
 </html>

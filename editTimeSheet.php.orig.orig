@@ -21,7 +21,11 @@
     { 
         session_start(); 
     } 
+<<<<<<< HEAD
  
+=======
+<<<<<<< HEAD
+>>>>>>> 6a94625beaa6aa9e3f317d44d2a8d7c74483ae07
 		if(isset($_GET['id']) && $_GET['id'] !== ''){
 
  	} else {
@@ -30,7 +34,12 @@
  header("location:editTime.php");
 }
 
+<<<<<<< HEAD
 
+=======
+=======
+>>>>>>> 5fa876eaf4409ba4c94d0811eca62db1ece10983
+>>>>>>> 6a94625beaa6aa9e3f317d44d2a8d7c74483ae07
 		
 	$u= $_SESSION["userId"];
 
@@ -55,7 +64,32 @@ $sql=	"SELECT
 
 
 	
+	//echo $rowCount;
 	
+	
+	
+	
+	$sql1=	"SELECT 
+				j.JobID AS jobID,
+				j.JobName AS jobName
+			FROM job AS j
+			INNER JOIN userJob AS uj ON uj.JobID = j.JobID
+				AND uj.UserJobStatus = 1
+				AND j.JobStatus = 1
+			INNER JOIN user AS u ON uj.UserID = u.UserID
+				AND u.UserID = $u   /* id goes here */
+				AND u.AccountStatus = 1 " ; 
+	$result=mysqli_query($conn,$sql1); 
+	$temp=$result; $json=array(); 
+	if(mysqli_num_rows($result)> 0){ 
+		while($row = mysqli_fetch_array($temp)) { 
+			array_push($json, array("ID" => $row["jobID"], "Name" => $row["jobName"])); 
+		} 
+	} 
+	$jobss=array(); 
+	
+	$id=$_GET["id"];
+	$sqlSelectTimeSheet="SELECT * FROM timesheetdetail WHERE TimesheetID=$id";
 	
 	
 $selectID = mysqli_query($conn, $sqlSelectTimeSheet);
@@ -69,7 +103,6 @@ $selectID = mysqli_query($conn, $sqlSelectTimeSheet);
 				
 				/*
 			check if all the fields are set if not print error message  
-				
 				
 				
 				*/
@@ -169,12 +202,44 @@ $update1 = mysqli_query($conn, $sql5);
         <form name="Timesheet" method="post" action="editTimeSheet.php?id=
 		<?php echo $id ;?>">
             <input type="hidden" id="rowCount" name="rowCount" />
+<<<<<<< HEAD
+			
+			
             <?php include("nav.php");?>
+			<div class="container">
+			<div class="jumbotron">
+			
+			
+			
+=======
+            <?php include("nav.php");?>
+>>>>>>> 6a94625beaa6aa9e3f317d44d2a8d7c74483ae07
                         <div class="row clearfix">
                             <div class="col-md-12 column">
                                 <table class="table table-bordered table-hover" id="tab_logic">
                                     <thead>
                                         <tr>
+<<<<<<< HEAD
+                                            <th class="text-center" bgcolor="lightblue">
+                                                #
+                                            </th>
+                                            <th class="text-center" bgcolor="lightblue">
+                                                Job
+                                            </th>
+                                            <th class="text-center" bgcolor="lightblue">
+                                                Date
+                                            </th>
+                                            <th class="text-center" bgcolor="lightblue">
+                                                Start Time
+                                            </th>
+                                            <th class="text-center" bgcolor="lightblue">
+                                                End Time
+                                            </th>
+                                            <th class="text-center" bgcolor="lightblue">
+                                                Break
+                                            </th>
+                                            <th class="text-center" bgcolor="lightblue">
+=======
                                             <th class="text-center">
                                                 #
                                             </th>
@@ -194,6 +259,7 @@ $update1 = mysqli_query($conn, $sql5);
                                                 Break
                                             </th>
                                             <th class="text-center">
+>>>>>>> 6a94625beaa6aa9e3f317d44d2a8d7c74483ae07
                                                 Comment
                                             </th>
                                         </tr>
@@ -255,14 +321,12 @@ $update1 = mysqli_query($conn, $sql5);
 				</div>
 			</div>
 		</form>
-	</div>
-
-				
-				</div>
-			</div>
-		</form>
+<<<<<<< HEAD
 	</div>
 	</div>
 	</div>
 	</body>
 	</html?
+=======
+	</div>
+>>>>>>> 6a94625beaa6aa9e3f317d44d2a8d7c74483ae07
