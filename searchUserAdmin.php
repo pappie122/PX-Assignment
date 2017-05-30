@@ -38,12 +38,12 @@ if(isset($_SESSION['login_user'])){
         <div class="row">
           <div class="col-xs-12 col-md-6 col-lg-3">
           <div class="search-box">
-        <input type="text" name="search"" autocomplete="off" placeholder="Search Email..." />
+        <input class="form-control" type="text" name="search"" autocomplete="off" placeholder="Search Email..." />
         <div class="result"></div>
     </div>
           </div>
         </div>
-        
+        <br>
       <div class="row">
         <div class="col-xs-12 col-md-6 col-lg-3">
           <input class="btn btn-primary" type="submit"  value="submit">
