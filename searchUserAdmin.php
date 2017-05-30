@@ -46,7 +46,7 @@ if(isset($_SESSION['login_user'])){
         <br>
       <div class="row">
         <div class="col-xs-12 col-md-6 col-lg-3">
-          <input class="btn btn-primary" type="submit"  value="submit">
+          <input class="btn btn-primary form-control" type="submit"  value="Submit">
         </div>
       </div>
     </form>
