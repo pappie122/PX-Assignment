@@ -103,9 +103,10 @@ if(isset($_POST['submit']))
                     placeholder="Password" required="password">
                 </div>
             </div>
-			
+            
             <div class="col-xs-12 col-md-6 col-md-offset-3">
-                <input class="btn btn-primary" type="submit" name="submit" value="Submit">
+            <br>
+                <input class="btn btn-primary form-control" type="submit" name="submit" value="Submit">
             </div>
             </form>
         </div>
