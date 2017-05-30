@@ -47,7 +47,7 @@ session_start();
     <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   </body>
-</html><script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
     $('.search-box input[type="text"]').on("keyup input", function(){
@@ -71,3 +71,4 @@ $(document).ready(function(){
     });
 });
 </script>
+</html>

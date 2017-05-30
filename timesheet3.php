@@ -11,6 +11,7 @@
 </head>
 
     <?php 
+	//indclude the database connection string and some validation functions
 	include( "db.php");
 	include ("checkTime.php");
 	include ("dates.php");
@@ -21,7 +22,7 @@
     { 
         session_start(); 
     } 
-		
+		//user id 
 	$u= $_SESSION["userId"];
 	
 		if (isset($_POST["rowCount"])){
@@ -38,7 +39,7 @@
 	
 	
 	
-	
+	//Selects jobs from user when the account is active
 	$sql=	"SELECT 
 				j.JobID AS jobID,
 				j.JobName AS jobName
@@ -52,6 +53,8 @@
 	$result=mysqli_query($conn,$sql); 
 	$temp=$result; 
 	$json=array(); 
+	
+	//puts data into JSON array 
 	if(mysqli_num_rows($result)> 0){ 
 		while($row = mysqli_fetch_array($temp)) { 
 			array_push($json, array("ID" => $row["jobID"], "Name" => $row["jobName"])); 
@@ -81,14 +84,14 @@
 	
 	
 	
-	
+	//Loops through all the rows added
 		for($i=0; $i < $rowCount; $i++){
 			
 		if($_POST['break'.$i]==""){
 		$_POST["break".$i]=0;
 	
 	}
-			
+			//Puts data into an array
 			array_push($formData, array("job" => $_POST["inputLocation" . $i], "date" => $_POST["date" . $i], "startTime" => $_POST["startTime" . $i], "endTime" => $_POST["endTime" . $i], "break" => $_POST["break" . $i], "comment" => $_POST["comment" . $i]));
 			
 		}
@@ -174,7 +177,7 @@ $total_hours = $end[0] - $start[0] - ($end[1] < $start[1]);
 
 $total_hours-$break;
 */
-
+//Total hours function
 $total_hours=totalHours($startTime,$endTime,$break);
 			
 			
@@ -212,7 +215,7 @@ $total_hours=totalHours($startTime,$endTime,$break);
 				
 				//Gets the id of the last user submitted in db
 			echo $lasttimesheetId."this is the last id AAAAAAAAAAAA";
-				
+				// Insert into database
 				$sql2[$i]="INSERT INTO timesheetdetail (TsDetailID, TimesheetID, JobID, Date, StartTime, EndTime, BreakDuration, TotalHours, Comments) VALUEs (NULL,'$lasttimesheetId','$job','$date','$startTime','$endTime','$break','$total_hours','$comment');";
 			
 					$insert2 = mysqli_query($conn, $sql2[$i]);
@@ -222,7 +225,7 @@ $total_hours=totalHours($startTime,$endTime,$break);
     printf("Error: %s\n", mysqli_error($conn));
     exit();
 }
-				// Insert into database
+				
 			}
 		header("location:editTime.php");
 		}

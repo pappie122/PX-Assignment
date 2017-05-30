@@ -3,11 +3,10 @@
 <?php 
 include("db.php");
    
-/* Attempt MySQL server connection. Assuming you are running MySQL
-server with default setting (user 'root' with no password) */
+//Send variables through header to get the search results
 
  
-// Check connection
+
 
  
 if(isset($_REQUEST['term'])){

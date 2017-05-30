@@ -1,17 +1,14 @@
 <?php 
 
-$to ="localhost.sealex001@gmail.com";
-$subject='LOCALHOST SUBJECT';
-$message='Send from localhost';
 
-$headers="from sealex001@gmail.com";
-if(mail($to,$subject,$message,$headers))
-	echo "email sent";
-else 
-	echo "email sending failed";
+// the message
+$msg = "First line of text\nSecond line of text";
 
+// use wordwrap() if lines are longer than 70 characters
+$msg = wordwrap($msg,70);
 
-
-
-
+// send email
+mail("sealex001@gmail.com","My subject",$msg);
 ?>
+
+
