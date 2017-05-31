@@ -61,23 +61,27 @@ include("config.php");
               </div>
               <div class="col-xs-12 col-md-6 col-lg-3">
                 <?php
-                  $changeRow1 = @$data2[StartDate];
-                  $startDate = date("d/m/Y", strtotime($changeRow1));
+				$startDate= date('Y-m-d',strtotime($data2["StartDate"]));  
+                  //$changeRow1 = @$data2[StartDate];
+                 //$startDate = date("Y/m/d", strtotime($changeRow1));
                  ?>
-                <input class="form-control" type="text" name="startDate"value="<?php echo $startDate?>" >
+                <input class="form-control" type="date" name="startDate"value="<?php echo $startDate;?>" >
               </div>
         </div>
         <br>
+		
         <div class="row">
               <div class="col-xs-12 col-md-6 col-lg-3">
                 End Date:
               </div>
               <div class="col-xs-12 col-md-6 col-lg-3">
                 <?php
-                  $changeRow2 = @$data2[EndDate];
-                  $endDate = date("d/m/Y", strtotime($changeRow2));
+                 // $changeRow2 = @$data2[EndDate];
+                  //$endDate = date("d/m/Y", strtotime($changeRow2));
+$endDate= date('Y-m-d',strtotime($data2["EndDate"]));  
+				  
                  ?>
-                <input class="form-control" type="text" name="endDate"value="<?php echo $endDate?>" >
+                <input class="form-control" type="date" name="endDate"value="<?php echo $endDate?>" >
               </div>
         </div>
         <br>
