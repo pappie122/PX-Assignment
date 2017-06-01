@@ -58,7 +58,7 @@
 
 
 		echo "         <li class='dropdown'>    ";
-	    echo"<a class='dropdown-toggle' data-toggle='dropdown' href='#'>Edit Jobs <span class='caret'></span></a>                         ";
+	    echo"<a class='dropdown-toggle' data-toggle='dropdown' href='#'>Jobs <span class='caret'></span></a>                         ";
 		echo"            <ul class='dropdown-menu'>                                  ";
 		echo"                                                 ";
 
@@ -66,9 +66,24 @@
 		echo  "<li><a href='assignJob.php'>Assign Job</a></li>";
 		echo  "<li><a href='addJob.php'>add Job</a></li>";
 			  echo"     </ul>                                              ";
-			  echo"      </li>       			  ";
-			     echo'<li><a href="registration.php">Add New User</a></li>';
-           echo'<li><a href="searchUserAdmin.php">Search User</a></li>';
+			  echo"      </li>   ";
+			  
+		
+		//user drop down
+		echo "  <li class='dropdown'>    ";
+	    echo"<a class='dropdown-toggle' data-toggle='dropdown' href='#'>Users <span class='caret'></span></a>                         ";
+		echo"            <ul class='dropdown-menu'>                                  ";
+		echo"                                                 ";
+
+	    echo  "<li><a href='searchUserAdmin.php'>Search Users</a></li>";
+		echo  "<li><a href='registration.php'>Add New User</a></li>";
+			  echo"     </ul>                                              ";
+			  echo"      </li> ";
+			  
+			  
+			  
+		// echo'<li><a href="registration.php">Add New User</a></li>';
+        //echo'<li><a href="searchUserAdmin.php">Search User</a></li>';
 		   echo'<li><a href="pendingTimesheets.php">Process TimeSheets</a></li>';
       }
 		}

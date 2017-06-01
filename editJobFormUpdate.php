@@ -1,24 +1,44 @@
 <?php
 include("config.php");
+session_start();
+if(isset($_SESSION['login_user'])){
+	
+	$email = $_SESSION['login_user'];
 
-  session_start();
-
+	  $data = 'SELECT * FROM user WHERE Email = "'.$email.'"';
+	  $query = mysqli_query($conn, $data) or die("Couldn't execute query. ". mysqli_error());
+	  $data2 = mysqli_fetch_array($query);
+	  
+	} else {
+			header("location: login.php");
+	}
+	
   if(isset($_POST['submit']))
   {
     //$job=$_POST['job'];
     $jobName = $_POST['jobName'];
-    $startDate = $_POST['startDate'];
-    $endDate = $_POST['endDate'];
-    $description = $_POST['description'];
-
-  	$query = "UPDATE job SET JobStatus = 1, StartDate='$startDate',
-              EndDate='$endDate', Description='$description'
+	$startDate = $_POST['startDate'];
+	$endDate = $_POST['endDate'];
+	$description = $_POST['description'];
+	
+		//Change format of date
+		$startDateVariable = $startDate;
+		$newStartDate= str_replace('/', '-', $startDateVariable);
+		$newSD = date("Y-m-d", strtotime($newStartDate));
+  
+		//Change format of date
+		$endDateVariable = $endDate;
+		$newEndDate= str_replace('/', '-', $endDateVariable);
+		$newED = date("Y-m-d", strtotime($newEndDate));
+		
+  	$query = "UPDATE job SET JobStatus = 1, StartDate='$newSD',
+              EndDate='$newED', Description='$description'
               WHERE JobName=".'"'.$jobName.'"';
   	$result = mysqli_query ($conn, $query)or die(mysqli_error($conn));
 
   	if($result)
   	{
-  	   echo "NEW JOB SUCCESSFULLY UPDATED...";
+  	   echo "<script type='text/javascript'>alert('Job information has now been updated.')</script>";
   	}
   }
 
