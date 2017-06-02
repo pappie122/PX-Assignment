@@ -107,18 +107,7 @@ $selectID = mysqli_query($conn, $sqlSelectTimeSheet);
 		$startTime=$formData1[0]["startTime"];
 		$endTime=$formData1[0]["endTime"];
         $break=$formData1[0]["break"];
-		$comment=$formData1[0]["comment"];  
-		
-		if (!preg_match('/^[a-zA-Z]+[ ]?[a-zA-Z]+$/', $comment)) {
-
-         echo "Error";
-		 header("location:user_page.php");
-
-    }
-		
-
-				$comment=mysqli_real_escape_string($conn,$row['comment']);
-			
+		$comment=$formData1[0]["comment"];
 			//print_r ($formData1[0]["date"]);
 			/*
 			echo $job1;
@@ -201,11 +190,7 @@ $update1 = mysqli_query($conn, $sql5);
 <div class="container">
 
         <form name="Timesheet" method="post" action="editTimeSheet.php?id=
-		<?php echo $id ;?>" data-fv-framework="bootstrap"
-    data-fv-message="This value is not valid"
-    data-fv-feedbackicons-valid="glyphicon glyphicon-ok"
-    data-fv-feedbackicons-invalid="glyphicon glyphicon-remove"
-    data-fv-feedbackicons-validating="glyphicon glyphicon-refresh">
+		<?php echo $id ;?>">
             <input type="hidden" id="rowCount" name="rowCount" />
             
                         <div class="row clearfix">
@@ -254,20 +239,17 @@ $update1 = mysqli_query($conn, $sql5);
 											<?php while($fetchUser=mysqli_fetch_assoc($selectID)){ 
 											
 											 ?>
-                                                <input type="date" name="date0" placeholder='date' class="form-control" value='<?php echo date('Y-m-d',strtotime($fetchUser["Date"]));  ?>' required
-               data-fv-uri-message="The input is not a valid website address"	/>
+                                                <input type="date" name="date0" placeholder='date' class="form-control" value='<?php echo date('Y-m-d',strtotime($fetchUser["Date"]));  ?>'	/>
                                             </td>
 											
                                             <td>
 											
-                                                <input type="time" name='startTime0' placeholder='StartTime' class="form-control"  value="<?php echo $fetchUser["StartTime"];?>" required
-               data-fv-uri-message="The input is not a valid website address"/>
+                                                <input type="time" name='startTime0' placeholder='StartTime' class="form-control"  value="<?php echo $fetchUser["StartTime"];?>"/>
 						
 						
                                             </td>
                                             <td>
-                                                <input type="time" name='endTime0' placeholder='EndTime' class="form-control" value="<?php echo $fetchUser["EndTime"];?>"required
-               data-fv-uri-message="The input is not a valid website address"/>
+                                                <input type="time" name='endTime0' placeholder='EndTime' class="form-control" value="<?php echo $fetchUser["EndTime"];?>"/>
                                             </td>
                                             <td>
 											  <input type="number" name="break0" min="0" max="2" step="0.5" placeholder='Break' class="form-control"
@@ -297,9 +279,5 @@ $update1 = mysqli_query($conn, $sql5);
 			
 		</form>
 		</div>
-	<script>
-	 $(document).ready(function() {
-	$('#Timesheet').formValidation();
-		});
-	
-	</script>
+</body>
+</html>
