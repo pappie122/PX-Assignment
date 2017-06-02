@@ -8,6 +8,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="temp.css">
+	
 </head>
 
     <?php 
@@ -16,13 +17,28 @@
 	include ("checkTime.php");
 	include ("dates.php");
 	
-		
+	session_start();
+	 
+	if(isset($_SESSION['login_user'])){
+	
+	$email = $_SESSION['login_user'];
+
 
 			  if(!isset($_SESSION)) 
     { 
         session_start(); 
     } 
 		//user id 
+
+	  $data = 'SELECT * FROM user WHERE Email = "'.$email.'"';
+	  $query = mysqli_query($conn, $data) or die("Couldn't execute query. ". mysqli_error());
+	  $data2 = mysqli_fetch_array($query);
+	  
+	} else {
+			header("location: login.php");
+	}
+		
+
 	$u= $_SESSION["userId"];
 	
 		if (isset($_POST["rowCount"])){
@@ -98,6 +114,7 @@
 //print_r ($formData[0]["job"]);
 		// checkifDate($formData); checks if input is date 
 		$isValid =checkEmpty($formData);
+		//$isValid=checkStartTime($formData);
 		//echo $formData[1]["startTime"];
 		//$isValid = true;
 		
@@ -129,7 +146,9 @@
 				echo "no clash";
 					}else {
 						//echo "enter new start time end time";
-						echo "<script type='text/javascript'>alert('Time clash. Enter a new start and end time.')</script>";
+						$timeClashError='Time clash. Enter a new start and end time';
+						//outputs modal
+						checkError($timeClashError);
 						
 						
 				}
@@ -247,7 +266,12 @@ $total_hours=totalHours($startTime,$endTime,$break);
       <h2>Add Timesheet</h2>
       
 	  
- <form name="Timesheet" method="post" action="timesheet3.php">
+ <form name="Timesheet" method="post" action="timesheet3.php"  data-fv-framework="bootstrap"
+    data-fv-message="This value is not valid"
+    data-fv-feedbackicons-valid="glyphicon glyphicon-ok"
+    data-fv-feedbackicons-invalid="glyphicon glyphicon-remove"
+    data-fv-feedbackicons-validating="glyphicon glyphicon-refresh">
+ 
             <input type="hidden" id="rowCount" name="rowCount" />
           <div class="row clearfix">
                             <div class="col-md-12 column">
@@ -294,13 +318,16 @@ $total_hours=totalHours($startTime,$endTime,$break);
                                                 </select>
                                             </td>
                                             <td>
-                                                <input type="date" name="date0" placeholder='date' class="form-control">
+                                                <input type="date" name="date0" placeholder='date' class="form-control" required
+               data-fv-uri-message="The input is not a valid website address" >
                                             </td>
                                             <td>
-                                                <input type="time" name='startTime0' placeholder='StartTime' class="form-control" />
+                                                <input type="time" name='startTime0' placeholder='StartTime' class="form-control" required
+               data-fv-uri-message="The input is not a valid website address"  />
                                             </td>
                                             <td>
-                                                <input type="time" name='endTime0' placeholder='EndTime' class="form-control" />
+                                                <input type="time" name='endTime0' placeholder='EndTime' class="form-control" required
+               data-fv-uri-message="The input is not a valid website address" />
                                             </td>
                                             <td>
 											  <input type="number" name="break0" min="0" max="2" step="0.5" placeholder='Break' class="form-control">
@@ -336,9 +363,16 @@ $total_hours=totalHours($startTime,$endTime,$break);
         webshims.polyfill('forms forms-ext');
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	
+	
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function() {
+		
+    
+
+	 
+
 			var i = 1;
 			$('#rowCount').val(i);
 			$("#add_row").click(function() {
@@ -361,6 +395,7 @@ $total_hours=totalHours($startTime,$endTime,$break);
 	
 			
 		});
+			$('#Timesheet').formValidation();
 		});
 		
 			
@@ -406,6 +441,8 @@ $total_hours=totalHours($startTime,$endTime,$break);
 */
 		
 	</script>
+	
+
 	</div>  
 	<!-- </div> -->
     </body>

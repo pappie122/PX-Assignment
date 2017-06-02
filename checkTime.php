@@ -1,45 +1,66 @@
 
 <?php
-//Checks if field is not set 
+
+function checkStartTime($formData){
+	echo "this is working mate yeeew";
+	$a=true;
+	for($i = 0; $i < count($formData); $i++){
+  if ($formData[$i]["startTime"]==null) {
+	 echo "Start Time is required"."\n";
+
+ 
+$a= true;
+
+	
+}else {
+	$a=true;
+	return $a;
+}
+	}
+}
+
+
 function checkEmpty($formData){
-
-
 $a=true;
 	for($i = 0; $i < count($formData); $i++){
   if ($formData[$i]["date"]==null) {
-    echo   "Date is required" ."\n";
+   // echo   "Date is required" ."\n";
+	$dateError="Date is required";
+	
+	checkError($dateError);
+	//echo "<script type='text/javascript'>alert('Time clash. Enter a new start and end time.')</script>";
+	
+	
 	//echo $_POST["date"];
 	$a= false;
-	//header("location:timesheet3.php");
-	//die;
-  } else {
+	header("location:timesheet3.php");
 
+  } else {
 $a=true;
   }
-
   if ($formData[$i]["startTime"]==null) {
-   echo "Start Time is required"."\n";
+ $startTimeError ="Start Time is required";
+ checkError($startTimeError);
   // header("location:timesheet3.php");
 $a= false;
  
   } else {
-
 $a=true;
   }
-
   if ($formData[$i]["endTime"]==null) {
-    echo  "end time required";
+    $endTimeError=  "end time required";
+	 checkError($endTimeError);
 	//header("location:timesheet3.php");
 $a= false;
 	
   } else {
-
 	$a=true;
+	//echo "why is this working?";
+	
   }
-  return $a;
+
 }
-
-
+  return $a;
 }
 /*
 function checkifDate($formData){
@@ -54,31 +75,82 @@ for($i = 0; $i < count($formData); $i++){
     }
 }
 }
+
+
 */
+function checkError($error){
+	//$error="hihi";
+	echo' <script type="text/javascript">
+	$(document).ready(function(){
+		$("#myModal").modal("show");
+	});
+</script>
+</head>
+<body>
+<div id="myModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Error Message</h4>
+            </div>
+            <div class="modal-body">
+                <p>'.$error.'
+				</p>
+             
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                
+            </div>
+        </div>
+		 </div>
+        </div>
+		';
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	echo "<script type='text/javascript'>
+$(document).ready(function(){
+	$('.open-modal').click(function(){
+		$('#myModal').modal('show');
+	}); 
+});
+</script>";
+	
+	
+
+	
+	
+}
+
+
+
 /*
 *Checks for overlapping time 
 *
 */
 function checkOverlap($formData){
-
 	for($i = 0; $i < count($formData); $i++){
 	//$row["date"][$i];
-
 		for($j = $i+1; $j < count($formData); $j ++){
 			if($formData[$i]["date"] == $formData[$j]["date"]) {
 				if($formData[$i]["startTime"]>=$formData[$j]["endTime"]&&$formData[$i]["endTime"]<=$formData[$j]["startTime"]&&$formData[$i]["startTime"]<$formData[$i]["endTime"]){
 					echo "Success";
 				}else {
-					echo "error over lap time";
-					header("location:timesheet3.php");
+				$overlap ="error over lap time";
+				checkError($overlap);
+					//header("location:timesheet3.php");
 				}
 			}
 		}
 	}
 }
-
-
 	
-
 	?>
- 

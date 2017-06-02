@@ -16,11 +16,20 @@
 <?php 
 	include( "db.php");
 	include("checkTime.php");
-		include("dates.php");
-			  if(!isset($_SESSION)) 
-    { 
-        session_start(); 
-    } 
+	include("dates.php");
+	session_start();
+	
+	if(isset($_SESSION['login_user'])){
+	
+	$email = $_SESSION['login_user'];
+
+	  $data = 'SELECT * FROM user WHERE Email = "'.$email.'"';
+	  $query = mysqli_query($conn, $data) or die("Couldn't execute query. ". mysqli_error());
+	  $data2 = mysqli_fetch_array($query);
+	  
+	} else {
+			header("location: login.php");
+	}
 		
 	$u= $_SESSION["userId"];
 
@@ -98,7 +107,18 @@ $selectID = mysqli_query($conn, $sqlSelectTimeSheet);
 		$startTime=$formData1[0]["startTime"];
 		$endTime=$formData1[0]["endTime"];
         $break=$formData1[0]["break"];
-		$comment=$formData1[0]["comment"];
+		$comment=$formData1[0]["comment"];  
+		
+		if (!preg_match('/^[a-zA-Z]+[ ]?[a-zA-Z]+$/', $comment)) {
+
+         echo "Error";
+		 header("location:user_page.php");
+
+    }
+		
+
+				$comment=mysqli_real_escape_string($conn,$row['comment']);
+			
 			//print_r ($formData1[0]["date"]);
 			/*
 			echo $job1;
@@ -181,7 +201,11 @@ $update1 = mysqli_query($conn, $sql5);
 <body>
 
         <form name="Timesheet" method="post" action="editTimeSheet.php?id=
-		<?php echo $id ;?>">
+		<?php echo $id ;?>" data-fv-framework="bootstrap"
+    data-fv-message="This value is not valid"
+    data-fv-feedbackicons-valid="glyphicon glyphicon-ok"
+    data-fv-feedbackicons-invalid="glyphicon glyphicon-remove"
+    data-fv-feedbackicons-validating="glyphicon glyphicon-refresh">
             <input type="hidden" id="rowCount" name="rowCount" />
             <?php include("nav.php");?>
                         <div class="row clearfix">
@@ -230,17 +254,20 @@ $update1 = mysqli_query($conn, $sql5);
 											<?php while($fetchUser=mysqli_fetch_assoc($selectID)){ 
 											
 											 ?>
-                                                <input type="date" name="date0" placeholder='date' class="form-control" value='<?php echo date('Y-m-d',strtotime($fetchUser["Date"]));  ?>'	/>
+                                                <input type="date" name="date0" placeholder='date' class="form-control" value='<?php echo date('Y-m-d',strtotime($fetchUser["Date"]));  ?>' required
+               data-fv-uri-message="The input is not a valid website address"	/>
                                             </td>
 											
                                             <td>
 											
-                                                <input type="time" name='startTime0' placeholder='StartTime' class="form-control"  value="<?php echo $fetchUser["StartTime"];?>"/>
+                                                <input type="time" name='startTime0' placeholder='StartTime' class="form-control"  value="<?php echo $fetchUser["StartTime"];?>" required
+               data-fv-uri-message="The input is not a valid website address"/>
 						
 						
                                             </td>
                                             <td>
-                                                <input type="time" name='endTime0' placeholder='EndTime' class="form-control" value="<?php echo $fetchUser["EndTime"];?>"/>
+                                                <input type="time" name='endTime0' placeholder='EndTime' class="form-control" value="<?php echo $fetchUser["EndTime"];?>"required
+               data-fv-uri-message="The input is not a valid website address"/>
                                             </td>
                                             <td>
 											  <input type="number" name="break0" min="0" max="2" step="0.5" placeholder='Break' class="form-control"
@@ -270,3 +297,9 @@ $update1 = mysqli_query($conn, $sql5);
 			</div>
 		</form>
 	</div>
+	<script>
+	 $(document).ready(function() {
+	$('#Timesheet').formValidation();
+		});
+	
+	</script>
