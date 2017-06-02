@@ -197,8 +197,8 @@ $update1 = mysqli_query($conn, $sql5);
 		
 	
 	?>
-
-<body>
+<?php include("nav.php");?>
+<div class="container">
 
         <form name="Timesheet" method="post" action="editTimeSheet.php?id=
 		<?php echo $id ;?>" data-fv-framework="bootstrap"
@@ -207,31 +207,31 @@ $update1 = mysqli_query($conn, $sql5);
     data-fv-feedbackicons-invalid="glyphicon glyphicon-remove"
     data-fv-feedbackicons-validating="glyphicon glyphicon-refresh">
             <input type="hidden" id="rowCount" name="rowCount" />
-            <?php include("nav.php");?>
+            
                         <div class="row clearfix">
                             <div class="col-md-12 column">
                                 <table class="table table-bordered table-hover" id="tab_logic">
                                     <thead>
                                         <tr>
-                                            <th class="text-center">
+                                            <th class="text-center" bgcolor="lightblue" >
                                                 #
                                             </th>
-                                            <th class="text-center">
+                                            <th class="text-center" bgcolor="lightblue">
                                                 Job
                                             </th>
-                                            <th class="text-center">
+                                            <th class="text-center" bgcolor="lightblue">
                                                 Date
                                             </th>
-                                            <th class="text-center">
+                                            <th class="text-center" bgcolor="lightblue">
                                                 Start Time
                                             </th>
-                                            <th class="text-center">
+                                            <th class="text-center" bgcolor="lightblue">
                                                 End Time
                                             </th>
-                                            <th class="text-center">
+                                            <th class="text-center" bgcolor="lightblue">
                                                 Break
                                             </th>
-                                            <th class="text-center">
+                                            <th class="text-center" bgcolor="lightblue">
                                                 Comment
                                             </th>
                                         </tr>
@@ -288,15 +288,15 @@ $update1 = mysqli_query($conn, $sql5);
                        
                         <button type="submit" class="btn btn-primary" name="submit">Submit</button>
 						 <button type="submit" class="btn btn-primary" name="delete_row">delete</button>
-                    </div>
+                    
 				
 
 
 				
-				</div>
-			</div>
+				
+			
 		</form>
-	</div>
+		</div>
 	<script>
 	 $(document).ready(function() {
 	$('#Timesheet').formValidation();
