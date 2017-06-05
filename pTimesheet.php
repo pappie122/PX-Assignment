@@ -5,8 +5,6 @@ session_start();
 	$id = $_SESSION['uid'];
 	$ts = $_SESSION['tsid'];
  
- echo $id;
- echo '   '.$ts;
  
 if(isset($_SESSION['login_user'])){
   // echo "Your session is running " . $_SESSION['login_user'];
