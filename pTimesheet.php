@@ -2,8 +2,11 @@
 include("config.php");
 session_start();
 
+	
 	$id = $_SESSION['uid'];
 	$ts = $_SESSION['tsid'];
+ 
+ 
  
  
 if(isset($_SESSION['login_user'])){
@@ -51,6 +54,7 @@ if(isset($_SESSION['login_user'])){
 							
 							echo "<script type='text/javascript'>alert('Timesheet has been processed.')</script>";
 							
+							
 							header('Location: pendingTimesheets.php');
 							
 						//email function not operational
@@ -82,8 +86,11 @@ if(isset($_SESSION['login_user'])){
 								or die (mysqli_error($conn));
 								
 							echo "<script type='text/javascript'>alert('Timesheet has been rejected.')</script>";
+				
 								
 								header('Location: pendingTimesheets.php');
+								
+								
 									
 					//email function not operational
 					
@@ -105,6 +112,7 @@ if(isset($_SESSION['login_user'])){
 								//}
 									
 								}
+				
 	}
 
 
