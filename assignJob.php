@@ -19,18 +19,35 @@ if(isset($_POST['submit']))
   $user = $_POST['user'];
   $job = $_POST['job'];
 
+  $sql1="SELECT  userjob.UserID, userjob.JobID FROM userjob WHERE (( UserID = $user ) AND ( JobID = $job)) ";
+//echo $sql1;
+  $result1 = mysqli_query ($conn, $sql1)or die(mysqli_error());
+    $rowcount=mysqli_num_rows($result1);
+  if($rowcount>0){
+	  
+	  include("m.php");
+	  
+	  
+	  
+  }
+  else{
+  
+  
+  
+  
   $query = "INSERT INTO userJob (UserID, JobID, UserJobStatus) VALUES
                                 ('$user', '$job', '1')";
 	$result = mysqli_query ($conn, $query)or die(mysqli_error());
-
+include("mm.php");
   if($result)
 	{
-	//echo "SUCCESSFULLY ASSIGNED JOB...";
-	echo "<script type='text/javascript'>alert('Successfully Assigned Job')</script>";
+
+	
+	
 	
 	}
 }
-
+}
 ?>
 <!DOCTYPE html>
 <html>

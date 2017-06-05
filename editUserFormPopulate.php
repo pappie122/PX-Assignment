@@ -2,19 +2,10 @@
 include("config.php");
 session_start();
 
-if(isset($_SESSION['login_user'])){
-	
-	$email = $_SESSION['login_user'];
-
-	$data = 'SELECT * FROM user WHERE Email = "'.$email.'"';
-	$query = mysqli_query($conn, $data) or die("Couldn't execute query. ". mysqli_error());
-	$data2 = mysqli_fetch_array($query);
-	  
-	} else {
-			header("location: login.php");
-	}
-
-
+$email = $_SESSION['login_user'];
+$data = 'SELECT * FROM user WHERE Email = "'.$email.'"';
+$query = mysqli_query($conn, $data) or die("Couldn't execute query. ". mysqli_error());
+$data2 = mysqli_fetch_array($query);
  ?>
 <!DOCTYPE html>
 <html>

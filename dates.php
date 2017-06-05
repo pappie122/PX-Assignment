@@ -20,7 +20,17 @@ $firstMinus= date_create($startTime)->diff(date_create($endTime))->format('%H:%i
 
 
 $breakCal= floor($break) . ':' . (($break * 60) % 60);
-//echo $break;
+
+
+
+
+
+
+
+
+
+
+
 $secondMinus =date_create($firstMinus)->diff(date_create($breakCal))->format('%H:%i');
 //echo $nn;
 //echo "\r\n";
@@ -32,5 +42,29 @@ $replaceDot= str_replace(":",".",$secondMinus);
 
 return $num;
 }
+
+
+function CheckBreakOverLap($startTime,$endTime,$break){
+$firstMinus= date_create($startTime)->diff(date_create($endTime))->format('%H:%i');
+//echo $minutes;
+//echo $firstMinus;
+//echo "\r\n";
+//echo "\r\n";
+
+
+$m=true;
+$breakCal= floor($break) . ':' . (($break * 60) % 60);
+echo $breakCal."this is the break cal ";
+echo $firstMinus."this is the break cal ";
+if($breakCal>=$firstMinus){
+	Echo "Stop bludging" ;
+header("location:timesheet3.php");
+$m=false;
+}
+
+
+}
+
+
 
 ?>

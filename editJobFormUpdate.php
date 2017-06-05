@@ -34,11 +34,13 @@ if(isset($_SESSION['login_user'])){
   	$query = "UPDATE job SET JobStatus = 1, StartDate='$newSD',
               EndDate='$newED', Description='$description'
               WHERE JobName=".'"'.$jobName.'"';
+			  
+			  
   	$result = mysqli_query ($conn, $query)or die(mysqli_error($conn));
 
   	if($result)
   	{
-  	   echo "<script type='text/javascript'>alert('Job information has now been updated.')</script>";
+  	  // echo "<script type='text/javascript'>alert('Job information has now been updated.')</script>";
   	}
   }
 
@@ -94,6 +96,16 @@ if(isset($_SESSION['login_user'])){
                 <?php echo $description?>
                 </div>
           </div>
+		  <br>
+          <div class="row">
+                <div class="col-xs-12 col-md-6 col-lg-3">
+                  <strong>Data Entered: </strong>
+                </div>
+                  <div class="col-xs-12 col-md-6 col-lg-3">
+                  <?php echo "succesfull";?>
+                </div>
+          </div>
+          
         </div>
     <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>

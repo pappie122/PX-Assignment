@@ -15,14 +15,21 @@ if(isset($_SESSION['login_user'])){
 	}
 
 $search=$_POST['search'];
+//echo $search;
+if(strpos($search, " ") !== false)
+{
+   // error
+
+$p = explode(" ", $search);
+$search= $p[1]; // piece1
 
   $data = 'SELECT * FROM user WHERE Email = "'.$search.'"';
-  $query = mysqli_query($conn,$data) or die("Couldn't execute query. ". mysql_error($conn));
+  $query = mysqli_query($conn,$data);
   $data2 = mysqli_fetch_array($query);
   if(!$data2){
     echo '<script type="text/javascript"> alert("User not found. \nPlease try again."); document.location.href = "searchUserAdmin.php"; </script>\>';
   }
-
+}
 
  ?>
  <!DOCTYPE html>

@@ -1,19 +1,6 @@
 <?php
 include("config.php");
-session_start();
 
-if(isset($_SESSION['login_user'])){
-	
-	$email = $_SESSION['login_user'];
-
-	  $data = 'SELECT * FROM user WHERE Email = "'.$email.'"';
-	  $query = mysqli_query($conn, $data) or die("Couldn't execute query. ". mysqli_error());
-	  $data2 = mysqli_fetch_array($query);
-	  
-	} else {
-			header("location: login.php");
-	}
-	
 function NewUser()
 {
   include("config.php");
@@ -97,7 +84,7 @@ if ($_POST['password'] == $_POST['confirmPassword'])
   if(isset($_POST['submit']))
   {
     include("config.php");
-    //sesh
+    session_start();
     SignUp();
   }
 }
@@ -243,7 +230,7 @@ else
         <br>
         <div class="row">
               <div class="col-xs-12 col-md-6 col-lg-3">
-                Account Type:
+                Admin Account:
               </div>
               <div class="col-xs-12 col-md-6 col-lg-3">
                   <select name="adminAccount" class="form-control">

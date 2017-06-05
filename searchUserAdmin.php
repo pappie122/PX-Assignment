@@ -38,7 +38,7 @@ if(isset($_SESSION['login_user'])){
         <div class="row">
           <div class="col-xs-12 col-md-6 col-lg-3">
           <div class="search-box">
-        <input class="form-control" type="text" name="search"" autocomplete="off" placeholder="Search Email..." />
+        <input class="form-control" type="text" name="search" autocomplete="off" placeholder="Search Email..." />
         <div class="result"></div>
     </div>
           </div>
@@ -56,8 +56,10 @@ if(isset($_SESSION['login_user'])){
     </form>
     <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  </body>
-</html><script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+ 
+  
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
 <script type="text/javascript">
 $(document).ready(function(){
     $('.search-box input[type="text"]').on("keyup input", function(){
@@ -65,9 +67,12 @@ $(document).ready(function(){
         var inputVal = $(this).val();
         var resultDropdown = $(this).siblings(".result");
         if(inputVal.length){
-            $.get("ss.php", {term: inputVal}).done(function(data){
+			
+            $.get("ss.php", {ss: inputVal}).done(function(data){
+			
                 // Display the returned data in browser
                 resultDropdown.html(data);
+				
             });
         } else{
             resultDropdown.empty();
@@ -76,8 +81,12 @@ $(document).ready(function(){
     
     // Set search input value on click of result item
     $(document).on("click", ".result p", function(){
+		
         $(this).parents(".search-box").find('input[type="text"]').val($(this).text());
         $(this).parent(".result").empty();
+		
     });
 });
 </script>
+ </body>
+</html>

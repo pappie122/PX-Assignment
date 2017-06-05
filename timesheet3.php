@@ -8,9 +8,11 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="temp.css">
+	
 </head>
 
     <?php 
+	//indclude the database connection string and some validation functions
 	include( "db.php");
 	include ("checkTime.php");
 	include ("dates.php");
@@ -21,6 +23,13 @@
 	
 	$email = $_SESSION['login_user'];
 
+
+			  if(!isset($_SESSION)) 
+    { 
+        session_start(); 
+    } 
+		//user id 
+
 	  $data = 'SELECT * FROM user WHERE Email = "'.$email.'"';
 	  $query = mysqli_query($conn, $data) or die("Couldn't execute query. ". mysqli_error());
 	  $data2 = mysqli_fetch_array($query);
@@ -29,6 +38,7 @@
 			header("location: login.php");
 	}
 		
+
 	$u= $_SESSION["userId"];
 	
 		if (isset($_POST["rowCount"])){
@@ -45,7 +55,7 @@
 	
 	
 	
-	
+	//Selects jobs from user when the account is active
 	$sql=	"SELECT 
 				j.JobID AS jobID,
 				j.JobName AS jobName
@@ -59,6 +69,8 @@
 	$result=mysqli_query($conn,$sql); 
 	$temp=$result; 
 	$json=array(); 
+	
+	//puts data into JSON array 
 	if(mysqli_num_rows($result)> 0){ 
 		while($row = mysqli_fetch_array($temp)) { 
 			array_push($json, array("ID" => $row["jobID"], "Name" => $row["jobName"])); 
@@ -88,27 +100,35 @@
 	
 	
 	
-	
+	//Loops through all the rows added
 		for($i=0; $i < $rowCount; $i++){
 			
 		if($_POST['break'.$i]==""){
 		$_POST["break".$i]=0;
 	
 	}
-			
+			//Puts data into an array
 			array_push($formData, array("job" => $_POST["inputLocation" . $i], "date" => $_POST["date" . $i], "startTime" => $_POST["startTime" . $i], "endTime" => $_POST["endTime" . $i], "break" => $_POST["break" . $i], "comment" => $_POST["comment" . $i]));
 			
 		}
 //print_r ($formData[0]["job"]);
 		// checkifDate($formData); checks if input is date 
 		$isValid =checkEmpty($formData);
+		//$isValid=checkStartTime($formData);
 		//echo $formData[1]["startTime"];
 		//$isValid = true;
 		
 		
+	$isValid=checkstartVal($formData);//Check StartTime
+	$isValid=checkendVal($formData);//Checks EndTime 
 	
   checkOverlap($formData); // checks if data is valid
+$isValid=checkifDate($formData);
 
+
+
+
+//checks if form data is date 
 	//	echo $n[0]= $row["date"];	
 		//echo $n[1]= $row["date"];	
 		
@@ -133,7 +153,10 @@
 				echo "no clash";
 					}else {
 						//echo "enter new start time end time";
-						echo "<script type='text/javascript'>alert('Time clash. Enter a new start and end time.')</script>";
+						$timeClashError='Time clash. Enter a new start and end time';
+						//outputs modal
+						checkError($timeClashError);
+						
 						
 						
 				}
@@ -181,7 +204,7 @@ $total_hours = $end[0] - $start[0] - ($end[1] < $start[1]);
 
 $total_hours-$break;
 */
-
+//Total hours function
 $total_hours=totalHours($startTime,$endTime,$break);
 			
 			
@@ -219,7 +242,7 @@ $total_hours=totalHours($startTime,$endTime,$break);
 				
 				//Gets the id of the last user submitted in db
 			echo $lasttimesheetId."this is the last id AAAAAAAAAAAA";
-				
+				// Insert into database
 				$sql2[$i]="INSERT INTO timesheetdetail (TsDetailID, TimesheetID, JobID, Date, StartTime, EndTime, BreakDuration, TotalHours, Comments) VALUEs (NULL,'$lasttimesheetId','$job','$date','$startTime','$endTime','$break','$total_hours','$comment');";
 			
 					$insert2 = mysqli_query($conn, $sql2[$i]);
@@ -229,7 +252,7 @@ $total_hours=totalHours($startTime,$endTime,$break);
     printf("Error: %s\n", mysqli_error($conn));
     exit();
 }
-				// Insert into database
+				
 			}
 		header("location:editTime.php");
 		}
@@ -251,7 +274,12 @@ $total_hours=totalHours($startTime,$endTime,$break);
       <h2>Add Timesheet</h2>
       
 	  
- <form name="Timesheet" method="post" action="timesheet3.php">
+ <form name="Timesheet" method="post" action="timesheet3.php"  data-fv-framework="bootstrap"
+    data-fv-message="This value is not valid"
+    data-fv-feedbackicons-valid="glyphicon glyphicon-ok"
+    data-fv-feedbackicons-invalid="glyphicon glyphicon-remove"
+    data-fv-feedbackicons-validating="glyphicon glyphicon-refresh">
+ 
             <input type="hidden" id="rowCount" name="rowCount" />
           <div class="row clearfix">
                             <div class="col-md-12 column">
@@ -298,13 +326,16 @@ $total_hours=totalHours($startTime,$endTime,$break);
                                                 </select>
                                             </td>
                                             <td>
-                                                <input type="date" name="date0" placeholder='date' class="form-control">
+                                                <input type="date" name="date0" placeholder='date' class="form-control" required
+               data-fv-uri-message="The input is not a valid website address" >
                                             </td>
                                             <td>
-                                                <input type="time" name='startTime0' placeholder='StartTime' class="form-control" />
+                                                <input type="time" name='startTime0' placeholder='StartTime' class="form-control" required
+               data-fv-uri-message="The input is not a valid website address"  />
                                             </td>
                                             <td>
-                                                <input type="time" name='endTime0' placeholder='EndTime' class="form-control" />
+                                                <input type="time" name='endTime0' placeholder='EndTime' class="form-control" required
+               data-fv-uri-message="The input is not a valid website address" />
                                             </td>
                                             <td>
 											  <input type="number" name="break0" min="0" max="2" step="0.5" placeholder='Break' class="form-control">
@@ -340,15 +371,22 @@ $total_hours=totalHours($startTime,$endTime,$break);
         webshims.polyfill('forms forms-ext');
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	
+	
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function() {
+		
+    
+
+	 
+
 			var i = 1;
 			$('#rowCount').val(i);
 			$("#add_row").click(function() {
 				$('#addr' + i).html("<td>" + (i + 1) + "</td><td><select class='form-control'  name='inputLocation" + i + "' Class='form-control' name='Joblist" + i + "'>" <?php foreach($json as $key => $val) { ?>
 					+"<option value='<?php echo $val['ID']; ?>'><?php echo $val['Name']; ?></option>"
-				<?php } ?> +"</select></td><td><input  name='date" + i + "' type='date' placeholder='Date'  class='form-control input-md'></td><td><input  name='startTime" + i + "' type='time' placeholder='StartTime'  class='form-control input-md'></td><td><input  name='endTime" + i + "' type='time' placeholder='endTime'  class='form-control input-md' /></td><td><input  name='break" + i + "' type='number' placeholder='Break'  class='form-control input-md' min='0' max='2' step='0.5' /></td><td><input  name='comment" + i + "' type='text' placeholder='Comment'  class='form-control input-md' /></td>");
+				<?php } ?> +"</select></td><td><input  name='date" + i + "' type='date' placeholder='Date'  class='form-control input-md'required></td><td><input  name='startTime" + i + "' type='time' placeholder='StartTime'  class='form-control input-md'required></td><td><input  name='endTime" + i + "' type='time' placeholder='endTime'  class='form-control input-md'required /></td><td><input  name='break" + i + "' type='number' placeholder='Break'  class='form-control input-md' min='0' max='2' step='0.5' /></td><td><input  name='comment" + i + "' type='text' placeholder='Comment'  class='form-control input-md' /></td>");
 				
 				$('#tab_logic').append('<tr id="addr' + (i + 1) + '"></tr>');
 				i++;
@@ -365,6 +403,9 @@ $total_hours=totalHours($startTime,$endTime,$break);
 	
 			
 		});
+		
+		
+			//$('#Timesheet').formValidation();
 		});
 		
 			
@@ -410,6 +451,8 @@ $total_hours=totalHours($startTime,$endTime,$break);
 */
 		
 	</script>
+	
+
 	</div>  
 	<!-- </div> -->
     </body>
