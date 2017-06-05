@@ -1,6 +1,7 @@
 <?php
 include("config.php");
 session_start();
+
 if(isset($_SESSION['login_user'])){
 	
 	$email = $_SESSION['login_user'];
