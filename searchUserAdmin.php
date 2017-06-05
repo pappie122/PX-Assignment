@@ -2,7 +2,17 @@
 include("config.php");
 
 session_start();
+if(isset($_SESSION['login_user'])){
+	
+	$email = $_SESSION['login_user'];
 
+	  $data = 'SELECT * FROM user WHERE Email = "'.$email.'"';
+	  $query = mysqli_query($conn, $data) or die("Couldn't execute query. ". mysqli_error());
+	  $data2 = mysqli_fetch_array($query);
+	  
+	} else {
+			header("location: login.php");
+	}
  ?>
 <!DOCTYPE html>
 <html>
@@ -28,15 +38,15 @@ session_start();
         <div class="row">
           <div class="col-xs-12 col-md-6 col-lg-3">
           <div class="search-box">
-        <input type="text" name="search"" autocomplete="off" placeholder="Search Email..." />
+        <input class="form-control" type="text" name="search" autocomplete="off" placeholder="Search Email..." />
         <div class="result"></div>
     </div>
           </div>
         </div>
-        
+        <br>
       <div class="row">
         <div class="col-xs-12 col-md-6 col-lg-3">
-          <input class="btn btn-primary" type="submit"  value="submit">
+          <input class="btn btn-primary form-control" type="submit"  value="Submit">
         </div>
       </div>
     </form>
@@ -46,8 +56,10 @@ session_start();
     </form>
     <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  </body>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+ 
+  
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
 <script type="text/javascript">
 $(document).ready(function(){
     $('.search-box input[type="text"]').on("keyup input", function(){
@@ -55,9 +67,12 @@ $(document).ready(function(){
         var inputVal = $(this).val();
         var resultDropdown = $(this).siblings(".result");
         if(inputVal.length){
-            $.get("ss.php", {term: inputVal}).done(function(data){
+			
+            $.get("ss.php", {ss: inputVal}).done(function(data){
+			
                 // Display the returned data in browser
                 resultDropdown.html(data);
+				
             });
         } else{
             resultDropdown.empty();
@@ -66,9 +81,12 @@ $(document).ready(function(){
     
     // Set search input value on click of result item
     $(document).on("click", ".result p", function(){
+		
         $(this).parents(".search-box").find('input[type="text"]').val($(this).text());
         $(this).parent(".result").empty();
+		
     });
 });
 </script>
+ </body>
 </html>
