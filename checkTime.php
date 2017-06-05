@@ -78,6 +78,27 @@ for($i = 0; $i < count($formData); $i++){
 
 
 */
+
+function checkifDate($formData){
+$a=true;
+	for($i = 0; $i < count($formData); $i++){
+		
+		
+		if (DateTime::createFromFormat('Y-m-d', $formData[$i]["date"]) !== FALSE) {
+			//everything all good 
+			return $a;
+  // it's a date
+}else {
+	$message="its not a date";
+	checkError($message);
+	$a=false;
+
+ return $a; 
+}
+}
+	
+	
+}
 function checkError($error){
 	//$error="hihi";
 	echo' <script type="text/javascript">
@@ -85,8 +106,6 @@ function checkError($error){
 		$("#myModal").modal("show");
 	});
 </script>
-</head>
-<body>
 <div id="myModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -129,8 +148,50 @@ $(document).ready(function(){
 	
 	
 }
-
-
+function checkstartVal($formData){
+$a=true;
+	for($i=0;$i<Count($formData);$i++){
+	if(preg_match('/^(?:[01][0-9]|2[0-3]):[0-5][0-9]$/',$formData[$i]["startTime"])) {
+		
+		
+		
+        // $input is valid HH:MM format.
+}else {
+	
+	$message="its not a valid startTime";
+	checkError($message);
+	$a=false;
+	return $a;
+	
+	
+}
+	
+	
+	}	
+	
+}
+function checkendVal($formData){
+$a=true;
+	for($i=0;$i<Count($formData);$i++){
+	if(preg_match('/^(?:[01][0-9]|2[0-3]):[0-5][0-9]$/',$formData[$i]["endTime"])) {
+		
+		
+		
+        // $input is valid HH:MM format.
+}else {
+	
+	$message="It's not a valid End Time";
+	checkError($message);
+	$a=false;
+	return $a;
+	
+	
+}
+	
+	
+	}	
+	
+}
 
 /*
 *Checks for overlapping time 

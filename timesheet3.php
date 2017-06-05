@@ -119,9 +119,16 @@
 		//$isValid = true;
 		
 		
+	$isValid=checkstartVal($formData);//Check StartTime
+	$isValid=checkendVal($formData);//Checks EndTime 
 	
   checkOverlap($formData); // checks if data is valid
+$isValid=checkifDate($formData);
 
+
+
+
+//checks if form data is date 
 	//	echo $n[0]= $row["date"];	
 		//echo $n[1]= $row["date"];	
 		
@@ -149,6 +156,7 @@
 						$timeClashError='Time clash. Enter a new start and end time';
 						//outputs modal
 						checkError($timeClashError);
+						
 						
 						
 				}
@@ -378,7 +386,7 @@ $total_hours=totalHours($startTime,$endTime,$break);
 			$("#add_row").click(function() {
 				$('#addr' + i).html("<td>" + (i + 1) + "</td><td><select class='form-control'  name='inputLocation" + i + "' Class='form-control' name='Joblist" + i + "'>" <?php foreach($json as $key => $val) { ?>
 					+"<option value='<?php echo $val['ID']; ?>'><?php echo $val['Name']; ?></option>"
-				<?php } ?> +"</select></td><td><input  name='date" + i + "' type='date' placeholder='Date'  class='form-control input-md'></td><td><input  name='startTime" + i + "' type='time' placeholder='StartTime'  class='form-control input-md'></td><td><input  name='endTime" + i + "' type='time' placeholder='endTime'  class='form-control input-md' /></td><td><input  name='break" + i + "' type='number' placeholder='Break'  class='form-control input-md' min='0' max='2' step='0.5' /></td><td><input  name='comment" + i + "' type='text' placeholder='Comment'  class='form-control input-md' /></td>");
+				<?php } ?> +"</select></td><td><input  name='date" + i + "' type='date' placeholder='Date'  class='form-control input-md'required></td><td><input  name='startTime" + i + "' type='time' placeholder='StartTime'  class='form-control input-md'required></td><td><input  name='endTime" + i + "' type='time' placeholder='endTime'  class='form-control input-md'required /></td><td><input  name='break" + i + "' type='number' placeholder='Break'  class='form-control input-md' min='0' max='2' step='0.5' /></td><td><input  name='comment" + i + "' type='text' placeholder='Comment'  class='form-control input-md' /></td>");
 				
 				$('#tab_logic').append('<tr id="addr' + (i + 1) + '"></tr>');
 				i++;
@@ -395,7 +403,9 @@ $total_hours=totalHours($startTime,$endTime,$break);
 	
 			
 		});
-			$('#Timesheet').formValidation();
+		
+		
+			//$('#Timesheet').formValidation();
 		});
 		
 			
